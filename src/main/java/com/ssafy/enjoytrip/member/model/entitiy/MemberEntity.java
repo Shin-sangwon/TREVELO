@@ -1,4 +1,4 @@
-package com.ssafy.enjoytrip.member.model.dto;
+package com.ssafy.enjoytrip.member.model.entitiy;
 
 import lombok.Getter;
 
