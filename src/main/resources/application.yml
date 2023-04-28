@@ -15,3 +15,14 @@ spring:
       enabled: true
     restart:
       enabled: true
+mybatis:
+  configuration:
+    multiple-result-sets-enabled: false
+    map-underscore-to-camel-case: true
+    call-setters-on-nulls: true
+    jdbc-type-for-null: varchar
+    default-fetch-size: 500
+  mapper-locations:
+    - classpath:mybatis/mapper/**/*.xml
+  type-aliases-package:
+    - com.ssafy.*.model
