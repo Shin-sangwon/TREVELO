@@ -26,4 +26,5 @@ public class MemberJoinDto {
     private LocalDateTime createdat;
     private LocalDateTime updatedat;
 
+
 }

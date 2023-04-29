@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Getter
 @Builder
@@ -26,6 +27,9 @@ public class MemberDto {
     private LocalDateTime createdat;
     private LocalDateTime updatedat;
 
+    public void encodePassword(BCryptPasswordEncoder encoder) {
+        this.loginPassword = encoder.encode(this.loginPassword);
+    }
     public static MemberDto from(MemberJoinDto memberJoinDto) {
         return MemberDto.builder()
                         .loginId(memberJoinDto.getLoginId())

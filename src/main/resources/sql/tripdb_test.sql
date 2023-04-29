@@ -19,7 +19,7 @@ CREATE SCHEMA IF NOT EXISTS `tripdb_test` DEFAULT CHARACTER SET utf8 ;
 CREATE TABLE IF NOT EXISTS `tripdb_test`.`member` (
   `member_id` BIGINT NOT NULL AUTO_INCREMENT,
   `login_id` VARCHAR(16) NOT NULL,
-  `login_password` VARCHAR(20) NOT NULL,
+  `login_password` VARCHAR(72) NOT NULL,
   `name` VARCHAR(10) NOT NULL,
   `birthday` DATETIME NOT NULL,
   `email` VARCHAR(30) NOT NULL,

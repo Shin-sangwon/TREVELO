@@ -5,6 +5,7 @@ import com.ssafy.enjoytrip.member.model.dto.MemberJoinDto;
 import com.ssafy.enjoytrip.member.model.mapper.MemberMapper;
 import java.sql.SQLException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class MemberServiceImpl implements MemberService {
 
     private final MemberMapper memberMapper;
+    private final BCryptPasswordEncoder encoder;
 
     @Transactional
     @Override
@@ -23,6 +25,7 @@ public class MemberServiceImpl implements MemberService {
         }
 
         MemberDto memberDto = MemberDto.from(memberJoinDto);
+        memberDto.encodePassword(encoder);
 
         return memberMapper.join(memberDto);
     }
