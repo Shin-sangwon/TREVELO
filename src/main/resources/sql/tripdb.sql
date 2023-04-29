@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `tripdb`.`member` (
   `sex` CHAR(1) NULL DEFAULT NULL,
   `role` VARCHAR(10) NOT NULL,
   `grade` VARCHAR(10) NOT NULL,
-  `milieage` BIGINT NOT NULL,
+  `mileage` BIGINT NOT NULL,
   `createdat` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatedat` DATETIME NULL DEFAULT NULL,
   PRIMARY KEY (`member_id`),
