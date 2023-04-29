@@ -1,5 +1,6 @@
 package com.ssafy.enjoytrip.member.controller;
 
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -71,6 +72,9 @@ class MemberControllerTest {
                                                     .birthday(LocalDateTime.now())
                                                     .email("sangwon@ssafy.com")
                                                     .build();
+
+        when(memberService.join(memberJoinDto1))
+            .thenThrow(new RuntimeException("이미 존재하는 아이디입니다."));
 
         mockMvc.perform(post("/api/v1/member/join")
                    .contentType(MediaType.APPLICATION_JSON)

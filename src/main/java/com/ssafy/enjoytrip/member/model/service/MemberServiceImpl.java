@@ -24,7 +24,6 @@ public class MemberServiceImpl implements MemberService {
 
         MemberDto memberDto = MemberDto.from(memberJoinDto);
 
-
         return memberMapper.join(memberDto);
     }
 

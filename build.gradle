@@ -24,7 +24,7 @@ dependencies {
 	//spring validation
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	//spring security, 구현할 때 풀기
-	// implementation "org.springframework.boot:spring-boot-starter-security"
+	implementation "org.springframework.boot:spring-boot-starter-security"
 	//jackson core
 	implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.14.2'
 	compileOnly 'org.projectlombok:lombok'

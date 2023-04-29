@@ -20,7 +20,7 @@ public class MemberController {
     private final MemberService memberService;
 
     @PostMapping("/join")
-    public ResponseEntity<String> join(@RequestBody MemberJoinDto memberJoinDto) {
+    public ResponseEntity<String> join(@RequestBody MemberJoinDto memberJoinDto){
         log.info("Post - join");
         try {
             memberService.join(memberJoinDto);
