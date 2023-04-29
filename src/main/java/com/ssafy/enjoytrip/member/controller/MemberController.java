@@ -1,10 +1,10 @@
 package com.ssafy.enjoytrip.member.controller;
 
 import com.ssafy.enjoytrip.member.model.dto.MemberJoinDto;
+import com.ssafy.enjoytrip.member.model.dto.MemberLoginDto;
 import com.ssafy.enjoytrip.member.model.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,14 +20,19 @@ public class MemberController {
     private final MemberService memberService;
 
     @PostMapping("/join")
-    public ResponseEntity<String> join(@RequestBody MemberJoinDto memberJoinDto){
+    public ResponseEntity<String> join(@RequestBody MemberJoinDto memberJoinDto) throws Exception{
         log.info("Post - join");
-        try {
-            memberService.join(memberJoinDto);
-        } catch(Exception e) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
-        }
+
+        memberService.join(memberJoinDto);
 
         return ResponseEntity.ok().body("hello");
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody MemberLoginDto memberLoginDto) throws Exception {
+        log.info("Post - login");
+        String token = memberService.login(memberLoginDto);
+
+        return ResponseEntity.ok().body(token);
     }
 }

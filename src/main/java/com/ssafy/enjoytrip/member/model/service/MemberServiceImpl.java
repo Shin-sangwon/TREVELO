@@ -4,6 +4,7 @@ import com.ssafy.enjoytrip.global.ErrorCode;
 import com.ssafy.enjoytrip.member.exception.MemberException;
 import com.ssafy.enjoytrip.member.model.dto.MemberDto;
 import com.ssafy.enjoytrip.member.model.dto.MemberJoinDto;
+import com.ssafy.enjoytrip.member.model.dto.MemberLoginDto;
 import com.ssafy.enjoytrip.member.model.mapper.MemberMapper;
 import java.sql.SQLException;
 import lombok.RequiredArgsConstructor;
@@ -36,5 +37,25 @@ public class MemberServiceImpl implements MemberService {
     public boolean joinDuplicatedCheck(String loginId) throws SQLException {
 
         return memberMapper.joinDuplicatedCheck(loginId);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public String login(MemberLoginDto memberLoginDto) {
+
+        MemberDto memberDto = MemberDto.from(memberLoginDto);
+        memberDto.encodePassword(encoder);
+        // 1. id가 없음
+        if(memberMapper.findByLoginId(memberDto.getLoginId()) == 0) {
+            throw new MemberException(ErrorCode.LOGIN_ID_NOT_FOUND, "아이디가 존재하지 않습니다.");
+        }
+
+        MemberDto member = memberMapper.findByLoginIdAndPassword(memberDto);
+        // 2. password가 일치하지 않음
+        if(member == null || encoder.matches(member.getLoginPassword(), memberDto.getLoginPassword())) {
+            throw new MemberException(ErrorCode.INVALID_PASSWORD, "패스워드가 일치하지 않습니다.");
+        }
+
+        return "token";
     }
 }

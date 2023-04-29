@@ -27,4 +27,16 @@
             insert into member (login_id, login_password, name, birthday, email, role, grade)
             values(#{loginId}, #{loginPassword}, #{name}, #{birthday}, #{email}, #{role}, #{grade})
       </insert>
+      
+      <select id="findByLoginId" parameterType="string" resultType="int">
+            SELECT COUNT(login_id)
+            FROM MEMBER
+            WHERE login_id = #{loginId}
+      </select>
+
+      <select id="findByLoginIdAndPassword" resultType="memberDto">
+            SELECT *
+            FROM MEMBER
+            WHERE login_id = #{loginId} and login_password = #{loginPassword}
+      </select>
 </mapper>
