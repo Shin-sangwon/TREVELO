@@ -1,5 +1,7 @@
 package com.ssafy.enjoytrip.member.model.service;
 
+import com.ssafy.enjoytrip.global.ErrorCode;
+import com.ssafy.enjoytrip.member.exception.MemberException;
 import com.ssafy.enjoytrip.member.model.dto.MemberDto;
 import com.ssafy.enjoytrip.member.model.dto.MemberJoinDto;
 import com.ssafy.enjoytrip.member.model.mapper.MemberMapper;
@@ -21,7 +23,7 @@ public class MemberServiceImpl implements MemberService {
     public int join(MemberJoinDto memberJoinDto) throws Exception {
 
         if (joinDuplicatedCheck(memberJoinDto.getLoginId())) {
-            throw new RuntimeException("이미 존재하는 아이디입니다.");
+            throw new MemberException(ErrorCode.LOGIN_ID_DUPLICATED, "이미 존재하는 ID 입니다.");
         }
 
         MemberDto memberDto = MemberDto.from(memberJoinDto);
