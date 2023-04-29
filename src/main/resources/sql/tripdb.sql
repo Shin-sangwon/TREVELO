@@ -3,11 +3,7 @@
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
-
--- -----------------------------------------------------
--- Schema mydb
--- -----------------------------------------------------
--- -----------------------------------------------------
+-------------------------------------------------------
 -- Schema tripdb
 -- -----------------------------------------------------
 DROP SCHEMA IF EXISTS `tripdb` ;
@@ -45,45 +41,39 @@ DEFAULT CHARACTER SET = utf8mb3;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `tripdb`.`room` (
   `room_id` BIGINT NOT NULL AUTO_INCREMENT,
-  `member_id` BIGINT NULL DEFAULT NULL,
+  `owner_id` BIGINT NOT NULL,
   `name` VARCHAR(45) NOT NULL,
   `address` VARCHAR(199) NOT NULL,
   `introduce` VARCHAR(1000) NOT NULL,
-  `price_per_night` BIGINT NOT NULL,
   `createdat` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatedat` DATETIME NULL DEFAULT NULL,
   PRIMARY KEY (`room_id`),
-  INDEX `member_to_room_id_idx` (`member_id` ASC) VISIBLE,
+  INDEX `member_to_room_id_idx` (`owner_id` ASC) VISIBLE,
   CONSTRAINT `member_to_room_id`
-    FOREIGN KEY (`member_id`)
+    FOREIGN KEY (`owner_id`)
     REFERENCES `tripdb`.`member` (`member_id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb3;
 
-USE `tripdb` ;
 
 -- -----------------------------------------------------
--- Table `tripdb`.`member`
+-- Table `tripdb`.`room_detail`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `tripdb`.`member` (
-  `member_id` BIGINT NOT NULL AUTO_INCREMENT,
-  `login_id` VARCHAR(16) NOT NULL,
-  `login_password` VARCHAR(20) NOT NULL,
-  `name` VARCHAR(10) NOT NULL,
-  `birthday` DATETIME NOT NULL,
-  `email` VARCHAR(30) NOT NULL,
-  `address` VARCHAR(40) NULL DEFAULT NULL,
-  `sex` CHAR(1) NULL DEFAULT NULL,
-  `role` VARCHAR(10) NOT NULL,
-  `grade` VARCHAR(10) NOT NULL,
-  `milieage` BIGINT NOT NULL,
+CREATE TABLE IF NOT EXISTS `tripdb`.`room_detail` (
+  `roomdetail_id` BIGINT NOT NULL AUTO_INCREMENT,
+  `room_id` BIGINT NOT NULL,
+  `room_introduce` VARCHAR(1000) NULL,
+  `price_per_night` BIGINT NOT NULL,
   `createdat` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatedat` DATETIME NULL DEFAULT NULL,
-  PRIMARY KEY (`member_id`),
-  UNIQUE INDEX `login_id_UNIQUE` (`login_id` ASC) VISIBLE)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb3;
-
+  PRIMARY KEY (`roomdetail_id`),
+  INDEX `room_to_roomdetail_idx` (`room_id` ASC) VISIBLE,
+  CONSTRAINT `room_to_roomdetail`
+    FOREIGN KEY (`room_id`)
+    REFERENCES `tripdb`.`room` (`room_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
 
 -- -----------------------------------------------------
 -- Table `tripdb`.`board`
@@ -165,45 +155,25 @@ DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
--- Table `tripdb`.`room`
+-- Table `tripdb`.`reservation`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `tripdb`.`room` (
-  `room_id` BIGINT NOT NULL AUTO_INCREMENT,
-  `member_id` BIGINT NULL DEFAULT NULL,
-  `name` VARCHAR(45) NOT NULL,
-  `address` VARCHAR(199) NOT NULL,
-  `introduce` VARCHAR(1000) NOT NULL,
-  `price_per_night` BIGINT NOT NULL,
-  `createdat` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updatedat` DATETIME NULL DEFAULT NULL,
-  PRIMARY KEY (`room_id`),
-  INDEX `member_to_room_id_idx` (`member_id` ASC) VISIBLE,
-  CONSTRAINT `member_to_room_id`
-    FOREIGN KEY (`member_id`)
-    REFERENCES `tripdb`.`member` (`member_id`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb3;
-
-
--- -----------------------------------------------------
--- Table `tripdb`.`payment`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `tripdb`.`payment` (
-  `payment_id` BIGINT NOT NULL AUTO_INCREMENT,
-  `member_id` BIGINT NULL DEFAULT NULL,
-  `room_id` BIGINT NULL DEFAULT NULL,
+CREATE TABLE IF NOT EXISTS `tripdb`.`reservation` (
+  `reservation_id` BIGINT NOT NULL AUTO_INCREMENT,
+  `customer_id` BIGINT NULL DEFAULT NULL,
+  `roomdetail_id` BIGINT NULL DEFAULT NULL,
   `total_price` BIGINT NULL DEFAULT NULL,
+  `ispaid` TINYINT NULL DEFAULT 0,
   `createdat` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatedat` DATETIME NULL DEFAULT NULL,
-  PRIMARY KEY (`payment_id`),
-  INDEX `member_to_payment_idx` (`member_id` ASC) VISIBLE,
-  INDEX `room_to_payment_idx` (`room_id` ASC) VISIBLE,
+  PRIMARY KEY (`reservation_id`),
+  INDEX `member_to_payment_idx` (`customer_id` ASC) VISIBLE,
+  INDEX `roomdetail_to_payment_idx` (`roomdetail_id` ASC) VISIBLE,
   CONSTRAINT `member_to_payment`
-    FOREIGN KEY (`member_id`)
+    FOREIGN KEY (`customer_id`)
     REFERENCES `tripdb`.`member` (`member_id`),
-  CONSTRAINT `room_to_payment`
-    FOREIGN KEY (`room_id`)
-    REFERENCES `tripdb`.`room` (`room_id`))
+  CONSTRAINT `roomdetail_to_payment`
+    FOREIGN KEY (`roomdetail_id`)
+    REFERENCES `tripdb`.`room_detail` (`roomdetail_id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb3;
 
