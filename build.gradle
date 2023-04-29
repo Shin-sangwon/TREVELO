@@ -32,6 +32,7 @@ dependencies {
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation group: 'org.springframework.security', name: 'spring-security-test', version: '5.8.3'
 	// Junit5
 	testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.9.1'
 }

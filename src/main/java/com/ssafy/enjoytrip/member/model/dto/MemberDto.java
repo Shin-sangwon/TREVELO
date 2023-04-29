@@ -30,6 +30,7 @@ public class MemberDto {
     public void encodePassword(BCryptPasswordEncoder encoder) {
         this.loginPassword = encoder.encode(this.loginPassword);
     }
+
     public static MemberDto from(MemberJoinDto memberJoinDto) {
         return MemberDto.builder()
                         .loginId(memberJoinDto.getLoginId())
@@ -42,6 +43,13 @@ public class MemberDto {
                         .mileage(0)
                         .createdat(memberJoinDto.getCreatedat())
                         .updatedat(memberJoinDto.getUpdatedat())
+                        .build();
+    }
+
+    public static MemberDto from(MemberLoginDto memberLoginDto) {
+        return MemberDto.builder()
+                        .loginId(memberLoginDto.getLoginId())
+                        .loginPassword(memberLoginDto.getLoginPassword())
                         .build();
     }
 

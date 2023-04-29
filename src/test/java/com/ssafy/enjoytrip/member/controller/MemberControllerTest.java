@@ -1,6 +1,7 @@
 package com.ssafy.enjoytrip.member.controller;
 
 import static org.mockito.Mockito.when;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -94,6 +95,7 @@ class MemberControllerTest {
                                                       .build();
 
         mockMvc.perform(post("/api/v1/member/login")
+                   .with(csrf())
                    .contentType(MediaType.APPLICATION_JSON)
                    .content(objectMapper.writeValueAsBytes(memberLoginDto)))
                .andDo(print())
