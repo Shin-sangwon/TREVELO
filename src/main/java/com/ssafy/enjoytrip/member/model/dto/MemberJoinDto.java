@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class MemberDto {
+public class MemberJoinDto {
 
     private String loginId;
     private String loginPassword;

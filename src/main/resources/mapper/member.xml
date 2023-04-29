@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.member.model.mapper.MemberMapper">
+
+      <resultMap type="memberDto" id="member">
+            <result column="login_id" property="loginId"/>
+            <result column="login_password" property="loginPassword"/>
+            <result column="name" property="name"/>
+            <result column="birthday" property="birthday"/>
+            <result column="email" property="email"/>
+            <result column="role" property="role"/>
+            <result column="grade" property="grade"/>
+            <result column="mileage" property="mileage"/>
+            <result column="createdat" property="createdat"/>
+            <result column="updatedat" property="updatedat"/>
+      </resultMap>
+
+      <select id="joinDuplicatedCheck" parameterType="string" resultType="boolean">
+            SELECT IF(COUNT(*) = 1, 1, 0)
+            FROM MEMBER
+            WHERE login_id = #{loginId}
+      </select>
+
+      <insert id="join" parameterType="MemberDto">
+            insert into member (login_id, login_password, name, birthday, email, role, grade)
+            values(#{loginId}, #{loginPassword}, #{name}, #{birthday}, #{email}, #{role}, #{grade})
+      </insert>
+</mapper>
