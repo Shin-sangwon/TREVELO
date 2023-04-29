@@ -26,4 +26,19 @@ public class MemberDto {
     private LocalDateTime createdat;
     private LocalDateTime updatedat;
 
+    public static MemberDto from(MemberJoinDto memberJoinDto) {
+        return MemberDto.builder()
+                        .loginId(memberJoinDto.getLoginId())
+                        .loginPassword(memberJoinDto.getLoginPassword())
+                        .name(memberJoinDto.getName())
+                        .birthday(memberJoinDto.getBirthday())
+                        .email(memberJoinDto.getEmail())
+                        .role(Role.MEMBER)
+                        .grade(Grade.GENERAL)
+                        .mileage(0)
+                        .createdat(memberJoinDto.getCreatedat())
+                        .updatedat(memberJoinDto.getUpdatedat())
+                        .build();
+    }
+
 }

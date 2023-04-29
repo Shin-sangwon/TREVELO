@@ -2,8 +2,6 @@ package com.ssafy.enjoytrip.member.model.service;
 
 import com.ssafy.enjoytrip.member.model.dto.MemberDto;
 import com.ssafy.enjoytrip.member.model.dto.MemberJoinDto;
-import com.ssafy.enjoytrip.member.model.entity.Grade;
-import com.ssafy.enjoytrip.member.model.entity.Role;
 import com.ssafy.enjoytrip.member.model.mapper.MemberMapper;
 import java.sql.SQLException;
 import lombok.RequiredArgsConstructor;
@@ -24,19 +22,7 @@ public class MemberServiceImpl implements MemberService {
             throw new RuntimeException("이미 존재하는 아이디입니다.");
         }
 
-        MemberDto memberDto = MemberDto.builder()
-                                       .loginId(memberJoinDto.getLoginId())
-                                       .loginPassword(memberJoinDto.getLoginPassword())
-                                       .name(memberJoinDto.getName())
-                                       .birthday(memberJoinDto.getBirthday())
-                                       .email(memberJoinDto.getEmail())
-                                       .role(Role.MEMBER)
-                                       .grade(Grade.GENERAL)
-                                       .mileage(0)
-                                       .createdat(memberJoinDto.getCreatedat())
-                                       .updatedat(memberJoinDto.getUpdatedat())
-                                       .build();
-
+        MemberDto memberDto = MemberDto.from(memberJoinDto);
         memberMapper.join(memberDto);
 
         return "success";
