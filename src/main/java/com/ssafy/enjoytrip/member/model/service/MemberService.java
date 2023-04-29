@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 public interface MemberService {
 
-    String join(MemberJoinDto memberJoinDto) throws Exception;
+    int join(MemberJoinDto memberJoinDto) throws Exception;
 
     boolean joinDuplicatedCheck(String loginId) throws SQLException;
 }

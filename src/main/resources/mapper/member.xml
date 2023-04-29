@@ -23,7 +23,7 @@
             WHERE login_id = #{loginId}
       </select>
 
-      <insert id="join" parameterType="MemberDto">
+      <insert id="join" parameterType="memberDto">
             insert into member (login_id, login_password, name, birthday, email, role, grade)
             values(#{loginId}, #{loginPassword}, #{name}, #{birthday}, #{email}, #{role}, #{grade})
       </insert>

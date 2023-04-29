@@ -6,6 +6,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.enjoytrip.member.model.dto.MemberJoinDto;
+import com.ssafy.enjoytrip.member.model.mapper.MemberMapper;
 import com.ssafy.enjoytrip.member.model.service.MemberService;
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.DisplayName;
@@ -14,17 +15,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
+@ActiveProfiles("test")
 @WebMvcTest
 class MemberControllerTest {
 
     @Autowired
     MockMvc mockMvc;
-
     @MockBean
     MemberService memberService;
-
+    @MockBean
+    MemberMapper memberMapper;
     @Autowired
     ObjectMapper objectMapper;
 
@@ -62,17 +65,17 @@ class MemberControllerTest {
         memberService.join(memberJoinDto);
 
         MemberJoinDto memberJoinDto1 = MemberJoinDto.builder()
-                                                   .loginId("sangwon123")
-                                                   .loginPassword("1234")
-                                                   .name("신상원")
-                                                   .birthday(LocalDateTime.now())
-                                                   .email("sangwon@ssafy.com")
-                                                   .build();
+                                                    .loginId("sangwon123")
+                                                    .loginPassword("1234")
+                                                    .name("신상원")
+                                                    .birthday(LocalDateTime.now())
+                                                    .email("sangwon@ssafy.com")
+                                                    .build();
 
         mockMvc.perform(post("/api/v1/member/join")
                    .contentType(MediaType.APPLICATION_JSON)
                    .content(objectMapper.writeValueAsBytes(memberJoinDto1)))
                .andDo(print())
-               .andExpect(status().isOk());
+               .andExpect(status().isConflict());
     }
 }

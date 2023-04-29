@@ -9,5 +9,5 @@ public interface MemberMapper {
 
     boolean joinDuplicatedCheck(String loginId) throws SQLException;
 
-    String join(MemberDto memberDto) throws Exception;
+    int join(MemberDto memberDto) throws Exception;
 }

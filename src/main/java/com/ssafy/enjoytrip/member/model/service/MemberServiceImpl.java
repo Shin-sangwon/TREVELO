@@ -16,16 +16,16 @@ public class MemberServiceImpl implements MemberService {
 
     @Transactional
     @Override
-    public String join(MemberJoinDto memberJoinDto) throws Exception {
+    public int join(MemberJoinDto memberJoinDto) throws Exception {
 
         if (joinDuplicatedCheck(memberJoinDto.getLoginId())) {
             throw new RuntimeException("이미 존재하는 아이디입니다.");
         }
 
         MemberDto memberDto = MemberDto.from(memberJoinDto);
-        memberMapper.join(memberDto);
 
-        return "success";
+
+        return memberMapper.join(memberDto);
     }
 
     @Transactional(readOnly = true)

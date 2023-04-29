@@ -4,19 +4,19 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 -------------------------------------------------------
--- Schema tripdb
+-- Schema tripdb_test
 -- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `tripdb` ;
+DROP SCHEMA IF EXISTS `tripdb_test` ;
 
 -- -----------------------------------------------------
--- Schema tripdb
+-- Schema tripdb_test
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `tripdb` DEFAULT CHARACTER SET utf8 ;
+CREATE SCHEMA IF NOT EXISTS `tripdb_test` DEFAULT CHARACTER SET utf8 ;
 
 -- -----------------------------------------------------
--- Table `tripdb`.`member`
+-- Table `tripdb_test`.`member`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `tripdb`.`member` (
+CREATE TABLE IF NOT EXISTS `tripdb_test`.`member` (
   `member_id` BIGINT NOT NULL AUTO_INCREMENT,
   `login_id` VARCHAR(16) NOT NULL,
   `login_password` VARCHAR(20) NOT NULL,
@@ -37,9 +37,9 @@ DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
--- Table `tripdb`.`room`
+-- Table `tripdb_test`.`room`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `tripdb`.`room` (
+CREATE TABLE IF NOT EXISTS `tripdb_test`.`room` (
   `room_id` BIGINT NOT NULL AUTO_INCREMENT,
   `owner_id` BIGINT NOT NULL,
   `name` VARCHAR(45) NOT NULL,
@@ -51,15 +51,15 @@ CREATE TABLE IF NOT EXISTS `tripdb`.`room` (
   INDEX `member_to_room_id_idx` (`owner_id` ASC) VISIBLE,
   CONSTRAINT `member_to_room_id`
     FOREIGN KEY (`owner_id`)
-    REFERENCES `tripdb`.`member` (`member_id`))
+    REFERENCES `tripdb_test`.`member` (`member_id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
--- Table `tripdb`.`room_detail`
+-- Table `tripdb_test`.`room_detail`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `tripdb`.`room_detail` (
+CREATE TABLE IF NOT EXISTS `tripdb_test`.`room_detail` (
   `roomdetail_id` BIGINT NOT NULL AUTO_INCREMENT,
   `room_id` BIGINT NOT NULL,
   `room_introduce` VARCHAR(1000) NULL,
@@ -70,15 +70,15 @@ CREATE TABLE IF NOT EXISTS `tripdb`.`room_detail` (
   INDEX `room_to_roomdetail_idx` (`room_id` ASC) VISIBLE,
   CONSTRAINT `room_to_roomdetail`
     FOREIGN KEY (`room_id`)
-    REFERENCES `tripdb`.`room` (`room_id`)
+    REFERENCES `tripdb_test`.`room` (`room_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 -- -----------------------------------------------------
--- Table `tripdb`.`board`
+-- Table `tripdb_test`.`board`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `tripdb`.`board` (
+CREATE TABLE IF NOT EXISTS `tripdb_test`.`board` (
   `board_id` BIGINT NOT NULL AUTO_INCREMENT,
   `member_id` BIGINT NOT NULL,
   `title` VARCHAR(80) NOT NULL,
@@ -91,15 +91,15 @@ CREATE TABLE IF NOT EXISTS `tripdb`.`board` (
   INDEX `id_idx` (`member_id` ASC) VISIBLE,
   CONSTRAINT `member_to_board_id`
     FOREIGN KEY (`member_id`)
-    REFERENCES `tripdb`.`member` (`member_id`))
+    REFERENCES `tripdb_test`.`member` (`member_id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
--- Table `tripdb`.`hashtag`
+-- Table `tripdb_test`.`hashtag`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `tripdb`.`hashtag` (
+CREATE TABLE IF NOT EXISTS `tripdb_test`.`hashtag` (
   `hashtag_id` BIGINT NOT NULL AUTO_INCREMENT,
   `tagname` VARCHAR(45) NOT NULL,
   `createdat` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -110,9 +110,9 @@ DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
--- Table `tripdb`.`boardtag`
+-- Table `tripdb_test`.`boardtag`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `tripdb`.`boardtag` (
+CREATE TABLE IF NOT EXISTS `tripdb_test`.`boardtag` (
   `boardtag_id` BIGINT NOT NULL AUTO_INCREMENT,
   `board_id` BIGINT NOT NULL,
   `hashtag_id` BIGINT NOT NULL,
@@ -123,18 +123,18 @@ CREATE TABLE IF NOT EXISTS `tripdb`.`boardtag` (
   INDEX `id_idx1` (`hashtag_id` ASC) VISIBLE,
   CONSTRAINT `board_to_boardtag_id`
     FOREIGN KEY (`board_id`)
-    REFERENCES `tripdb`.`board` (`board_id`),
+    REFERENCES `tripdb_test`.`board` (`board_id`),
   CONSTRAINT `hashtag_to_boardtag_id`
     FOREIGN KEY (`hashtag_id`)
-    REFERENCES `tripdb`.`hashtag` (`hashtag_id`))
+    REFERENCES `tripdb_test`.`hashtag` (`hashtag_id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
--- Table `tripdb`.`comment`
+-- Table `tripdb_test`.`comment`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `tripdb`.`comment` (
+CREATE TABLE IF NOT EXISTS `tripdb_test`.`comment` (
   `comment_id` BIGINT NOT NULL,
   `board_id` BIGINT NOT NULL,
   `member_id` BIGINT NOT NULL,
@@ -146,18 +146,18 @@ CREATE TABLE IF NOT EXISTS `tripdb`.`comment` (
   INDEX `id_idx1` (`member_id` ASC) VISIBLE,
   CONSTRAINT `board_to_comment_id`
     FOREIGN KEY (`board_id`)
-    REFERENCES `tripdb`.`board` (`board_id`),
+    REFERENCES `tripdb_test`.`board` (`board_id`),
   CONSTRAINT `member_to_comment_id`
     FOREIGN KEY (`member_id`)
-    REFERENCES `tripdb`.`member` (`member_id`))
+    REFERENCES `tripdb_test`.`member` (`member_id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
--- Table `tripdb`.`reservation`
+-- Table `tripdb_test`.`reservation`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `tripdb`.`reservation` (
+CREATE TABLE IF NOT EXISTS `tripdb_test`.`reservation` (
   `reservation_id` BIGINT NOT NULL AUTO_INCREMENT,
   `customer_id` BIGINT NULL DEFAULT NULL,
   `roomdetail_id` BIGINT NULL DEFAULT NULL,
@@ -170,18 +170,18 @@ CREATE TABLE IF NOT EXISTS `tripdb`.`reservation` (
   INDEX `roomdetail_to_payment_idx` (`roomdetail_id` ASC) VISIBLE,
   CONSTRAINT `member_to_payment`
     FOREIGN KEY (`customer_id`)
-    REFERENCES `tripdb`.`member` (`member_id`),
+    REFERENCES `tripdb_test`.`member` (`member_id`),
   CONSTRAINT `roomdetail_to_payment`
     FOREIGN KEY (`roomdetail_id`)
-    REFERENCES `tripdb`.`room_detail` (`roomdetail_id`))
+    REFERENCES `tripdb_test`.`room_detail` (`roomdetail_id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
--- Table `tripdb`.`plan`
+-- Table `tripdb_test`.`plan`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `tripdb`.`plan` (
+CREATE TABLE IF NOT EXISTS `tripdb_test`.`plan` (
   `plan_id` BIGINT NOT NULL,
   `member_id` BIGINT NOT NULL,
   `path` JSON NULL DEFAULT NULL,
@@ -194,15 +194,15 @@ CREATE TABLE IF NOT EXISTS `tripdb`.`plan` (
   INDEX `member_to_plan_id_idx` (`member_id` ASC) VISIBLE,
   CONSTRAINT `member_to_plan_id`
     FOREIGN KEY (`member_id`)
-    REFERENCES `tripdb`.`member` (`member_id`))
+    REFERENCES `tripdb_test`.`member` (`member_id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
--- Table `tripdb`.`review`
+-- Table `tripdb_test`.`review`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `tripdb`.`review` (
+CREATE TABLE IF NOT EXISTS `tripdb_test`.`review` (
   `review_id` BIGINT NOT NULL AUTO_INCREMENT,
   `member_id` BIGINT NOT NULL,
   `room_id` BIGINT NOT NULL,
@@ -214,18 +214,18 @@ CREATE TABLE IF NOT EXISTS `tripdb`.`review` (
   INDEX `id_idx1` (`member_id` ASC) VISIBLE,
   CONSTRAINT `member_to_review_id`
     FOREIGN KEY (`member_id`)
-    REFERENCES `tripdb`.`member` (`member_id`),
+    REFERENCES `tripdb_test`.`member` (`member_id`),
   CONSTRAINT `room_to_review_id`
     FOREIGN KEY (`room_id`)
-    REFERENCES `tripdb`.`room` (`room_id`))
+    REFERENCES `tripdb_test`.`room` (`room_id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
--- Table `tripdb`.`roomtag`
+-- Table `tripdb_test`.`roomtag`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `tripdb`.`roomtag` (
+CREATE TABLE IF NOT EXISTS `tripdb_test`.`roomtag` (
   `roomtag_id` BIGINT NOT NULL AUTO_INCREMENT,
   `room_id` BIGINT NOT NULL,
   `hashtag_id` BIGINT NOT NULL,
@@ -236,18 +236,18 @@ CREATE TABLE IF NOT EXISTS `tripdb`.`roomtag` (
   INDEX `id_idx1` (`hashtag_id` ASC) VISIBLE,
   CONSTRAINT `hashtag_to_roomtag_id`
     FOREIGN KEY (`hashtag_id`)
-    REFERENCES `tripdb`.`hashtag` (`hashtag_id`),
+    REFERENCES `tripdb_test`.`hashtag` (`hashtag_id`),
   CONSTRAINT `room_to_roomtag_id`
     FOREIGN KEY (`room_id`)
-    REFERENCES `tripdb`.`room` (`room_id`))
+    REFERENCES `tripdb_test`.`room` (`room_id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
--- Table `tripdb`.`transcation`
+-- Table `tripdb_test`.`transcation`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `tripdb`.`transcation` (
+CREATE TABLE IF NOT EXISTS `tripdb_test`.`transcation` (
   `transcation_id` BIGINT NOT NULL AUTO_INCREMENT,
   `member_id` BIGINT NOT NULL,
   `transaction_amount` BIGINT NULL DEFAULT NULL,
@@ -259,7 +259,7 @@ CREATE TABLE IF NOT EXISTS `tripdb`.`transcation` (
   INDEX `member_to_transcation_idx` (`member_id` ASC) VISIBLE,
   CONSTRAINT `member_to_transcation`
     FOREIGN KEY (`member_id`)
-    REFERENCES `tripdb`.`member` (`member_id`))
+    REFERENCES `tripdb_test`.`member` (`member_id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb3;
 
