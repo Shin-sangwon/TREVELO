@@ -7,6 +7,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.enjoytrip.member.model.dto.MemberJoinDto;
+import com.ssafy.enjoytrip.member.model.dto.MemberLoginDto;
 import com.ssafy.enjoytrip.member.model.mapper.MemberMapper;
 import com.ssafy.enjoytrip.member.model.service.MemberService;
 import java.time.LocalDateTime;
@@ -81,5 +82,21 @@ class MemberControllerTest {
                    .content(objectMapper.writeValueAsBytes(memberJoinDto1)))
                .andDo(print())
                .andExpect(status().isConflict());
+    }
+
+    @Test
+    @DisplayName("로그인 성공한다")
+    void Success_login() throws Exception {
+
+        MemberLoginDto memberLoginDto = MemberLoginDto.builder()
+                                                      .loginId("sangwon123")
+                                                      .loginPassword("1234")
+                                                      .build();
+
+        mockMvc.perform(post("/api/v1/member/login")
+                   .contentType(MediaType.APPLICATION_JSON)
+                   .content(objectMapper.writeValueAsBytes(memberLoginDto)))
+               .andDo(print())
+               .andExpect(status().isOk());
     }
 }
