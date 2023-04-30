@@ -33,7 +33,7 @@ public class SecurityConfig {
             .sessionManagement()
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
-            .addFilterBefore(new JwtFilter(memberService, secretKey),
+            .addFilterBefore(new JwtAuthenticationFilter(memberService, secretKey),
                 UsernamePasswordAuthenticationFilter.class)
             .build();
     }

@@ -8,9 +8,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.apache.ibatis.type.Alias;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+@ToString
 @Getter
 @Builder
 @AllArgsConstructor

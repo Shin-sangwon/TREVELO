@@ -39,8 +39,8 @@ public class MemberController {
     }
 
     @GetMapping("/test")
-    public String apiTest(@AuthenticationPrincipal String loginId) {
+    public String apiTest(@AuthenticationPrincipal String loginId) throws Exception {
 
-        return loginId;
+        return memberService.findByLoginId(loginId).toString();
     }
 }

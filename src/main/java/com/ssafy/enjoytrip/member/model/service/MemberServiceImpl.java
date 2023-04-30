@@ -24,6 +24,7 @@ public class MemberServiceImpl implements MemberService {
     @Value("${jwt.token.secret}")
     private String SecretKey;
     private final Long expireTimeMs = 1000 * 60 * 60L;
+
     @Transactional
     @Override
     public int join(MemberJoinDto memberJoinDto) throws Exception {
@@ -50,15 +51,25 @@ public class MemberServiceImpl implements MemberService {
 
         Optional<Member> member = memberMapper.findByLoginId(memberLoginDto.getLoginId());
         // 1. id가 없음
-        if(!member.isPresent()) {
+        if (!member.isPresent()) {
             throw new MemberException(ErrorCode.LOGIN_ID_NOT_FOUND, "아이디가 존재하지 않습니다.");
         }
         // 2. 비밀번호가 일치하지 않음
 
-        if(!encoder.matches(memberLoginDto.getLoginPassword(), member.get().getLoginPassword())) {
+        if (!encoder.matches(memberLoginDto.getLoginPassword(), member.get()
+                                                                      .getLoginPassword())) {
             throw new MemberException(ErrorCode.INVALID_PASSWORD, "패스워드가 일치하지 않습니다.");
         }
 
-        return JwtProvider.createToken(member.get().getLoginId(), SecretKey, expireTimeMs);
+        return JwtProvider.createToken(member.get()
+                                             .getLoginId(), SecretKey, expireTimeMs);
     }
+
+    @Override
+    public Member findByLoginId(String loginId) throws Exception {
+        return memberMapper.findByLoginId(loginId)
+                           .orElseThrow(() -> new MemberException(ErrorCode.LOGIN_ID_NOT_FOUND,
+                               "아이디가 존재하지 않습니다."));
+    }
+
 }
