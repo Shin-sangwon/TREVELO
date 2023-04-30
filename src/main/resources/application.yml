@@ -26,4 +26,4 @@ mybatis:
   type-aliases-package: com.ssafy.enjoytrip.*.model.dto
 jwt:
   token:
-    secret: "secretKeysadfasfasrv3as;lirjmesrlvasletijmaslvitastmvastushvtststvastvaytdya"
+    secret: "secretKeysadfasfasrv3as2lirjmesrlvasletijmaslvitastmvastushvtststvastvaytdya"

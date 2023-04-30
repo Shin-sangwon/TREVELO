@@ -60,8 +60,6 @@ public class MemberServiceImpl implements MemberService {
             throw new MemberException(ErrorCode.INVALID_PASSWORD, "패스워드가 일치하지 않습니다.");
         }
 
-        String token = JwtProvider.createToken(member.getLoginId(), SecretKey, expireTimeMs);
-
-        return token;
+        return JwtProvider.createToken(member.getLoginId(), SecretKey, expireTimeMs);
     }
 }
