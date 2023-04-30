@@ -2,12 +2,13 @@ package com.ssafy.enjoytrip.member.model.service;
 
 import com.ssafy.enjoytrip.global.ErrorCode;
 import com.ssafy.enjoytrip.member.exception.MemberException;
-import com.ssafy.enjoytrip.member.model.dto.MemberDto;
 import com.ssafy.enjoytrip.member.model.dto.MemberJoinDto;
 import com.ssafy.enjoytrip.member.model.dto.MemberLoginDto;
+import com.ssafy.enjoytrip.member.model.entity.Member;
 import com.ssafy.enjoytrip.member.model.mapper.MemberMapper;
 import com.ssafy.enjoytrip.security.util.JwtProvider;
 import java.sql.SQLException;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -31,10 +32,10 @@ public class MemberServiceImpl implements MemberService {
             throw new MemberException(ErrorCode.LOGIN_ID_DUPLICATED, "이미 존재하는 ID 입니다.");
         }
 
-        MemberDto memberDto = MemberDto.from(memberJoinDto);
-        memberDto.encodePassword(encoder);
+        Member member = Member.from(memberJoinDto);
+        member.encodePassword(encoder);
 
-        return memberMapper.join(memberDto);
+        return memberMapper.join(member);
     }
 
     @Transactional(readOnly = true)
@@ -47,19 +48,17 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public String login(MemberLoginDto memberLoginDto) {
 
-        MemberDto memberDto = MemberDto.from(memberLoginDto);
-
-        MemberDto member = memberMapper.findByLoginId(memberDto.getLoginId());
+        Optional<Member> member = memberMapper.findByLoginId(memberLoginDto.getLoginId());
         // 1. id가 없음
-        if(member == null) {
+        if(!member.isPresent()) {
             throw new MemberException(ErrorCode.LOGIN_ID_NOT_FOUND, "아이디가 존재하지 않습니다.");
         }
         // 2. 비밀번호가 일치하지 않음
 
-        if(!encoder.matches(memberLoginDto.getLoginPassword(), member.getLoginPassword())) {
+        if(!encoder.matches(memberLoginDto.getLoginPassword(), member.get().getLoginPassword())) {
             throw new MemberException(ErrorCode.INVALID_PASSWORD, "패스워드가 일치하지 않습니다.");
         }
 
-        return JwtProvider.createToken(member.getLoginId(), SecretKey, expireTimeMs);
+        return JwtProvider.createToken(member.get().getLoginId(), SecretKey, expireTimeMs);
     }
 }

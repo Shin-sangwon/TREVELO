@@ -6,6 +6,7 @@ import com.ssafy.enjoytrip.member.model.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,8 +39,8 @@ public class MemberController {
     }
 
     @GetMapping("/test")
-    public String apiTest() {
+    public String apiTest(@AuthenticationPrincipal String loginId) {
 
-        return "hello world!";
+        return loginId;
     }
 }
