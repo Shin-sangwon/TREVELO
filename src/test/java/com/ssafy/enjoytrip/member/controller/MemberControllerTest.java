@@ -42,15 +42,16 @@ class MemberControllerTest {
     @BeforeEach
     void tearUp() throws Exception {
         MemberJoinDto memberJoinDto = MemberJoinDto.builder()
-                                                  .loginId("sangwon123")
-                                                  .loginPassword("1234")
-                                                  .name("신상원")
-                                                  .birthday(LocalDateTime.now())
-                                                  .email("sangwon@ssafy.com")
-                                                  .build();
+                                                   .loginId("sangwon123")
+                                                   .loginPassword("1234")
+                                                   .name("신상원")
+                                                   .birthday(LocalDateTime.now())
+                                                   .email("sangwon@ssafy.com")
+                                                   .build();
 
         memberService.join(memberJoinDto);
     }
+
     @Test
     @WithMockUser
     @DisplayName("회원가입_성공한다")
