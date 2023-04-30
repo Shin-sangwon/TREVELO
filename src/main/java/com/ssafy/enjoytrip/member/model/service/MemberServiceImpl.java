@@ -6,8 +6,10 @@ import com.ssafy.enjoytrip.member.model.dto.MemberDto;
 import com.ssafy.enjoytrip.member.model.dto.MemberJoinDto;
 import com.ssafy.enjoytrip.member.model.dto.MemberLoginDto;
 import com.ssafy.enjoytrip.member.model.mapper.MemberMapper;
+import com.ssafy.enjoytrip.security.util.JwtProvider;
 import java.sql.SQLException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,7 +20,9 @@ public class MemberServiceImpl implements MemberService {
 
     private final MemberMapper memberMapper;
     private final BCryptPasswordEncoder encoder;
-
+    @Value("${jwt.token.secret}")
+    private String SecretKey;
+    private final Long expireTimeMs = 1000 * 60 * 60L;
     @Transactional
     @Override
     public int join(MemberJoinDto memberJoinDto) throws Exception {
@@ -44,18 +48,20 @@ public class MemberServiceImpl implements MemberService {
     public String login(MemberLoginDto memberLoginDto) {
 
         MemberDto memberDto = MemberDto.from(memberLoginDto);
-        memberDto.encodePassword(encoder);
+
+        MemberDto member = memberMapper.findByLoginId(memberDto.getLoginId());
         // 1. id가 없음
-        if(memberMapper.findByLoginId(memberDto.getLoginId()) == 0) {
+        if(member == null) {
             throw new MemberException(ErrorCode.LOGIN_ID_NOT_FOUND, "아이디가 존재하지 않습니다.");
         }
+        // 2. 비밀번호가 일치하지 않음
 
-        MemberDto member = memberMapper.findByLoginIdAndPassword(memberDto);
-        // 2. password가 일치하지 않음
-        if(member == null || encoder.matches(member.getLoginPassword(), memberDto.getLoginPassword())) {
+        if(!encoder.matches(memberLoginDto.getLoginPassword(), member.getLoginPassword())) {
             throw new MemberException(ErrorCode.INVALID_PASSWORD, "패스워드가 일치하지 않습니다.");
         }
 
-        return "token";
+        String token = JwtProvider.createToken(member.getLoginId(), SecretKey, expireTimeMs);
+
+        return token;
     }
 }

@@ -11,7 +11,7 @@ public interface MemberMapper {
 
     int join(MemberDto memberDto) throws Exception;
 
-    int findByLoginId(String loginId);
+    MemberDto findByLoginId(String loginId);
 
     MemberDto findByLoginIdAndPassword(MemberDto memberDto);
 }

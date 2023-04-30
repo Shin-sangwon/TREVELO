@@ -28,8 +28,8 @@
             values(#{loginId}, #{loginPassword}, #{name}, #{birthday}, #{email}, #{role}, #{grade})
       </insert>
       
-      <select id="findByLoginId" parameterType="string" resultType="int">
-            SELECT COUNT(login_id)
+      <select id="findByLoginId" resultType="memberDto">
+            SELECT *
             FROM MEMBER
             WHERE login_id = #{loginId}
       </select>
