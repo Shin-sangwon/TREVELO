@@ -55,7 +55,7 @@ public class MemberController {
 
     @GetMapping("/mypage")
     public ResponseEntity<Member> showMypage(@AuthenticationPrincipal String loginId) throws Exception {
-
+        log.info("GET - MYPAGE");
         Member member = memberService.findByLoginId(loginId);
 
         return ResponseEntity.ok()
@@ -63,6 +63,7 @@ public class MemberController {
     }
     @PutMapping("/mypage")
     public ResponseEntity<Member> update(@RequestBody MemberUpdateDto memberUpdateDto, @AuthenticationPrincipal String loginId) throws Exception {
+        log.info("PUT - MYPAGE");
 
         if (!memberUpdateDto.getLoginId()
                             .equals(loginId)) {

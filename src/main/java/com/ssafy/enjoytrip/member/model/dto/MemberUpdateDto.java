@@ -12,9 +12,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class MemberUpdateDto {
+    // TODO : BIRTHDAY 추가하기 (직렬화, 역직렬화)
     private String loginId;
     private String loginPassword;
     private String name;
-    private LocalDateTime birthday;
     private String email;
 }

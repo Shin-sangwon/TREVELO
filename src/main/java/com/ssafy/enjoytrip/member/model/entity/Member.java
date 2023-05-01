@@ -64,7 +64,6 @@ public class Member {
                      .loginId(memberUpdateDto.getLoginId())
                      .loginPassword(memberUpdateDto.getLoginPassword())
                      .name(memberUpdateDto.getName())
-                     .birthday(memberUpdateDto.getBirthday())
                      .email(memberUpdateDto.getEmail())
                      .build();
     }

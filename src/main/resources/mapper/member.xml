@@ -43,10 +43,10 @@
 
       <update id="update" parameterType="member">
             UPDATE MEMBER
-            SET login_passwod = #{loginPassword},
+            SET login_password = #{loginPassword},
                 name = #{name},
-                birthday = #{birthday},
-                email = #{email}
+                email = #{email},
+                updatedat = CURRENT_TIMESTAMP
             WHERE login_id = #{loginId}
       </update>
 </mapper>

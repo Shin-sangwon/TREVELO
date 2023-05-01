@@ -78,7 +78,9 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public Member update(MemberUpdateDto memberUpdateDto) throws Exception {
 
-        memberMapper.update(Member.from(memberUpdateDto));
+        Member updateDto = Member.from(memberUpdateDto);
+        updateDto.encodePassword(encoder);
+        memberMapper.update(updateDto);
 
         return findByLoginId(memberUpdateDto.getLoginId());
     }
