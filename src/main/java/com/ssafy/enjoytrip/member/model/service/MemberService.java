@@ -17,4 +17,6 @@ public interface MemberService {
     Member findByLoginId(String loginId) throws Exception;
 
     Member update(MemberUpdateDto memberUpdateDto) throws Exception;
+
+    void signOut(String loginId);
 }

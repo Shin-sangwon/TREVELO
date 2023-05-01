@@ -19,4 +19,6 @@ public interface MemberMapper {
     MemberDto findByLoginIdAndPassword(MemberDto memberDto);
 
     void update(Member member);
+
+    void signOut(String loginId);
 }

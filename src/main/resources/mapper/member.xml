@@ -49,4 +49,9 @@
                 updatedat = CURRENT_TIMESTAMP
             WHERE login_id = #{loginId}
       </update>
+
+      <delete id="signOut" parameterType="string">
+            DELETE FROM MEMBER
+            WHERE login_id = #{loginId}
+      </delete>
 </mapper>

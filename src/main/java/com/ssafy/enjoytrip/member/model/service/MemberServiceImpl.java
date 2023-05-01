@@ -85,4 +85,11 @@ public class MemberServiceImpl implements MemberService {
         return findByLoginId(memberUpdateDto.getLoginId());
     }
 
+    @Transactional
+    @Override
+    public void signOut(String loginId) {
+
+        memberMapper.signOut(loginId);
+    }
+
 }
