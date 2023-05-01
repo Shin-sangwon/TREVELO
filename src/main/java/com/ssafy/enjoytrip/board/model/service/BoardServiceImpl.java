@@ -28,4 +28,19 @@ public class BoardServiceImpl implements BoardService{
     public List<BoardDto> getlist() throws SQLException {
         return boardMapper.getlist();
     }
+
+    @Override
+    public BoardDto view(long boardId) throws SQLException {
+        return boardMapper.view(boardId);
+    }
+
+    @Override
+    public void delete(long boardId) throws SQLException {
+        boardMapper.delete(boardId);
+    }
+
+    @Override
+    public void update(BoardDto boardDto) throws SQLException {
+        boardMapper.update(boardDto);
+    }
 }

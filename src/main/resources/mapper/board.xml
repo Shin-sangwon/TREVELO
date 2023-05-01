@@ -24,6 +24,20 @@
         select * from board;
     </select>
 
+    <select id="view" parameterType="long" resultType="boardDto">
+        select * from board
+        where board_id = #{boardId}
+    </select>
 
+    <delete id="delete" parameterType="long">
+        delete from board
+        where board_id = #{boardId}
+    </delete>
+
+    <update id="update" parameterType="boardDto">
+        update board
+        set title = #{title}, content = #{content}, updatedat = CURRENT_TIME
+        where board_id = #{boardId}
+    </update>
 
 </mapper>

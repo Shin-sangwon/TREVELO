@@ -11,4 +11,10 @@ public interface BoardMapper {
     void write(BoardDto boardDto) throws SQLException;
 
     List<BoardDto> getlist() throws SQLException;
+
+    BoardDto view(long boardId) throws SQLException;
+
+    void delete(long boardId) throws SQLException;
+
+    void update(BoardDto boardDto) throws SQLException;
 }

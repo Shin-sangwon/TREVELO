@@ -48,4 +48,33 @@ public class BoardController {
 
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
+
+    @GetMapping("/view/{boardId}")
+    public ResponseEntity<BoardDto> view(@AuthenticationPrincipal String loginId, @PathVariable("boardId") long boardId) throws SQLException {
+        BoardDto boardDto = boardService.view(boardId);
+
+        log.info(boardDto.toString());
+
+        return new ResponseEntity<>(boardDto, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete/{boardId}")
+    public ResponseEntity<?> delete(@AuthenticationPrincipal String loginId, @PathVariable("boardId") long boardId) throws SQLException {
+        boardService.delete(boardId);
+
+        List<BoardDto> list = boardService.getlist();
+
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
+    @PutMapping("/modify")
+    public ResponseEntity<?> modify(@AuthenticationPrincipal String loginId,@RequestBody BoardDto boardDto) throws Exception {
+        boardDto.setMemberId(memberService.findByLoginId(loginId).getId());
+
+        boardService.update(boardDto);
+
+        List<BoardDto> list = boardService.getlist();
+
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
 }
