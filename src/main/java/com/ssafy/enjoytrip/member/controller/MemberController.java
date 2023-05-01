@@ -2,6 +2,7 @@ package com.ssafy.enjoytrip.member.controller;
 
 import com.ssafy.enjoytrip.member.model.dto.MemberJoinDto;
 import com.ssafy.enjoytrip.member.model.dto.MemberLoginDto;
+import com.ssafy.enjoytrip.member.model.entity.Member;
 import com.ssafy.enjoytrip.member.model.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -42,5 +43,13 @@ public class MemberController {
     public String apiTest(@AuthenticationPrincipal String loginId) throws Exception {
 
         return memberService.findByLoginId(loginId).toString();
+    }
+
+    @GetMapping("/mypage")
+    public ResponseEntity<Member> showMypage(@AuthenticationPrincipal String loginId) throws Exception{
+
+        Member member = memberService.findByLoginId(loginId);
+
+        return ResponseEntity.ok().body(member);
     }
 }
