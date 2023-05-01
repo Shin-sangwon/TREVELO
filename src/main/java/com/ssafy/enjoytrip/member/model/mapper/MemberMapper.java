@@ -1,6 +1,7 @@
 package com.ssafy.enjoytrip.member.model.mapper;
 
 import com.ssafy.enjoytrip.member.model.dto.MemberDto;
+import com.ssafy.enjoytrip.member.model.dto.MemberUpdateDto;
 import com.ssafy.enjoytrip.member.model.entity.Member;
 import java.sql.SQLException;
 import java.util.Optional;
@@ -16,4 +17,6 @@ public interface MemberMapper {
     Optional<Member> findByLoginId(String loginId);
 
     MemberDto findByLoginIdAndPassword(MemberDto memberDto);
+
+    void update(Member member);
 }

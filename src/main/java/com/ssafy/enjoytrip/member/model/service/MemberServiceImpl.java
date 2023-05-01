@@ -4,6 +4,7 @@ import com.ssafy.enjoytrip.global.ErrorCode;
 import com.ssafy.enjoytrip.member.exception.MemberException;
 import com.ssafy.enjoytrip.member.model.dto.MemberJoinDto;
 import com.ssafy.enjoytrip.member.model.dto.MemberLoginDto;
+import com.ssafy.enjoytrip.member.model.dto.MemberUpdateDto;
 import com.ssafy.enjoytrip.member.model.entity.Member;
 import com.ssafy.enjoytrip.member.model.mapper.MemberMapper;
 import com.ssafy.enjoytrip.security.util.JwtProvider;
@@ -65,11 +66,21 @@ public class MemberServiceImpl implements MemberService {
                                              .getLoginId(), SecretKey, expireTimeMs);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public Member findByLoginId(String loginId) throws Exception {
         return memberMapper.findByLoginId(loginId)
                            .orElseThrow(() -> new MemberException(ErrorCode.LOGIN_ID_NOT_FOUND,
                                "아이디가 존재하지 않습니다."));
+    }
+
+    @Transactional
+    @Override
+    public Member update(MemberUpdateDto memberUpdateDto) throws Exception {
+
+        memberMapper.update(Member.from(memberUpdateDto));
+
+        return findByLoginId(memberUpdateDto.getLoginId());
     }
 
 }

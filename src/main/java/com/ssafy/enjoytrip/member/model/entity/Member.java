@@ -2,6 +2,7 @@ package com.ssafy.enjoytrip.member.model.entity;
 
 import com.ssafy.enjoytrip.member.model.dto.MemberJoinDto;
 import com.ssafy.enjoytrip.member.model.dto.MemberLoginDto;
+import com.ssafy.enjoytrip.member.model.dto.MemberUpdateDto;
 import java.time.LocalDateTime;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -38,23 +39,33 @@ public class Member {
 
     public static Member from(MemberJoinDto memberJoinDto) {
         return Member.builder()
-                        .loginId(memberJoinDto.getLoginId())
-                        .loginPassword(memberJoinDto.getLoginPassword())
-                        .name(memberJoinDto.getName())
-                        .birthday(memberJoinDto.getBirthday())
-                        .email(memberJoinDto.getEmail())
-                        .role(Role.MEMBER)
-                        .grade(Grade.GENERAL)
-                        .mileage(0L)
-                        .createdat(memberJoinDto.getCreatedat())
-                        .updatedat(memberJoinDto.getUpdatedat())
-                        .build();
+                     .loginId(memberJoinDto.getLoginId())
+                     .loginPassword(memberJoinDto.getLoginPassword())
+                     .name(memberJoinDto.getName())
+                     .birthday(memberJoinDto.getBirthday())
+                     .email(memberJoinDto.getEmail())
+                     .role(Role.MEMBER)
+                     .grade(Grade.GENERAL)
+                     .mileage(0L)
+                     .createdat(memberJoinDto.getCreatedat())
+                     .updatedat(memberJoinDto.getUpdatedat())
+                     .build();
     }
 
     public static Member from(MemberLoginDto memberLoginDto) {
         return Member.builder()
-                        .loginId(memberLoginDto.getLoginId())
-                        .loginPassword(memberLoginDto.getLoginPassword())
-                        .build();
+                     .loginId(memberLoginDto.getLoginId())
+                     .loginPassword(memberLoginDto.getLoginPassword())
+                     .build();
+    }
+
+    public static Member from(MemberUpdateDto memberUpdateDto) {
+        return Member.builder()
+                     .loginId(memberUpdateDto.getLoginId())
+                     .loginPassword(memberUpdateDto.getLoginPassword())
+                     .name(memberUpdateDto.getName())
+                     .birthday(memberUpdateDto.getBirthday())
+                     .email(memberUpdateDto.getEmail())
+                     .build();
     }
 }
