@@ -1,9 +1,9 @@
 package com.ssafy.enjoytrip.security.configuration;
 
+import com.ssafy.enjoytrip.member.model.entity.Member;
 import com.ssafy.enjoytrip.member.model.service.MemberService;
 import com.ssafy.enjoytrip.security.util.JwtProvider;
 import java.io.IOException;
-import java.util.Collections;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -12,8 +12,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -26,7 +26,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
-        FilterChain filterChain) throws ServletException, IOException {
+        FilterChain filterChain) throws ServletException, IOException, UsernameNotFoundException {
 
         final String authorization = request.getHeader(HttpHeaders.AUTHORIZATION);
         log.info("authorization : '{}'", authorization);
@@ -41,17 +41,18 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String token = authorization.split(" ")[1];
 
         // is expired?
-        if(JwtProvider.isExpired(token, secretKey)) {
+        if (JwtProvider.isExpired(token, secretKey)) {
             log.error("authentication is expired");
             filterChain.doFilter(request, response);
             return;
         }
 
         String loginId = JwtProvider.getLoginId(token, secretKey);
+        Member member = memberService.findByLoginId(loginId);
 
         //권한 부여하기
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-            loginId, null, Collections.singletonList(new SimpleGrantedAuthority("USER")));
+            member, null, member.getAuthorities());
 
         //Detail
         authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
