@@ -15,6 +15,16 @@ spring:
       enabled: true
     restart:
       enabled: true
+  mail:
+    host: smtp.naver.com
+    port: 465
+    username: dnjsml10@naver.com
+    password: password
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.ssl.enable: true
+      mail.smtp.ssl.trust: smtp.naver.com
+      mail.smtp.starttls.enable: true
 mybatis:
   configuration:
     multiple-result-sets-enabled: false

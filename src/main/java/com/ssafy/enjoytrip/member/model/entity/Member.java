@@ -42,6 +42,10 @@ public class Member implements UserDetails {
         this.loginPassword = encoder.encode(this.loginPassword);
     }
 
+    public void updatePassword(String password) {
+        this.loginPassword = password;
+    }
+
     public static Member from(MemberJoinDto memberJoinDto) {
         return Member.builder()
                      .loginId(memberJoinDto.getLoginId())
@@ -49,8 +53,8 @@ public class Member implements UserDetails {
                      .name(memberJoinDto.getName())
                      .birthday(memberJoinDto.getBirthday())
                      .email(memberJoinDto.getEmail())
-                     .role(Role.MEMBER)
-                     .grade(Grade.GENERAL)
+                     .role(memberJoinDto.getRole() == null? Role.MEMBER : memberJoinDto.getRole())
+                     .grade(memberJoinDto.getGrade() == null? Grade.GENERAL : memberJoinDto.getGrade())
                      .mileage(0L)
                      .createdat(memberJoinDto.getCreatedat())
                      .updatedat(memberJoinDto.getUpdatedat())
@@ -93,7 +97,9 @@ public class Member implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
 
-        this.authorities.add(new SimpleGrantedAuthority("MEMBER"));
+        if(this.authorities.size() == 0) {
+            this.authorities.add(new SimpleGrantedAuthority("MEMBER"));
+        }
 
         return authorities;
     }

@@ -39,6 +39,8 @@ dependencies {
 	runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.2'
 	// Junit5
 	testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.9.1'
+	// mailSender
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
 }
 
 tasks.named('test') {

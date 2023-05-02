@@ -4,7 +4,9 @@ import com.ssafy.enjoytrip.global.ErrorCode;
 import com.ssafy.enjoytrip.member.exception.MemberException;
 import com.ssafy.enjoytrip.member.model.dto.MemberJoinDto;
 import com.ssafy.enjoytrip.member.model.dto.MemberLoginDto;
+import com.ssafy.enjoytrip.member.model.dto.MemberResponseDto;
 import com.ssafy.enjoytrip.member.model.dto.MemberUpdateDto;
+import com.ssafy.enjoytrip.member.model.dto.InformationFindRequestDto;
 import com.ssafy.enjoytrip.member.model.entity.Member;
 import com.ssafy.enjoytrip.member.model.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -48,20 +50,20 @@ public class MemberController {
     }
 
     @GetMapping("/test")
-    public String apiTest(@AuthenticationPrincipal Member member) throws Exception {
+    public String apiTest(@AuthenticationPrincipal Member member) {
 
         return member.toString();
     }
 
     @GetMapping("/mypage")
-    public ResponseEntity<Member> memberPage(@AuthenticationPrincipal Member member) throws Exception {
+    public ResponseEntity<MemberResponseDto> memberPage(@AuthenticationPrincipal Member member) {
         log.info("GET - mypage : {}", member.getLoginId());
 
         return ResponseEntity.ok()
-                             .body(member);
+                             .body(MemberResponseDto.from(member));
     }
     @PutMapping("/mypage")
-    public ResponseEntity<Member> memberInfoUpdate(@RequestBody MemberUpdateDto memberUpdateDto, @AuthenticationPrincipal Member member) throws Exception {
+    public ResponseEntity<MemberResponseDto> memberInfoUpdate(@RequestBody MemberUpdateDto memberUpdateDto, @AuthenticationPrincipal Member member) throws Exception {
         log.info("PUT - mapage : {}", member.getLoginId());
 
         if (!memberUpdateDto.getLoginId()
@@ -72,7 +74,7 @@ public class MemberController {
         Member updatedMember = memberService.update(memberUpdateDto);
 
         return ResponseEntity.ok()
-                             .body(updatedMember);
+                             .body(MemberResponseDto.from(updatedMember));
     }
 
     @DeleteMapping("/signout")
@@ -82,4 +84,21 @@ public class MemberController {
 
         return ResponseEntity.ok().body("탈퇴");
     }
+
+    @PostMapping("/find/password")
+    public ResponseEntity<String> findPassword(InformationFindRequestDto informationFindRequestDto) {
+
+        String msg = memberService.findPassword(informationFindRequestDto);
+
+        return ResponseEntity.ok().body(msg);
+    }
+
+    @PostMapping("/find/id")
+    public ResponseEntity<String> findLoginId(InformationFindRequestDto informationFindRequestDto) {
+
+        String msg = memberService.findLoginId(informationFindRequestDto);
+
+        return ResponseEntity.ok().body(msg);
+    }
+
 }
