@@ -6,7 +6,7 @@ import com.ssafy.enjoytrip.member.exception.MemberException;
 import com.ssafy.enjoytrip.member.model.dto.MemberJoinDto;
 import com.ssafy.enjoytrip.member.model.dto.MemberLoginDto;
 import com.ssafy.enjoytrip.member.model.dto.MemberUpdateDto;
-import com.ssafy.enjoytrip.member.model.dto.PasswordFindRequestDto;
+import com.ssafy.enjoytrip.member.model.dto.InformationFindRequestDto;
 import com.ssafy.enjoytrip.member.model.entity.Member;
 import com.ssafy.enjoytrip.member.model.mapper.MemberMapper;
 import com.ssafy.enjoytrip.security.util.JwtProvider;
@@ -99,9 +99,9 @@ public class MemberServiceImpl implements MemberService {
 
     @Transactional
     @Override
-    public String findPassword(PasswordFindRequestDto passwordFindRequestDto) {
+    public String findPassword(InformationFindRequestDto informationFindRequestDto) {
 
-        Member member = memberMapper.findByLoginIdAndEmail(passwordFindRequestDto)
+        Member member = memberMapper.findByLoginIdAndEmail(informationFindRequestDto)
                                     .orElseThrow(
                                         () -> new MemberException(ErrorCode.LOGIN_ID_NOT_FOUND,
                                             "아이디가 존재하지 않습니다.")
@@ -119,6 +119,24 @@ public class MemberServiceImpl implements MemberService {
         // 비밀번호 바꿔서 db에 갱신
         memberMapper.update(member);
         return "가입하신 계정으로 임시 비밀번호를 전송했습니다.";
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public String findLoginId(InformationFindRequestDto informationFindRequestDto) {
+
+        Member member = memberMapper.findByLoginIdAndEmail(informationFindRequestDto)
+                                    .orElseThrow(
+                                        () -> new MemberException(ErrorCode.LOGIN_ID_NOT_FOUND,
+                                            "아이디가 존재하지 않습니다.")
+                                    );
+        try {
+            emailService.sendLoginId(member.getEmail(), member.getLoginId());
+        } catch (Exception e) {
+            return "이메일 처리 중 에러가 발생했습니다.";
+        }
+
+        return "가입하신 계정으로 아이디를 전송했습니다.";
     }
 
     //임시 비밀번호 발급

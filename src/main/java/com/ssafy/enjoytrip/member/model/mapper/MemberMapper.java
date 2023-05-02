@@ -1,7 +1,7 @@
 package com.ssafy.enjoytrip.member.model.mapper;
 
 import com.ssafy.enjoytrip.member.model.dto.MemberDto;
-import com.ssafy.enjoytrip.member.model.dto.PasswordFindRequestDto;
+import com.ssafy.enjoytrip.member.model.dto.InformationFindRequestDto;
 import com.ssafy.enjoytrip.member.model.entity.Member;
 import java.sql.SQLException;
 import java.util.Optional;
@@ -22,7 +22,7 @@ public interface MemberMapper {
 
     void signOut(String loginId);
 
-    Optional<Member> findByLoginIdAndEmail(PasswordFindRequestDto passwordFindRequestDto);
+    Optional<Member> findByLoginIdAndEmail(InformationFindRequestDto informationFindRequestDto);
 
     void updatePassword(Member member);
 }

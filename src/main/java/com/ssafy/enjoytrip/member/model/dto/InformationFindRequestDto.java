@@ -7,7 +7,7 @@ import lombok.Getter;
 @Getter
 @Builder
 @AllArgsConstructor
-public class PasswordFindRequestDto {
+public class InformationFindRequestDto {
 
     private String loginId;
     private String email;

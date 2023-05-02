@@ -6,7 +6,7 @@ import com.ssafy.enjoytrip.member.model.dto.MemberJoinDto;
 import com.ssafy.enjoytrip.member.model.dto.MemberLoginDto;
 import com.ssafy.enjoytrip.member.model.dto.MemberResponseDto;
 import com.ssafy.enjoytrip.member.model.dto.MemberUpdateDto;
-import com.ssafy.enjoytrip.member.model.dto.PasswordFindRequestDto;
+import com.ssafy.enjoytrip.member.model.dto.InformationFindRequestDto;
 import com.ssafy.enjoytrip.member.model.entity.Member;
 import com.ssafy.enjoytrip.member.model.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -86,11 +86,19 @@ public class MemberController {
     }
 
     @PostMapping("/find/password")
-    public ResponseEntity<String> findPassword(PasswordFindRequestDto passwordFindRequestDto) {
+    public ResponseEntity<String> findPassword(InformationFindRequestDto informationFindRequestDto) {
 
-        memberService.findPassword(passwordFindRequestDto);
+        String msg = memberService.findPassword(informationFindRequestDto);
 
-        return ResponseEntity.ok().body("가입하신 이메일로 임시 비밀번호를 전송했습니다.");
+        return ResponseEntity.ok().body(msg);
+    }
+
+    @PostMapping("/find/id")
+    public ResponseEntity<String> findLoginId(InformationFindRequestDto informationFindRequestDto) {
+
+        String msg = memberService.findLoginId(informationFindRequestDto);
+
+        return ResponseEntity.ok().body(msg);
     }
 
 }
