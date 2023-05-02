@@ -6,6 +6,7 @@ import com.ssafy.enjoytrip.member.model.dto.MemberJoinDto;
 import com.ssafy.enjoytrip.member.model.dto.MemberLoginDto;
 import com.ssafy.enjoytrip.member.model.dto.MemberResponseDto;
 import com.ssafy.enjoytrip.member.model.dto.MemberUpdateDto;
+import com.ssafy.enjoytrip.member.model.dto.PasswordFindRequestDto;
 import com.ssafy.enjoytrip.member.model.entity.Member;
 import com.ssafy.enjoytrip.member.model.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -83,4 +84,13 @@ public class MemberController {
 
         return ResponseEntity.ok().body("탈퇴");
     }
+
+    @PostMapping("/find/password")
+    public ResponseEntity<String> findPassword(PasswordFindRequestDto passwordFindRequestDto) {
+
+        memberService.findPassword(passwordFindRequestDto);
+
+        return ResponseEntity.ok().body("가입하신 이메일로 임시 비밀번호를 전송했습니다.");
+    }
+
 }

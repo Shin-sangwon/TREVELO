@@ -3,6 +3,7 @@ package com.ssafy.enjoytrip.member.model.service;
 import com.ssafy.enjoytrip.member.model.dto.MemberJoinDto;
 import com.ssafy.enjoytrip.member.model.dto.MemberLoginDto;
 import com.ssafy.enjoytrip.member.model.dto.MemberUpdateDto;
+import com.ssafy.enjoytrip.member.model.dto.PasswordFindRequestDto;
 import com.ssafy.enjoytrip.member.model.entity.Member;
 import java.sql.SQLException;
 
@@ -19,4 +20,6 @@ public interface MemberService {
     Member update(MemberUpdateDto memberUpdateDto) throws Exception;
 
     void signOut(String loginId);
+
+    String findPassword(PasswordFindRequestDto passwordFindRequestDto);
 }

@@ -27,7 +27,7 @@ public class SecurityConfig {
             .cors()
             .and()
             .authorizeHttpRequests()
-            .antMatchers("/api/v1/member/join", "/api/v1/member/login").permitAll()
+            .antMatchers("/api/v1/member/join", "/api/v1/member/login", "/api/v1/member/find/password").permitAll()
             .anyRequest().authenticated()
             .and()
             .sessionManagement()

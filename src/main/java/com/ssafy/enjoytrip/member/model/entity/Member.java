@@ -42,6 +42,10 @@ public class Member implements UserDetails {
         this.loginPassword = encoder.encode(this.loginPassword);
     }
 
+    public void updatePassword(String password) {
+        this.loginPassword = password;
+    }
+
     public static Member from(MemberJoinDto memberJoinDto) {
         return Member.builder()
                      .loginId(memberJoinDto.getLoginId())
