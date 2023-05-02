@@ -4,6 +4,7 @@ import com.ssafy.enjoytrip.global.ErrorCode;
 import com.ssafy.enjoytrip.member.exception.MemberException;
 import com.ssafy.enjoytrip.member.model.dto.MemberJoinDto;
 import com.ssafy.enjoytrip.member.model.dto.MemberLoginDto;
+import com.ssafy.enjoytrip.member.model.dto.MemberResponseDto;
 import com.ssafy.enjoytrip.member.model.dto.MemberUpdateDto;
 import com.ssafy.enjoytrip.member.model.entity.Member;
 import com.ssafy.enjoytrip.member.model.service.MemberService;
@@ -54,14 +55,14 @@ public class MemberController {
     }
 
     @GetMapping("/mypage")
-    public ResponseEntity<Member> memberPage(@AuthenticationPrincipal Member member) throws Exception {
+    public ResponseEntity<MemberResponseDto> memberPage(@AuthenticationPrincipal Member member) throws Exception {
         log.info("GET - mypage : {}", member.getLoginId());
 
         return ResponseEntity.ok()
-                             .body(member);
+                             .body(MemberResponseDto.from(member));
     }
     @PutMapping("/mypage")
-    public ResponseEntity<Member> memberInfoUpdate(@RequestBody MemberUpdateDto memberUpdateDto, @AuthenticationPrincipal Member member) throws Exception {
+    public ResponseEntity<MemberResponseDto> memberInfoUpdate(@RequestBody MemberUpdateDto memberUpdateDto, @AuthenticationPrincipal Member member) throws Exception {
         log.info("PUT - mapage : {}", member.getLoginId());
 
         if (!memberUpdateDto.getLoginId()
@@ -72,7 +73,7 @@ public class MemberController {
         Member updatedMember = memberService.update(memberUpdateDto);
 
         return ResponseEntity.ok()
-                             .body(updatedMember);
+                             .body(MemberResponseDto.from(updatedMember));
     }
 
     @DeleteMapping("/signout")
