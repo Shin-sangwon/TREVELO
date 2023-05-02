@@ -13,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,7 +28,7 @@ public class MemberController {
     private final MemberService memberService;
 
     @PostMapping("/join")
-    public ResponseEntity<String> join(@RequestBody MemberJoinDto memberJoinDto) throws Exception {
+    public ResponseEntity<String> memberJoin(@RequestBody MemberJoinDto memberJoinDto) throws Exception {
         log.info("Post - join");
 
         memberService.join(memberJoinDto);
@@ -39,7 +38,7 @@ public class MemberController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody MemberLoginDto memberLoginDto)
+    public ResponseEntity<String> memberLogin(@RequestBody MemberLoginDto memberLoginDto)
         throws Exception {
         log.info("Post - login");
         String token = memberService.login(memberLoginDto);
@@ -51,12 +50,14 @@ public class MemberController {
     @GetMapping("/test")
     public String apiTest(@AuthenticationPrincipal String loginId) throws Exception {
 
+        Member member = memberService.findByLoginId(loginId);
+
         return memberService.findByLoginId(loginId)
                             .toString();
     }
 
     @GetMapping("/mypage")
-    public ResponseEntity<Member> showMypage(@AuthenticationPrincipal String loginId) throws Exception {
+    public ResponseEntity<Member> memberPage(@AuthenticationPrincipal String loginId) throws Exception {
         log.info("GET - MYPAGE");
         Member member = memberService.findByLoginId(loginId);
 
@@ -64,7 +65,7 @@ public class MemberController {
                              .body(member);
     }
     @PutMapping("/mypage")
-    public ResponseEntity<Member> update(@RequestBody MemberUpdateDto memberUpdateDto, @AuthenticationPrincipal String loginId) throws Exception {
+    public ResponseEntity<Member> memberInfoUpdate(@RequestBody MemberUpdateDto memberUpdateDto, @AuthenticationPrincipal String loginId) throws Exception {
         log.info("PUT - MYPAGE");
 
         if (!memberUpdateDto.getLoginId()
@@ -79,7 +80,7 @@ public class MemberController {
     }
 
     @DeleteMapping("/mypage")
-    public ResponseEntity<String> signOut(@AuthenticationPrincipal String loginId) throws Exception {
+    public ResponseEntity<String> memberSignOut(@AuthenticationPrincipal String loginId) {
 
         memberService.signOut(loginId);
 
