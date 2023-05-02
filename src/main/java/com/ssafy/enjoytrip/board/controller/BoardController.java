@@ -29,10 +29,10 @@ public class BoardController {
     }
 
     @PostMapping("/write")
-    public ResponseEntity<?> write(@RequestBody BoardDto boardDto, @AuthenticationPrincipal String loginId) throws Exception {
-        log.info(memberService.findByLoginId(loginId).toString());
+    public ResponseEntity<?> write(@RequestBody BoardDto boardDto, @AuthenticationPrincipal Member member) throws Exception {
+        log.info(memberService.findByLoginId(member.getLoginId()).toString());
 
-        boardDto.setMemberId(memberService.findByLoginId(loginId).getId());
+        boardDto.setMemberId(memberService.findByLoginId(member.getLoginId()).getId());
         boardService.write(boardDto);
 
         log.info(boardDto.toString());
@@ -41,7 +41,7 @@ public class BoardController {
     }
 
     @GetMapping("/list")
-    public ResponseEntity<List<BoardDto>> list(@AuthenticationPrincipal String loginId) throws SQLException {
+    public ResponseEntity<List<BoardDto>> list(@AuthenticationPrincipal Member member) throws SQLException {
         List<BoardDto> list = boardService.getlist();
 
         log.info(list.toString());
@@ -50,7 +50,7 @@ public class BoardController {
     }
 
     @GetMapping("/view/{boardId}")
-    public ResponseEntity<BoardDto> view(@AuthenticationPrincipal String loginId, @PathVariable("boardId") long boardId) throws SQLException {
+    public ResponseEntity<BoardDto> view(@AuthenticationPrincipal Member member, @PathVariable("boardId") long boardId) throws SQLException {
         BoardDto boardDto = boardService.view(boardId);
 
         log.info(boardDto.toString());
@@ -59,7 +59,7 @@ public class BoardController {
     }
 
     @DeleteMapping("/delete/{boardId}")
-    public ResponseEntity<?> delete(@AuthenticationPrincipal String loginId, @PathVariable("boardId") long boardId) throws SQLException {
+    public ResponseEntity<?> delete(@AuthenticationPrincipal Member member, @PathVariable("boardId") long boardId) throws SQLException {
         boardService.delete(boardId);
 
         List<BoardDto> list = boardService.getlist();
@@ -68,8 +68,8 @@ public class BoardController {
     }
 
     @PutMapping("/modify")
-    public ResponseEntity<?> modify(@AuthenticationPrincipal String loginId,@RequestBody BoardDto boardDto) throws Exception {
-        boardDto.setMemberId(memberService.findByLoginId(loginId).getId());
+    public ResponseEntity<?> modify(@AuthenticationPrincipal Member member,@RequestBody BoardDto boardDto) throws Exception {
+        boardDto.setMemberId(memberService.findByLoginId(member.getLoginId()).getId());
 
         boardService.update(boardDto);
 

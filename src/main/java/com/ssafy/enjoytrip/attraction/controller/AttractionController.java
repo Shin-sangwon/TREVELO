@@ -3,6 +3,7 @@ package com.ssafy.enjoytrip.attraction.controller;
 import com.ssafy.enjoytrip.attraction.model.dto.AttractionDto;
 import com.ssafy.enjoytrip.attraction.model.dto.AttractionSearchDto;
 import com.ssafy.enjoytrip.attraction.model.service.AttractionService;
+import com.ssafy.enjoytrip.member.model.entity.Member;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,7 +31,7 @@ public class AttractionController {
 
 
     @PostMapping("/search")
-    public ResponseEntity<?> search(@AuthenticationPrincipal String loginId, @RequestParam(value = "title") String title,@RequestParam(value = "sidoCode", defaultValue = "-1") long sidoCode,@RequestParam(value = "gugunCode", defaultValue = "-1") long gugunCode, @RequestParam(value = "contentType", defaultValue = "-1") long contentType){
+    public ResponseEntity<?> search(@AuthenticationPrincipal Member member, @RequestParam(value = "title") String title, @RequestParam(value = "sidoCode", defaultValue = "-1") long sidoCode, @RequestParam(value = "gugunCode", defaultValue = "-1") long gugunCode, @RequestParam(value = "contentType", defaultValue = "-1") long contentType){
         AttractionSearchDto attractionSearchDto = new AttractionSearchDto();
 
         List<AttractionDto> list = new ArrayList<>();
