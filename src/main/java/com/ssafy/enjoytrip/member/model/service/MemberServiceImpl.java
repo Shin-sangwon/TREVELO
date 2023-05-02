@@ -4,6 +4,7 @@ import com.ssafy.enjoytrip.global.ErrorCode;
 import com.ssafy.enjoytrip.member.exception.MemberException;
 import com.ssafy.enjoytrip.member.model.dto.MemberJoinDto;
 import com.ssafy.enjoytrip.member.model.dto.MemberLoginDto;
+import com.ssafy.enjoytrip.member.model.dto.MemberUpdateDto;
 import com.ssafy.enjoytrip.member.model.entity.Member;
 import com.ssafy.enjoytrip.member.model.mapper.MemberMapper;
 import com.ssafy.enjoytrip.security.util.JwtProvider;
@@ -23,7 +24,7 @@ public class MemberServiceImpl implements MemberService {
     private final BCryptPasswordEncoder encoder;
     @Value("${jwt.token.secret}")
     private String SecretKey;
-    private final Long expireTimeMs = 1000 * 60 * 60L;
+    private final Long expireTimeMs = 1000 * 60 * 60 * 60L;
 
     @Transactional
     @Override
@@ -65,11 +66,30 @@ public class MemberServiceImpl implements MemberService {
                                              .getLoginId(), SecretKey, expireTimeMs);
     }
 
+    @Transactional(readOnly = true)
     @Override
-    public Member findByLoginId(String loginId) throws Exception {
+    public Member findByLoginId(String loginId) {
         return memberMapper.findByLoginId(loginId)
                            .orElseThrow(() -> new MemberException(ErrorCode.LOGIN_ID_NOT_FOUND,
                                "아이디가 존재하지 않습니다."));
+    }
+
+    @Transactional
+    @Override
+    public Member update(MemberUpdateDto memberUpdateDto) throws Exception {
+
+        Member updateDto = Member.from(memberUpdateDto);
+        updateDto.encodePassword(encoder);
+        memberMapper.update(updateDto);
+
+        return findByLoginId(memberUpdateDto.getLoginId());
+    }
+
+    @Transactional
+    @Override
+    public void signOut(String loginId) {
+
+        memberMapper.signOut(loginId);
     }
 
 }

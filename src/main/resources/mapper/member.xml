@@ -5,6 +5,7 @@
 <mapper namespace="com.ssafy.enjoytrip.member.model.mapper.MemberMapper">
 
       <resultMap type="member" id="member">
+            <result column="member_id" property="id"/>
             <result column="login_id" property="loginId"/>
             <result column="login_password" property="loginPassword"/>
             <result column="name" property="name"/>
@@ -28,7 +29,7 @@
             values(#{loginId}, #{loginPassword}, #{name}, #{birthday}, #{email}, #{role}, #{grade})
       </insert>
       
-      <select id="findByLoginId" resultType="member">
+      <select id="findByLoginId" resultMap="member">
             SELECT *
             FROM MEMBER
             WHERE login_id = #{loginId}
@@ -39,4 +40,18 @@
             FROM MEMBER
             WHERE login_id = #{loginId} and login_password = #{loginPassword}
       </select>
+
+      <update id="update" parameterType="member">
+            UPDATE MEMBER
+            SET login_password = #{loginPassword},
+                name = #{name},
+                email = #{email},
+                updatedat = CURRENT_TIMESTAMP
+            WHERE login_id = #{loginId}
+      </update>
+
+      <delete id="signOut" parameterType="string">
+            DELETE FROM MEMBER
+            WHERE login_id = #{loginId}
+      </delete>
 </mapper>
