@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.enjoytrip.attraction.model.mapper.AttractionMapper" >
+    
+    <resultMap id="attractionDto" type="attractionDto">
+        <result column="content_id" property="contentId"></result>
+        <result column="title" property="title"></result>
+        <result column="addr1" property="addr"></result>
+        <result column="sido_code" property="sidoCode"></result>
+        <result column="gugun_code" property="gugunCode"></result>
+        <result column="latitude" property="latitude"></result>
+        <result column="longitude" property="longitude"></result>
+        <result column="content_type_id" property="contentType"></result>
+
+    </resultMap>
+
+    <select id="searchBySidoGugunContent" parameterType="com.ssafy.enjoytrip.attraction.model.dto.AttractionSearchDto" resultMap="attractionDto">
+        select * from attraction_info
+        where title like '%${title}%' and sido_code = #{sidoCode} and gugun_code = #{gugunCode} and content_type_id = #{contentType}
+    </select>
+
+    <select id="searchBySidoGugun" parameterType="com.ssafy.enjoytrip.attraction.model.dto.AttractionSearchDto" resultMap="attractionDto">
+        select * from attraction_info
+        where title like '%${title}%' and sido_code = #{sidoCode} and gugun_code = #{gugunCode}
+    </select>
+
+    <select id="searchBySidoContent" parameterType="com.ssafy.enjoytrip.attraction.model.dto.AttractionSearchDto" resultMap="attractionDto">
+        select * from attraction_info
+        where title like '%${title}%' and sido_code = #{sidoCode} and content_type_id = #{contentType}
+    </select>
+
+    <select id="searchBySido" parameterType="com.ssafy.enjoytrip.attraction.model.dto.AttractionSearchDto" resultMap="attractionDto">
+        select * from attraction_info
+        where title like '%${title}%' and sido_code = #{sidoCode}
+    </select>
+
+    <select id="searchByContent" parameterType="com.ssafy.enjoytrip.attraction.model.dto.AttractionSearchDto" resultMap="attractionDto">
+        select * from attraction_info
+        where title like '%${title}%' and content_type_id = #{contentType}
+    </select>
+
+
+    <select id="searchByNot" parameterType="com.ssafy.enjoytrip.attraction.model.dto.AttractionSearchDto" resultMap="attractionDto">
+        select * from attraction_info
+        where title like '%${title}%'
+    </select>
+
+
+</mapper>
