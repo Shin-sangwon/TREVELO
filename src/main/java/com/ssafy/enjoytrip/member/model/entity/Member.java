@@ -97,7 +97,9 @@ public class Member implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
 
-        this.authorities.add(new SimpleGrantedAuthority("MEMBER"));
+        if(this.authorities.size() == 0) {
+            this.authorities.add(new SimpleGrantedAuthority("MEMBER"));
+        }
 
         return authorities;
     }

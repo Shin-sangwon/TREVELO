@@ -50,13 +50,13 @@ public class MemberController {
     }
 
     @GetMapping("/test")
-    public String apiTest(@AuthenticationPrincipal Member member) throws Exception {
+    public String apiTest(@AuthenticationPrincipal Member member) {
 
         return member.toString();
     }
 
     @GetMapping("/mypage")
-    public ResponseEntity<MemberResponseDto> memberPage(@AuthenticationPrincipal Member member) throws Exception {
+    public ResponseEntity<MemberResponseDto> memberPage(@AuthenticationPrincipal Member member) {
         log.info("GET - mypage : {}", member.getLoginId());
 
         return ResponseEntity.ok()
