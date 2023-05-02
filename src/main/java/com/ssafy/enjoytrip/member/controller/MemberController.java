@@ -48,39 +48,37 @@ public class MemberController {
     }
 
     @GetMapping("/test")
-    public String apiTest(@AuthenticationPrincipal String loginId) throws Exception {
+    public String apiTest(@AuthenticationPrincipal Member member) throws Exception {
 
-        return memberService.findByLoginId(loginId)
-                            .toString();
+        return member.toString();
     }
 
     @GetMapping("/mypage")
-    public ResponseEntity<Member> memberPage(@AuthenticationPrincipal String loginId) throws Exception {
-        log.info("GET - mypage : {}", loginId);
-        Member member = memberService.findByLoginId(loginId);
+    public ResponseEntity<Member> memberPage(@AuthenticationPrincipal Member member) throws Exception {
+        log.info("GET - mypage : {}", member.getLoginId());
 
         return ResponseEntity.ok()
                              .body(member);
     }
     @PutMapping("/mypage")
-    public ResponseEntity<Member> memberInfoUpdate(@RequestBody MemberUpdateDto memberUpdateDto, @AuthenticationPrincipal String loginId) throws Exception {
-        log.info("PUT - mapage : {}", loginId);
+    public ResponseEntity<Member> memberInfoUpdate(@RequestBody MemberUpdateDto memberUpdateDto, @AuthenticationPrincipal Member member) throws Exception {
+        log.info("PUT - mapage : {}", member.getLoginId());
 
         if (!memberUpdateDto.getLoginId()
-                            .equals(loginId)) {
+                            .equals(member.getLoginId())) {
             throw new MemberException(ErrorCode.UNAUTHORIZED, "권한이 없습니다.");
         }
 
-        Member member = memberService.update(memberUpdateDto);
+        Member updatedMember = memberService.update(memberUpdateDto);
 
         return ResponseEntity.ok()
-                             .body(member);
+                             .body(updatedMember);
     }
 
     @DeleteMapping("/signout")
-    public ResponseEntity<String> memberSignOut(@AuthenticationPrincipal String loginId) {
-        log.info("DELETE - signout : {}", loginId);
-        memberService.signOut(loginId);
+    public ResponseEntity<String> memberSignOut(@AuthenticationPrincipal Member member) {
+        log.info("DELETE - signout : {}", member.getLoginId());
+        memberService.signOut(member.getLoginId());
 
         return ResponseEntity.ok().body("탈퇴");
     }

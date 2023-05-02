@@ -24,7 +24,7 @@ public class MemberServiceImpl implements MemberService {
     private final BCryptPasswordEncoder encoder;
     @Value("${jwt.token.secret}")
     private String SecretKey;
-    private final Long expireTimeMs = 1000 * 60 * 60L;
+    private final Long expireTimeMs = 1000 * 60 * 60 * 60L;
 
     @Transactional
     @Override
@@ -68,7 +68,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Transactional(readOnly = true)
     @Override
-    public Member findByLoginId(String loginId) throws Exception {
+    public Member findByLoginId(String loginId) {
         return memberMapper.findByLoginId(loginId)
                            .orElseThrow(() -> new MemberException(ErrorCode.LOGIN_ID_NOT_FOUND,
                                "아이디가 존재하지 않습니다."));

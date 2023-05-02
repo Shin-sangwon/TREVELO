@@ -14,7 +14,7 @@ public interface MemberService {
 
     String login(MemberLoginDto memberLoginDto);
 
-    Member findByLoginId(String loginId) throws Exception;
+    Member findByLoginId(String loginId);
 
     Member update(MemberUpdateDto memberUpdateDto) throws Exception;
 
