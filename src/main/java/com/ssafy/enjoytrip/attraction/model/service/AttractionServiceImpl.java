@@ -1,11 +1,13 @@
 package com.ssafy.enjoytrip.attraction.model.service;
 
+import com.ssafy.enjoytrip.attraction.model.dto.AttractionFavoriteDto;
 import com.ssafy.enjoytrip.attraction.model.dto.AttractionSearchDto;
 import com.ssafy.enjoytrip.attraction.model.dto.AttractionDto;
 import com.ssafy.enjoytrip.attraction.model.mapper.AttractionMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
 import java.util.List;
 
 @Service
@@ -47,5 +49,30 @@ public class AttractionServiceImpl implements AttractionService{
     @Override
     public List<AttractionDto> searchByNot(AttractionSearchDto attractionSearchDto) {
         return attractionMapper.searchByNot(attractionSearchDto);
+    }
+
+    @Override
+    public List<AttractionDto> favoriteList(long memberId){
+        return attractionMapper.favoriteList(memberId);
+    }
+
+    @Override
+    public void favoriteRegister(AttractionFavoriteDto attractionFavoriteDto) {
+        attractionMapper.favoriteRegister(attractionFavoriteDto);
+    }
+
+    @Override
+    public int findDuplication(AttractionFavoriteDto attractionFavoriteDto) {
+        return attractionMapper.findDuplication(attractionFavoriteDto);
+    }
+
+    @Override
+    public AttractionDto favoriteView(long contentId) {
+        return attractionMapper.favoriteView(contentId);
+    }
+
+    @Override
+    public void favoriteDelete(AttractionFavoriteDto attractionFavoriteDto) {
+        attractionMapper.favoriteDelete(attractionFavoriteDto);
     }
 }

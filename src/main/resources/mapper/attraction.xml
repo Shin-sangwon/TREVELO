@@ -47,5 +47,33 @@
         where title like '%${title}%'
     </select>
 
+    <select id="favoriteList" parameterType="long" resultMap="attractionDto">
+        select * from attraction_info
+        where content_id in(
+            select content_id
+            from favorite
+            where member_id = #{memberId}
+            )
+    </select>
+
+    <insert id="favoriteRegister" parameterType="com.ssafy.enjoytrip.attraction.model.dto.AttractionFavoriteDto">
+        insert into favorite (member_id, content_id)
+        values (#{memberId}, #{contentId})
+    </insert>
+
+    <select id="findDuplication" parameterType="com.ssafy.enjoytrip.attraction.model.dto.AttractionFavoriteDto" resultType="int">
+        select count(*) from favorite
+        where member_id = #{memberId} and content_id = #{contentId}
+    </select>
+
+    <select id="favoriteView" parameterType="long" resultMap="attractionDto">
+        select * from attraction_info
+        where content_id = #{contentId}
+    </select>
+
+    <delete id="favoriteDelete" parameterType="com.ssafy.enjoytrip.attraction.model.dto.AttractionFavoriteDto">
+        delete from favorite
+        where member_id = #{memberId} and content_id = #{contentId}
+    </delete>
 
 </mapper>

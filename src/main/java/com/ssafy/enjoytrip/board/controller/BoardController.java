@@ -77,4 +77,7 @@ public class BoardController {
 
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
+
+
+
 }
