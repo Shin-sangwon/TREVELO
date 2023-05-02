@@ -267,3 +267,6 @@ DEFAULT CHARACTER SET = utf8mb3;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+insert into member(login_id, login_password, name, birthday, email, role, grade, mileage)
+values ('sangwon123', '$2a$10$BHGlzgoDUs669ty034woCe7ZjNPcMFPwdA2CcLnfCb8D3W/8kLouC', '신상원', now(), 'sangwon@ssafy.com', 'ADMIN', 'VVIP', 0);

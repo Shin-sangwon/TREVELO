@@ -50,15 +50,13 @@ public class MemberController {
     @GetMapping("/test")
     public String apiTest(@AuthenticationPrincipal String loginId) throws Exception {
 
-        Member member = memberService.findByLoginId(loginId);
-
         return memberService.findByLoginId(loginId)
                             .toString();
     }
 
     @GetMapping("/mypage")
     public ResponseEntity<Member> memberPage(@AuthenticationPrincipal String loginId) throws Exception {
-        log.info("GET - MYPAGE");
+        log.info("GET - mypage : {}", loginId);
         Member member = memberService.findByLoginId(loginId);
 
         return ResponseEntity.ok()
@@ -66,7 +64,7 @@ public class MemberController {
     }
     @PutMapping("/mypage")
     public ResponseEntity<Member> memberInfoUpdate(@RequestBody MemberUpdateDto memberUpdateDto, @AuthenticationPrincipal String loginId) throws Exception {
-        log.info("PUT - MYPAGE");
+        log.info("PUT - mapage : {}", loginId);
 
         if (!memberUpdateDto.getLoginId()
                             .equals(loginId)) {
@@ -79,9 +77,9 @@ public class MemberController {
                              .body(member);
     }
 
-    @DeleteMapping("/mypage")
+    @DeleteMapping("/signout")
     public ResponseEntity<String> memberSignOut(@AuthenticationPrincipal String loginId) {
-
+        log.info("DELETE - signout : {}", loginId);
         memberService.signOut(loginId);
 
         return ResponseEntity.ok().body("탈퇴");

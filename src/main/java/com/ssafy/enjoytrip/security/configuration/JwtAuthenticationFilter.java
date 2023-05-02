@@ -1,5 +1,8 @@
 package com.ssafy.enjoytrip.security.configuration;
 
+import com.ssafy.enjoytrip.global.ErrorCode;
+import com.ssafy.enjoytrip.member.exception.MemberException;
+import com.ssafy.enjoytrip.member.model.entity.Role;
 import com.ssafy.enjoytrip.member.model.service.MemberService;
 import com.ssafy.enjoytrip.security.util.JwtProvider;
 import java.io.IOException;
@@ -48,10 +51,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
 
         String loginId = JwtProvider.getLoginId(token, secretKey);
-
+        Role role;
+        try {
+            role = memberService.findByLoginId(loginId).getRole();
+        } catch (Exception e) {
+            throw new MemberException(ErrorCode.LOGIN_ID_NOT_FOUND, "존재하지 않는 회원입니다.");
+        }
         //권한 부여하기
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-            loginId, null, Collections.singletonList(new SimpleGrantedAuthority("USER")));
+            loginId, null, Collections.singletonList(new SimpleGrantedAuthority(role.name())));
 
         //Detail
         authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
