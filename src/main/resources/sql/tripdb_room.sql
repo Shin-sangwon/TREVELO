@@ -391,3 +391,15 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 insert into room(owner_id, room_name, address, introduce, price_per_night, sido_code, gugun_code)
 values (2, 'sangwonroom', '광산구', '광주에 있어요', 100000, 5, 1);
+
+insert into room_picture(room_id, picture)
+values (1, "picture/1");
+
+insert into room_picture(room_id, picture)
+values (1, "picture/2");
+
+insert into room_picture(room_id, picture)
+values (1, "picture/3");
+
+insert into room_picture(room_id, picture)
+values (1, "picture/4");

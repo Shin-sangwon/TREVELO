@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.enjoytrip.roompicture.model.mapper.RoomPictureMapper">
+
+  <resultMap type="roompicture" id="roompicture">
+    <result column="room_picture_id" property="id"/>
+    <result column="room_id" property="roomId"/>
+    <result column="picture" property="picture"/>
+    <result column="createdat" property="createdat"/>
+    <result column="updatedat" property="updatedat"/>
+  </resultMap>
+
+  <select id="findAllByRoomId" resultMap="roompicture">
+    SELECT *
+    FROM room_picture
+    WHERE room_id = #{id}
+  </select>
+
+</mapper>

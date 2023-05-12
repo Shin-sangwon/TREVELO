@@ -2,6 +2,7 @@ package com.ssafy.enjoytrip.room.controller;
 
 import com.ssafy.enjoytrip.member.model.entity.Member;
 import com.ssafy.enjoytrip.room.model.dto.response.RoomListResponseDto;
+import com.ssafy.enjoytrip.room.model.dto.response.RoomResponseDto;
 import com.ssafy.enjoytrip.room.model.service.RoomService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,5 +27,12 @@ public class RoomController {
         log.info("RoomList - GET");
 
         return ResponseEntity.ok().body(roomService.findAll());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<RoomResponseDto> showRoom(@PathVariable("id") Long id, @AuthenticationPrincipal Member member) {
+        log.info("RoomDetail - GET");
+
+        return ResponseEntity.ok().body(roomService.findById(id));
     }
 }

@@ -15,11 +15,13 @@ public class RoomListResponseDto {
     private String address;
     private Long pricePerNight;
 
-    public RoomListResponseDto(Room entity) {
-        this.id = entity.getId();
-        this.roomName = entity.getRoomName();
-        this.address = entity.getAddress();
-        this.pricePerNight = entity.getPricePerNight();
+    public static RoomListResponseDto from(Room entity) {
+        return RoomListResponseDto.builder()
+                                  .id(entity.getId())
+                                  .roomName(entity.getRoomName())
+                                  .address(entity.getAddress())
+                                  .pricePerNight(entity.getPricePerNight())
+                                  .build();
     }
 
 }

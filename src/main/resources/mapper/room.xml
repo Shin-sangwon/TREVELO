@@ -22,5 +22,10 @@
     FROM room
   </select>
 
+  <select id="findById" resultMap="room">
+    SELECT *
+    FROM room
+    WHERE room_id = #{id}
+  </select>
 
 </mapper>
