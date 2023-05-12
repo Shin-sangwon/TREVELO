@@ -36,7 +36,7 @@ public class MemberServiceImpl implements MemberService {
     public int join(MemberJoinDto memberJoinDto) throws Exception {
 
         if (joinDuplicatedCheck(memberJoinDto.getLoginId())) {
-            throw new MemberException(ErrorCode.LOGIN_ID_DUPLICATED, "이미 존재하는 ID 입니다.");
+            throw new MemberException(ErrorCode.LOGIN_ID_DUPLICATED, ErrorCode.LOGIN_ID_DUPLICATED.getMessage());
         }
 
         Member member = Member.from(memberJoinDto);
@@ -58,13 +58,13 @@ public class MemberServiceImpl implements MemberService {
         Optional<Member> member = memberMapper.findByLoginId(memberLoginDto.getLoginId());
         // 1. id가 없음
         if (!member.isPresent()) {
-            throw new MemberException(ErrorCode.LOGIN_ID_NOT_FOUND, "아이디가 존재하지 않습니다.");
+            throw new MemberException(ErrorCode.LOGIN_ID_NOT_FOUND, ErrorCode.LOGIN_ID_NOT_FOUND.getMessage());
         }
         // 2. 비밀번호가 일치하지 않음
 
         if (!encoder.matches(memberLoginDto.getLoginPassword(), member.get()
                                                                       .getLoginPassword())) {
-            throw new MemberException(ErrorCode.INVALID_PASSWORD, "패스워드가 일치하지 않습니다.");
+            throw new MemberException(ErrorCode.INVALID_PASSWORD, ErrorCode.INVALID_PASSWORD.getMessage());
         }
 
         return JwtProvider.createToken(member.get()
@@ -76,7 +76,7 @@ public class MemberServiceImpl implements MemberService {
     public Member findByLoginId(String loginId) {
         return memberMapper.findByLoginId(loginId)
                            .orElseThrow(() -> new MemberException(ErrorCode.LOGIN_ID_NOT_FOUND,
-                               "아이디가 존재하지 않습니다."));
+                               ErrorCode.LOGIN_ID_NOT_FOUND.getMessage()));
     }
 
     @Transactional
@@ -104,7 +104,7 @@ public class MemberServiceImpl implements MemberService {
         Member member = memberMapper.findByLoginIdAndEmail(informationFindRequestDto)
                                     .orElseThrow(
                                         () -> new MemberException(ErrorCode.LOGIN_ID_NOT_FOUND,
-                                            "아이디가 존재하지 않습니다.")
+                                            ErrorCode.LOGIN_ID_NOT_FOUND.getMessage())
                                     );
         String tempPassword = getTempPassword();
 
@@ -128,7 +128,7 @@ public class MemberServiceImpl implements MemberService {
         Member member = memberMapper.findByLoginIdAndEmail(informationFindRequestDto)
                                     .orElseThrow(
                                         () -> new MemberException(ErrorCode.LOGIN_ID_NOT_FOUND,
-                                            "아이디가 존재하지 않습니다.")
+                                            ErrorCode.LOGIN_ID_NOT_FOUND.getMessage())
                                     );
         try {
             emailService.sendLoginId(member.getEmail(), member.getLoginId());
