@@ -33,7 +33,7 @@ mybatis:
     jdbc-type-for-null: varchar
     default-fetch-size: 500
   mapper-locations: mapper/*.xml
-  type-aliases-package: com.ssafy.enjoytrip.*.model.dto, com.ssafy.enjoytrip.member.model.entity
+  type-aliases-package: com.ssafy.enjoytrip.*.model.dto, com.ssafy.enjoytrip.member.model.entity, com.ssafy.enjoytrip.room.model.entity
 jwt:
   token:
     secret: "secretKeysadfasfasrv3as2lirjmesrlvasletijmaslvitastmvastushvtststvastvaytdya"

@@ -1,5 +1,4 @@
-package com.ssafy.enjoytrip.room.model.entity;
-
+package com.ssafy.enjoytrip.roompicture.model.entity;
 
 import java.time.LocalDateTime;
 import lombok.AccessLevel;
@@ -7,24 +6,16 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.apache.ibatis.type.Alias;
 
-@Builder
 @Getter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Alias("room")
-public class Room {
+public class RoomPicture {
 
     private Long id;
-    private Long ownerId;
-    private String roomName;
-    private String address;
-    private String introduce;
-    private Long pricePerNight;
+    private Long roomId;
+    private String picture;
     private LocalDateTime createdat;
     private LocalDateTime updatedat;
-    private int sidoCode;
-    private int gugunCode;
-    
 }
