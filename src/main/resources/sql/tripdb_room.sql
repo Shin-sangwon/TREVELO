@@ -388,3 +388,6 @@ DEFAULT CHARACTER SET = utf8mb3;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+insert into room(owner_id, room_name, address, introduce, price_per_night, sido_code, gugun_code)
+values (2, 'sangwonroom', '광산구', '광주에 있어요', 100000, 5, 1);
