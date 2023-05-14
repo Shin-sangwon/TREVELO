@@ -7,5 +7,5 @@ public interface RoomPictureService{
 
     List<RoomPicture> getRoomPicture(Long id);
 
-    void save(List<String> imageUrl, Long roomId);
+    void saveAll(List<String> imageUrl, Long roomId);
 }

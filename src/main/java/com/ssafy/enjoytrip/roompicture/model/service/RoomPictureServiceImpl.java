@@ -22,7 +22,7 @@ public class RoomPictureServiceImpl implements RoomPictureService {
 
     @Transactional
     @Override
-    public void save(List<String> imageUrl, Long roomId) {
+    public void saveAll(List<String> imageUrl, Long roomId) {
 
         imageUrl.stream()
                 .map(url -> RoomPicture.of(url, roomId))

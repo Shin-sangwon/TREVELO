@@ -18,7 +18,6 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
@@ -49,20 +48,24 @@ public class RoomController {
     }
 
     @PostMapping("/write")
-    public ResponseEntity<String> writeRoom(@AuthenticationPrincipal Member member, @RequestBody RoomCreateRequestDto roomCreateRequestDto, @RequestPart List<MultipartFile> imageList) {
+    public ResponseEntity<RoomResponseDto> writeRoom(@AuthenticationPrincipal Member member, @RequestPart RoomCreateRequestDto roomCreateRequestDto, @RequestPart List<MultipartFile> imageList) {
         log.info("RoomCreate - POST");
 
         if(member.getRole() == Role.MEMBER) {
             throw new MemberException(ErrorCode.UNAUTHORIZED, ErrorCode.UNAUTHORIZED.getMessage());
         }
         // 숙소 저장
-        Long roomId = roomService.save(roomCreateRequestDto, member);
+        roomService.save(roomCreateRequestDto, member);
+
+        Long roomId = roomCreateRequestDto.getId();
+
+        log.debug("생성된 room pk = '{}'", roomId);
 
         if(imageList != null) {
             List<String> imageUrl = amazonS3Service.uploadFiles(imageList);
-            roomPictureService.save(imageUrl, roomId);
+            roomPictureService.saveAll(imageUrl, roomId);
         }
 
-        return ResponseEntity.ok("hello");
+        return ResponseEntity.ok().body(roomService.findById(roomCreateRequestDto.getId()));
     }
 }
