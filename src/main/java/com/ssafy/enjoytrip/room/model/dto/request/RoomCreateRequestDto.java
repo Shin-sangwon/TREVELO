@@ -19,4 +19,8 @@ public class RoomCreateRequestDto {
     private LocalDateTime updatedat;
     private int sidoCode;
     //private int gugunCode;
+
+    public void mapOwnerId(Long ownerId) {
+        this.ownerId = ownerId;
+    }
 }

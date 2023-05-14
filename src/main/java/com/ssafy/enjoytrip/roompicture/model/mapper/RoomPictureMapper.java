@@ -8,4 +8,6 @@ import org.apache.ibatis.annotations.Mapper;
 public interface RoomPictureMapper {
 
     List<RoomPicture> findAllByRoomId(Long id);
+
+    void save(RoomPicture roomPicture);
 }

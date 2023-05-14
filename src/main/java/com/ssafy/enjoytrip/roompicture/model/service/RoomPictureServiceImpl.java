@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Service
-public class RoomPictureServiceImpl implements RoomPictureService{
+public class RoomPictureServiceImpl implements RoomPictureService {
 
     private final RoomPictureMapper roomPictureMapper;
 
@@ -18,5 +18,14 @@ public class RoomPictureServiceImpl implements RoomPictureService{
     public List<RoomPicture> getRoomPicture(Long id) {
 
         return roomPictureMapper.findAllByRoomId(id);
+    }
+
+    @Transactional
+    @Override
+    public void save(List<String> imageUrl, Long roomId) {
+
+        imageUrl.stream()
+                .map(url -> RoomPicture.of(url, roomId))
+                .forEach(roomPictureMapper::save);
     }
 }

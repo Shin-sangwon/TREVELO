@@ -1,7 +1,9 @@
 package com.ssafy.enjoytrip.room.model.service;
 
 import com.ssafy.enjoytrip.global.ErrorCode;
+import com.ssafy.enjoytrip.member.model.entity.Member;
 import com.ssafy.enjoytrip.room.exception.RoomException;
+import com.ssafy.enjoytrip.room.model.dto.request.RoomCreateRequestDto;
 import com.ssafy.enjoytrip.room.model.dto.response.RoomListResponseDto;
 import com.ssafy.enjoytrip.room.model.dto.response.RoomResponseDto;
 import com.ssafy.enjoytrip.room.model.entity.Room;
@@ -46,6 +48,15 @@ public class RoomServiceImpl implements RoomService {
 
         roomResponseDto.mapPictureToRoom(pictureList);
         return roomResponseDto;
+    }
+
+    @Transactional
+    @Override
+    public Long save(RoomCreateRequestDto roomCreateRequestDto, Member member) {
+
+        roomCreateRequestDto.mapOwnerId(member.getId());
+
+        return roomMapper.save(roomCreateRequestDto);
     }
 
 

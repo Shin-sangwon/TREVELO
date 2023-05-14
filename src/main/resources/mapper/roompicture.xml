@@ -18,4 +18,9 @@
     WHERE room_id = #{id}
   </select>
 
+  <insert id="save">
+    insert into room_picture(room_id, picture)
+    values (#{roomId}, #{picture})
+  </insert>
+
 </mapper>

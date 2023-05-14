@@ -28,4 +28,9 @@
     WHERE room_id = #{id}
   </select>
 
+  <insert id="save" parameterType="RoomCreateRequestDto" useGeneratedKeys="true" keyProperty="id">
+    insert into room(owner_id, room_name, address, introduce, price_per_night, sido_code)
+    values(#{ownerId}, #{roomName}, #{address}, #{introduce}, #{pricePerNight}, ${sidoCode})
+  </insert>
+
 </mapper>

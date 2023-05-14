@@ -20,4 +20,11 @@ public class RoomPicture {
     private String picture;
     private LocalDateTime createdat;
     private LocalDateTime updatedat;
+
+    public static RoomPicture of(String picture, Long roomId){
+        return RoomPicture.builder()
+            .roomId(roomId)
+            .picture(picture)
+            .build();
+    }
 }
