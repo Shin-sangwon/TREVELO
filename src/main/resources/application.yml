@@ -48,9 +48,9 @@ cloud:
       access-key: ${AWS_S3_ACCESS_KEY}
       secret-key: ${AWS_S3_PRIVATE_KEY}
     region:
-      static: ap-northeast-2
+      static: ${AWS_S3_REGION}ap-northeast-2
     s3:
-      bucket: ssafyfinal
+      bucket: ${AWS_S3_BUCKET_NAME}ssafyfinal
     stack:
       auto:false
 
