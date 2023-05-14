@@ -41,6 +41,9 @@ dependencies {
 	testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.9.1'
 	// mailSender
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
+	// awsS3
+	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
+
 }
 
 tasks.named('test') {
