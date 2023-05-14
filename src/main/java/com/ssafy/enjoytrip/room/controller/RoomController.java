@@ -9,6 +9,7 @@ import com.ssafy.enjoytrip.room.model.dto.response.RoomListResponseDto;
 import com.ssafy.enjoytrip.room.model.dto.response.RoomResponseDto;
 import com.ssafy.enjoytrip.room.model.service.RoomService;
 import java.util.List;
+import javax.mail.Multipart;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
@@ -43,13 +45,13 @@ public class RoomController {
     }
 
     @PostMapping("/write")
-    public ResponseEntity<String> writeRoom(@AuthenticationPrincipal Member member, @RequestBody
-        RoomCreateRequestDto roomCreateRequestDto) {
+    public ResponseEntity<String> writeRoom(@AuthenticationPrincipal Member member, @RequestBody RoomCreateRequestDto roomCreateRequestDto, @RequestPart List<Multipart> imageList) {
         log.info("RoomCreate - POST");
 
         if(member.getRole() == Role.MEMBER) {
             throw new MemberException(ErrorCode.UNAUTHORIZED, ErrorCode.UNAUTHORIZED.getMessage());
         }
+
 
 
         return ResponseEntity.ok("hello");

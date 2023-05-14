@@ -14,7 +14,10 @@ public enum ErrorCode {
     UNAUTHORIZED(HttpStatus.UNAUTHORIZED, ""),
 
     /* Room Exception */
-    ROOM_NOT_FOUND(HttpStatus.NOT_FOUND, "존재하지 않는 방입니다.");
+    ROOM_NOT_FOUND(HttpStatus.NOT_FOUND, "존재하지 않는 방입니다."),
+
+    /* File Upload */
+    FILE_UPLOAD_FAIL(HttpStatus.INTERNAL_SERVER_ERROR, "파일 업로드에 실패하였습니다.");
 
     private final HttpStatus httpStatus;
     private final String message;
