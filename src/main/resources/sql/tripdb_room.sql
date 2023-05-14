@@ -389,6 +389,9 @@ SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
+insert into member(login_id, login_password, name, birthday, email, role, grade, mileage)
+values ('sangwon123', '$2a$10$BHGlzgoDUs669ty034woCe7ZjNPcMFPwdA2CcLnfCb8D3W/8kLouC', '신상원', now(), 'sangwon@ssafy.com', 'ADMIN', 'VVIP', 0);
+
 insert into room(owner_id, room_name, address, introduce, price_per_night, sido_code, gugun_code)
 values (2, 'sangwonroom', '광산구', '광주에 있어요', 100000, 5, 1);
 
@@ -403,3 +406,19 @@ values (1, "picture/3");
 
 insert into room_picture(room_id, picture)
 values (1, "picture/4");
+
+select * from room;
+select * from room_picture;
+
+delete from room
+where room_id = 8;
+
+select * from member;
+
+select * from reservation;
+
+insert into sido select * from enjoytrip.sido;
+insert into gugun select * from enjoytrip.gugun;
+insert into attraction_info select * from enjoytrip.attraction_info;
+insert into attraction_detail select * from enjoytrip.attraction_detail;
+insert into attraction_description select * from enjoytrip.attraction_description;
