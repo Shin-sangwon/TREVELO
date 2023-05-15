@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ssafy.enjoytrip.attraction.model.mapper.AttractionMapper;
 import com.ssafy.enjoytrip.global.ErrorCode;
 import com.ssafy.enjoytrip.member.exception.MemberException;
 import com.ssafy.enjoytrip.member.model.dto.MemberJoinDto;
@@ -27,7 +28,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
 @ActiveProfiles("test")
-@WebMvcTest
+@WebMvcTest(MemberController.class)
 class MemberControllerTest {
 
     @Autowired
@@ -36,6 +37,8 @@ class MemberControllerTest {
     MemberService memberService;
     @MockBean
     MemberMapper memberMapper;
+    @MockBean
+    AttractionMapper attractionMapper;
     @Autowired
     ObjectMapper objectMapper;
 

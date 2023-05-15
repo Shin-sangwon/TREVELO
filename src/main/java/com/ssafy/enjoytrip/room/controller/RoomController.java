@@ -116,7 +116,6 @@ public class RoomController {
         roomService.delete(id);
 
 
-
         return ResponseEntity.ok().body("숙소가 정상 삭제되었습니다.");
 
     }
