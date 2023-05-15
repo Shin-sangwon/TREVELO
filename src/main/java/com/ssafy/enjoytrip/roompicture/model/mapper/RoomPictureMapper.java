@@ -10,4 +10,6 @@ public interface RoomPictureMapper {
     List<RoomPicture> findAllByRoomId(Long id);
 
     void save(RoomPicture roomPicture);
+
+    void deleteAll(Long id);
 }

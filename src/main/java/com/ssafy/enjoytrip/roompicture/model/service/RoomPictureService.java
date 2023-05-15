@@ -11,4 +11,6 @@ public interface RoomPictureService{
     void saveAll(List<String> imageUrl, Long roomId);
 
     void update(Long id, List<MultipartFile> imageList);
+    void deleteAll(Long id);
+
 }

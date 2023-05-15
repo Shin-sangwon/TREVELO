@@ -9,11 +9,13 @@ import java.util.List;
 
 public interface RoomService {
 
-    List<RoomListResponseDto> findAll() throws Exception;
+    List<RoomListResponseDto> findAll();
 
     RoomResponseDto findById(Long id);
 
     Long save(RoomCreateRequestDto roomCreateRequestDto, Member member);
 
     void update(RoomUpdateRequestDto roomUpdateRequestDto);
+
+    void delete(Long id);
 }

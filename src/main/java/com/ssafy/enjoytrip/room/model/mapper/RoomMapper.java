@@ -17,4 +17,6 @@ public interface RoomMapper {
     Long save(RoomCreateRequestDto roomCreateRequestDto);
 
     void update(RoomUpdateRequestDto roomUpdateRequestDto);
+
+    void delete(Long id);
 }

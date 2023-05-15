@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class RoomControllerAdvice {
 
     @ExceptionHandler(RoomException.class)
-    public ResponseEntity<?> memberExceptionHandler(RoomException e) {
+    public ResponseEntity<?> roomExceptionHandler(RoomException e) {
         return ResponseEntity.status(e.getErrorCode()
                                       .getHttpStatus())
                              .body(e.getErrorCode().name() + " " + e.getMessage());
     }
 
     @ExceptionHandler(AmazonS3Exception.class)
-    public ResponseEntity<?> memberExceptionHandler(AmazonS3Exception e) {
+    public ResponseEntity<?> amazonExceptionHandler(AmazonS3Exception e) {
         return ResponseEntity.status(e.getErrorCode()
                                       .getHttpStatus())
                              .body(e.getErrorCode().name() + " " + e.getMessage());

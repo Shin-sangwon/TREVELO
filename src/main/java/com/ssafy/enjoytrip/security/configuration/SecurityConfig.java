@@ -19,6 +19,7 @@ public class SecurityConfig {
     private final MemberService memberService;
     @Value("${jwt.token.secret}")
     private String secretKey;
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity

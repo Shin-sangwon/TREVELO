@@ -26,7 +26,7 @@ public class RoomServiceImpl implements RoomService {
     private final RoomPictureService roomPictureService;
     @Transactional(readOnly = true)
     @Override
-    public List<RoomListResponseDto> findAll() throws Exception {
+    public List<RoomListResponseDto> findAll() {
 
         return roomMapper.findAll()
                          .stream()
@@ -60,10 +60,18 @@ public class RoomServiceImpl implements RoomService {
         return roomMapper.save(roomCreateRequestDto);
     }
 
+    @Transactional
     @Override
     public void update(RoomUpdateRequestDto roomUpdateRequestDto) {
 
         roomMapper.update(roomUpdateRequestDto);
+    }
+
+    @Transactional
+    @Override
+    public void delete(Long id) {
+
+        roomMapper.delete(id);
     }
 
 

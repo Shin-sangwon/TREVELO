@@ -40,8 +40,7 @@ public class MemberController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> memberLogin(@RequestBody MemberLoginDto memberLoginDto)
-        throws Exception {
+    public ResponseEntity<String> memberLogin(@RequestBody MemberLoginDto memberLoginDto) {
         log.info("Post - login");
         String token = memberService.login(memberLoginDto);
 

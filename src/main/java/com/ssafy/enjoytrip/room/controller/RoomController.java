@@ -18,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,7 +39,7 @@ public class RoomController {
     private final AmazonS3Service amazonS3Service;
 
     @GetMapping("/")
-    public ResponseEntity<List<RoomListResponseDto>> showRoomList(@AuthenticationPrincipal Member member) throws Exception{
+    public ResponseEntity<List<RoomListResponseDto>> showRoomList(@AuthenticationPrincipal Member member) {
         log.info("RoomList - GET");
 
         return ResponseEntity.ok().body(roomService.findAll());
@@ -56,7 +57,7 @@ public class RoomController {
     public ResponseEntity<RoomResponseDto> writeRoom(@AuthenticationPrincipal Member member, @RequestPart RoomCreateRequestDto roomCreateRequestDto, @RequestPart List<MultipartFile> imageList) {
         log.info("RoomCreate - POST");
 
-        if(member.getRole() == Role.MEMBER) {
+        if(member.getRole() == Role.SELLER) {
             throw new MemberException(ErrorCode.UNAUTHORIZED, ErrorCode.UNAUTHORIZED.getMessage());
         }
         // 숙소 저장
@@ -83,10 +84,33 @@ public class RoomController {
         if(member.getRole() == Role.ADMIN || !Objects.equals(savedOwnerId, member.getId())) {
             throw new RoomException(ErrorCode.ROOM_PERMISSION_DENIED, ErrorCode.ROOM_PERMISSION_DENIED.getMessage());
         }
+        /*
+        1. 게시물 업데이트
+        2. AWS S3 Bucket에 있는 사진을 모두 지운다
+        3. AWS S3에 사진을 다시 등록한다.
+         */
 
         roomService.update(roomUpdateRequestDto);
         roomPictureService.update(id, imageList);
 
         return ResponseEntity.ok().body(roomService.findById(id));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteRoom(@PathVariable("id") Long id, @AuthenticationPrincipal Member member) {
+
+        log.info("DELETE - deleteRoom : {}번 Room 삭제 요청", id);
+
+        Long savedOwnerId = roomService.findById(id).getOwnerId();
+
+        if(member.getRole() == Role.ADMIN || !Objects.equals(savedOwnerId, member.getId())) {
+            throw new RoomException(ErrorCode.ROOM_PERMISSION_DENIED, ErrorCode.ROOM_PERMISSION_DENIED.getMessage());
+        }
+
+        roomService.delete(id);
+        roomPictureService.deleteAll(id);
+
+        return ResponseEntity.ok().body("숙소가 정상 삭제되었습니다.");
+
     }
 }

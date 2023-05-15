@@ -30,9 +30,23 @@ public class RoomPictureServiceImpl implements RoomPictureService {
                 .forEach(roomPictureMapper::save);
     }
 
+    @Transactional
     @Override
     public void update(Long id, List<MultipartFile> imageList) {
 
 
     }
+
+
+    @Transactional
+    @Override
+    public void deleteAll(Long id) {
+
+        roomPictureMapper.deleteAll(id);
+
+    }
+
+
+
+
 }

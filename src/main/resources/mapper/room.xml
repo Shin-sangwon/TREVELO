@@ -46,4 +46,9 @@
     WHERE room_id = #{id};
   </update>
 
+  <delete id="delete">
+    DELETE FROM ROOM
+    WHERE room_id = #{id};
+  </delete>
+
 </mapper>

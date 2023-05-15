@@ -18,9 +18,19 @@
     WHERE room_id = #{id}
   </select>
 
+  <select id="getAllIdOfDeleteRoom" resultType="Long">
+    SELECT room_picture_id
+    FROM room_picture
+    WHERE room_id = #{id};
+  </select>
+
   <insert id="save">
     insert into room_picture(room_id, picture)
     values (#{roomId}, #{picture})
   </insert>
 
+  <delete id="deleteAll">
+    DELETE FROM room_picture
+    WHERE room_id = #{id};
+  </delete>
 </mapper>
