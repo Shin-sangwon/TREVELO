@@ -7,40 +7,19 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ssafy.enjoytrip.attraction.model.mapper.AttractionMapper;
+import com.ssafy.enjoytrip.common.ControllerTest;
 import com.ssafy.enjoytrip.global.ErrorCode;
 import com.ssafy.enjoytrip.member.exception.MemberException;
 import com.ssafy.enjoytrip.member.model.dto.MemberJoinDto;
 import com.ssafy.enjoytrip.member.model.dto.MemberLoginDto;
-import com.ssafy.enjoytrip.member.model.mapper.MemberMapper;
-import com.ssafy.enjoytrip.member.model.service.MemberService;
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.web.servlet.MockMvc;
 
-@ActiveProfiles("test")
-@WebMvcTest(MemberController.class)
-class MemberControllerTest {
-
-    @Autowired
-    MockMvc mockMvc;
-    @MockBean
-    MemberService memberService;
-    @MockBean
-    MemberMapper memberMapper;
-    @MockBean
-    AttractionMapper attractionMapper;
-    @Autowired
-    ObjectMapper objectMapper;
+class MemberControllerTest extends ControllerTest {
 
     @BeforeEach
     void tearUp() throws Exception {
