@@ -12,11 +12,15 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class RoomUpdateRequestDto {
 
-    private String id;
+    private Long id;
     private String roomName;
     private String address;
     private String introduce;
     private Long pricePerNight;
-    private int sidoCode;
+    private Integer sidoCode;
+
+    public void mapRoomId(Long id) {
+        this.id = id;
+    }
 
 }

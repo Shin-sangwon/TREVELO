@@ -53,7 +53,7 @@ public class RoomController {
     }
 
     // TODO : 트랜잭션 범위 고민해보기
-    @PostMapping("/write")
+    @PostMapping("/")
     public ResponseEntity<RoomResponseDto> writeRoom(@AuthenticationPrincipal Member member, @RequestPart RoomCreateRequestDto roomCreateRequestDto, @RequestPart List<MultipartFile> imageList) {
         log.info("RoomCreate - POST");
 
@@ -81,7 +81,7 @@ public class RoomController {
 
         Long savedOwnerId = roomService.findById(id).getOwnerId();
 
-        if(member.getRole() == Role.ADMIN || !Objects.equals(savedOwnerId, member.getId())) {
+        if(!Objects.equals(savedOwnerId, member.getId())) {
             throw new RoomException(ErrorCode.ROOM_PERMISSION_DENIED, ErrorCode.ROOM_PERMISSION_DENIED.getMessage());
         }
         /*
@@ -89,7 +89,7 @@ public class RoomController {
         2. AWS S3 Bucket에 있는 사진을 모두 지운다
         3. AWS S3에 사진을 다시 등록한다.
          */
-
+        roomUpdateRequestDto.mapRoomId(id);
         roomService.update(roomUpdateRequestDto);
         roomPictureService.deleteAllWithS3(id);
 
