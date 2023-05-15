@@ -2,7 +2,6 @@ package com.ssafy.enjoytrip.roompicture.model.service;
 
 import com.ssafy.enjoytrip.roompicture.model.entity.RoomPicture;
 import java.util.List;
-import org.springframework.web.multipart.MultipartFile;
 
 public interface RoomPictureService{
 
@@ -10,7 +9,7 @@ public interface RoomPictureService{
 
     void saveAll(List<String> imageUrl, Long roomId);
 
-    void update(Long id, List<MultipartFile> imageList);
     void deleteAll(Long id);
 
+    void deleteAllWithS3(Long id);
 }

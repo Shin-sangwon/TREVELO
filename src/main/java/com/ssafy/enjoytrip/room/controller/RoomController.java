@@ -91,7 +91,12 @@ public class RoomController {
          */
 
         roomService.update(roomUpdateRequestDto);
-        roomPictureService.update(id, imageList);
+        roomPictureService.deleteAllWithS3(id);
+
+        if(imageList != null) {
+            List<String> imageUrl = amazonS3Service.uploadFiles(imageList);
+            roomPictureService.saveAll(imageUrl, id);
+        }
 
         return ResponseEntity.ok().body(roomService.findById(id));
     }
@@ -109,6 +114,7 @@ public class RoomController {
 
         roomService.delete(id);
         roomPictureService.deleteAll(id);
+
 
         return ResponseEntity.ok().body("숙소가 정상 삭제되었습니다.");
 
