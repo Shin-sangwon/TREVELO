@@ -28,6 +28,7 @@ public class AmazonS3Service {
     private final AmazonS3 amazonS3;
 
     public List<String> uploadFiles(List<MultipartFile> multipartFiles) {
+        log.debug("AmazonS3Service - uploadFiles. '{}' 개의 사진이 입력되었습니다.", multipartFiles.size());
         List<String> fileNameList = new ArrayList<>();
 
         multipartFiles.forEach(file -> {

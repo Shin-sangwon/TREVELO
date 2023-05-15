@@ -6,6 +6,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 @RequiredArgsConstructor
 @Service
@@ -27,5 +28,11 @@ public class RoomPictureServiceImpl implements RoomPictureService {
         imageUrl.stream()
                 .map(url -> RoomPicture.of(url, roomId))
                 .forEach(roomPictureMapper::save);
+    }
+
+    @Override
+    public void update(Long id, List<MultipartFile> imageList) {
+
+
     }
 }

@@ -4,6 +4,7 @@ import com.ssafy.enjoytrip.global.ErrorCode;
 import com.ssafy.enjoytrip.member.model.entity.Member;
 import com.ssafy.enjoytrip.room.exception.RoomException;
 import com.ssafy.enjoytrip.room.model.dto.request.RoomCreateRequestDto;
+import com.ssafy.enjoytrip.room.model.dto.request.RoomUpdateRequestDto;
 import com.ssafy.enjoytrip.room.model.dto.response.RoomListResponseDto;
 import com.ssafy.enjoytrip.room.model.dto.response.RoomResponseDto;
 import com.ssafy.enjoytrip.room.model.entity.Room;
@@ -57,6 +58,12 @@ public class RoomServiceImpl implements RoomService {
         roomCreateRequestDto.mapOwnerId(member.getId());
 
         return roomMapper.save(roomCreateRequestDto);
+    }
+
+    @Override
+    public void update(RoomUpdateRequestDto roomUpdateRequestDto) {
+
+        roomMapper.update(roomUpdateRequestDto);
     }
 
 

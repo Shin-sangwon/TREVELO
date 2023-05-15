@@ -33,4 +33,17 @@
     values(#{ownerId}, #{roomName}, #{address}, #{introduce}, #{pricePerNight}, ${sidoCode})
   </insert>
 
+  <update id="update" parameterType="RoomUpdateRequestDto">
+    UPDATE room
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="roomName != null">room_name = #{roomName}</if>
+      <if test="address != null">address = #{address}</if>
+      <if test="introduce != null">introduce = #{introduce}</if>
+      <if test="pricePerNight != null">price_per_night = #{pricePerNight}</if>
+      <if test="sidoCode != null">sido_code = #{sidoCode}</if>
+    </trim>
+    updatedat = CURRENT_TIMESTAMP
+    WHERE room_id = #{id};
+  </update>
+
 </mapper>
