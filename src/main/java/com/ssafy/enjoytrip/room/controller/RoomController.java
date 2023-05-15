@@ -108,12 +108,13 @@ public class RoomController {
 
         Long savedOwnerId = roomService.findById(id).getOwnerId();
 
-        if(member.getRole() == Role.ADMIN || !Objects.equals(savedOwnerId, member.getId())) {
+        if(!Objects.equals(savedOwnerId, member.getId())) {
             throw new RoomException(ErrorCode.ROOM_PERMISSION_DENIED, ErrorCode.ROOM_PERMISSION_DENIED.getMessage());
         }
 
-        roomService.delete(id);
         roomPictureService.deleteAll(id);
+        roomService.delete(id);
+
 
 
         return ResponseEntity.ok().body("숙소가 정상 삭제되었습니다.");
