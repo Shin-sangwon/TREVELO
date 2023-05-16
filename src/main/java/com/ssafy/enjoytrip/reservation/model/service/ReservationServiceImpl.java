@@ -29,7 +29,7 @@ public class ReservationServiceImpl implements ReservationService {
     public ReservationResponseDto findById(Long id) {
         return reservationMapper.findById(id)
                                 .orElseThrow(() -> new RoomException(
-                                    ErrorCode.ROOM_NOT_FOUND,
-                                    ErrorCode.ROOM_NOT_FOUND.getMessage()));
+                                    ErrorCode.RESERVATION_NOT_FOUND,
+                                    ErrorCode.RESERVATION_NOT_FOUND.getMessage()));
     }
 }

@@ -5,6 +5,8 @@ import com.ssafy.enjoytrip.reservation.model.dto.response.ReservationResponseDto
 import com.ssafy.enjoytrip.reservation.model.dto.request.ReservationSaveRequestDto;
 import com.ssafy.enjoytrip.reservation.model.service.ReservationDateService;
 import com.ssafy.enjoytrip.reservation.model.service.ReservationService;
+import com.ssafy.enjoytrip.room.model.dto.response.RoomResponseDto;
+import com.ssafy.enjoytrip.room.model.service.RoomService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,6 +27,7 @@ public class ReservationController {
 
     private final ReservationService reservationService;
     private final ReservationDateService reservationDateService;
+    private final RoomService roomService;
 
     @GetMapping("/")
     public ResponseEntity<List<ReservationResponseDto>> showReservationList(@AuthenticationPrincipal Member member) {
@@ -48,6 +51,7 @@ public class ReservationController {
     public ResponseEntity<ReservationResponseDto> makeReservation(@PathVariable("id") Long roomId, @AuthenticationPrincipal Member member, @RequestBody ReservationSaveRequestDto reservationSaveRequestDto) {
         log.info("'{}' member call POST - makeReservation", member.getLoginId());
 
+        RoomResponseDto room = roomService.findById(roomId);
         reservationDateService.isRoomAvailable(roomId, reservationSaveRequestDto.getCheckInDate(), reservationSaveRequestDto.getCheckOutDate());
 
         return ResponseEntity.ok().body(reservationService.findById(reservationSaveRequestDto.getId()));
