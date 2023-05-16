@@ -411,6 +411,9 @@ values ('sangwon123', '$2a$10$BHGlzgoDUs669ty034woCe7ZjNPcMFPwdA2CcLnfCb8D3W/8kL
 insert into room(owner_id, room_name, address, introduce, price_per_night, sido_code, gugun_code)
 values (2, 'sangwonroom', '광산구', '광주에 있어요', 100000, 5, 1);
 
+insert into reservation(customer_id, room_id, total_price, ispaid, check_in_date, check_out_date)
+values (2, 1, 100000, 0, '2023-05-16', '2023-05-18');
+
 insert into room_picture(room_id, picture)
 values (1, "picture/1");
 
@@ -438,3 +441,5 @@ insert into gugun select * from enjoytrip.gugun;
 insert into attraction_info select * from enjoytrip.attraction_info;
 insert into attraction_detail select * from enjoytrip.attraction_detail;
 insert into attraction_description select * from enjoytrip.attraction_description;
+
+select * from room_reservation_date;

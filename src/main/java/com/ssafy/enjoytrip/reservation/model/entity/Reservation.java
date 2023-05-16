@@ -1,25 +1,29 @@
 package com.ssafy.enjoytrip.reservation.model.entity;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.apache.ibatis.type.Alias;
 
 
 @Getter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Alias("reservation")
 public class Reservation {
 
     private Long id;
-    private Long memberId;
+    private Long customerId;
     private Long roomId;
     private Long totalPrice;
     private boolean isPaid;
     private LocalDate checkInDate;
     private LocalDate checkOutDate;
-
+    private LocalDateTime createdat;
+    private LocalDateTime updatedat;
 }
