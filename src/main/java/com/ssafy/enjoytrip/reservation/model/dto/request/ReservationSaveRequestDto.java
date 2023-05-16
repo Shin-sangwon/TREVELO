@@ -30,6 +30,6 @@ public class ReservationSaveRequestDto {
     }
 
     public void mapTotalPriceToReservation(Long price){
-
+        this.totalPrice = price;
     }
 }

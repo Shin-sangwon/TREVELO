@@ -3,6 +3,8 @@ package com.ssafy.enjoytrip.reservation.model.service;
 import com.ssafy.enjoytrip.global.ErrorCode;
 import com.ssafy.enjoytrip.reservation.exception.ReservationException;
 import com.ssafy.enjoytrip.reservation.model.dto.ReservationDateCheckDto;
+import com.ssafy.enjoytrip.reservation.model.dto.request.ReservationDateSaveRequestDto;
+import com.ssafy.enjoytrip.reservation.model.dto.request.ReservationSaveRequestDto;
 import com.ssafy.enjoytrip.reservation.model.mapper.ReservationDateMapper;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -38,4 +40,19 @@ public class ReservationDateServiceImpl implements ReservationDateService {
     public Long getDaysBetween(LocalDate checkInDate, LocalDate checkOutDate) {
         return ChronoUnit.DAYS.between(checkInDate, checkOutDate) + 1;
     }
+
+    @Transactional
+    @Override
+    public void save(ReservationSaveRequestDto reservationSaveRequestDto) {
+        LocalDate startDate = reservationSaveRequestDto.getCheckInDate();
+        LocalDate endDate = reservationSaveRequestDto.getCheckOutDate();
+
+        while(!startDate.isAfter(endDate)) {
+            reservationDateMapper.save(ReservationDateSaveRequestDto.of(
+                reservationSaveRequestDto.getRoomId(), startDate));
+
+            startDate = startDate.plusDays(1L);
+        }
+    }
+
 }

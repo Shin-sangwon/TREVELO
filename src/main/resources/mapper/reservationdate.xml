@@ -20,4 +20,9 @@
     ]]>
   </select>
 
+  <insert id="save" parameterType="ReservationDateSaveRequestDto">
+    INSERT room_reservation_date(room_id, reservation_date)
+    VALUES (#{roomId}, #{date})
+  </insert>
+
 </mapper>

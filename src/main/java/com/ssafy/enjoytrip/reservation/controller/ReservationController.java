@@ -54,16 +54,17 @@ public class ReservationController {
         reservationDateService.isRoomAvailable(roomId, reservationSaveRequestDto.getCheckInDate(), reservationSaveRequestDto.getCheckOutDate());
         RoomResponseDto room = roomService.findById(roomId);
 
-        Long daysBetween = reservationDateService.getDaysBetween(reservationSaveRequestDto.getCheckInDate(), reservationSaveRequestDto.getCheckOutDate());
-        Long totalPrice = daysBetween * room.getPricePerNight();
+        long daysBetween = reservationDateService.getDaysBetween(reservationSaveRequestDto.getCheckInDate(), reservationSaveRequestDto.getCheckOutDate());
+        long totalPrice = daysBetween * room.getPricePerNight();
 
-        reservationService.checkSufficientMileage(daysBetween * totalPrice, member.getMileage());
+        reservationService.checkSufficientMileage(totalPrice, member.getMileage());
 
         reservationSaveRequestDto.mapCustomerToReservation(member.getId());
         reservationSaveRequestDto.mapRoomIdToReservation(room.getId());
         reservationSaveRequestDto.mapTotalPriceToReservation(totalPrice);
 
         reservationService.save(reservationSaveRequestDto);
+        reservationDateService.save(reservationSaveRequestDto);
 
         return ResponseEntity.ok().body(reservationService.findById(reservationSaveRequestDto.getId()));
     }
