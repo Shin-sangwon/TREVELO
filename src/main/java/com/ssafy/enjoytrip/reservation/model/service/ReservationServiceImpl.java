@@ -1,7 +1,7 @@
 package com.ssafy.enjoytrip.reservation.model.service;
 
 import com.ssafy.enjoytrip.global.ErrorCode;
-import com.ssafy.enjoytrip.reservation.model.dto.ReservationResponseDto;
+import com.ssafy.enjoytrip.reservation.model.dto.response.ReservationResponseDto;
 import com.ssafy.enjoytrip.reservation.model.mapper.ReservationMapper;
 import com.ssafy.enjoytrip.room.exception.RoomException;
 import java.util.List;

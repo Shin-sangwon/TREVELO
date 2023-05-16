@@ -22,4 +22,10 @@
     WHERE customer_id = #{id}
   </select>
 
+  <select id="findById" resultMap="reservation">
+    SELECT *
+    FROM reservation
+    WHERE reservation_id = #{id}
+  </select>
+
 </mapper>

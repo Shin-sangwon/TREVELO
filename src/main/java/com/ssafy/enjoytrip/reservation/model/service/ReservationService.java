@@ -1,6 +1,6 @@
 package com.ssafy.enjoytrip.reservation.model.service;
 
-import com.ssafy.enjoytrip.reservation.model.dto.ReservationResponseDto;
+import com.ssafy.enjoytrip.reservation.model.dto.response.ReservationResponseDto;
 import java.util.List;
 
 public interface ReservationService {

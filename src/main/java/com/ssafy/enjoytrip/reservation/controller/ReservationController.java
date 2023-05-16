@@ -1,7 +1,7 @@
 package com.ssafy.enjoytrip.reservation.controller;
 
 import com.ssafy.enjoytrip.member.model.entity.Member;
-import com.ssafy.enjoytrip.reservation.model.dto.ReservationResponseDto;
+import com.ssafy.enjoytrip.reservation.model.dto.response.ReservationResponseDto;
 import com.ssafy.enjoytrip.reservation.model.dto.request.ReservationSaveRequestDto;
 import com.ssafy.enjoytrip.reservation.model.service.ReservationDateService;
 import com.ssafy.enjoytrip.reservation.model.service.ReservationService;
@@ -49,7 +49,6 @@ public class ReservationController {
         log.info("'{}' member call POST - makeReservation", member.getLoginId());
 
         reservationDateService.isRoomAvailable(roomId, reservationSaveRequestDto.getCheckInDate(), reservationSaveRequestDto.getCheckOutDate());
-
 
         return ResponseEntity.ok().body(reservationService.findById(reservationSaveRequestDto.getId()));
     }
