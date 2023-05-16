@@ -306,7 +306,8 @@ DEFAULT CHARACTER SET = utf8mb3;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `tripdb`.`room_reservation_date` (
   `room_reservation_date_id` BIGINT NOT NULL AUTO_INCREMENT,
-  `room_id` BIGINT NULL DEFAULT NULL,
+  `room_id` BIGINT NOT NULL,
+  `reservation_id` BIGINT NOT NULL,
   `reservation_date` DATE NOT NULL,
   `createdat` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatedat` DATETIME NULL DEFAULT NULL,
@@ -314,7 +315,10 @@ CREATE TABLE IF NOT EXISTS `tripdb`.`room_reservation_date` (
   INDEX `room_to_reservation_date_idx` (`room_id` ASC) VISIBLE,
   CONSTRAINT `room_to_reservation_date_id`
     FOREIGN KEY (`room_id`)
-    REFERENCES `tripdb`.`room` (`room_id`))
+    REFERENCES `tripdb`.`room` (`room_id`),
+  CONSTRAINT `reservation_to_reservation_date_id`
+    FOREIGN KEY (`reservation_id`)
+    REFERENCES `tripdb`.`reservation` (`reservation_id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb3;
 
@@ -412,7 +416,7 @@ insert into room(owner_id, room_name, address, introduce, price_per_night, sido_
 values (2, 'sangwonroom', '광산구', '광주에 있어요', 100000, 5, 1);
 
 insert into reservation(customer_id, room_id, total_price, ispaid, check_in_date, check_out_date)
-values (2, 1, 100000, 0, '2023-05-16', '2023-05-18');
+values (2, 3, 100000, 0, '2023-05-16', '2023-05-18');
 
 insert into room_picture(room_id, picture)
 values (1, "picture/1");
@@ -436,6 +440,8 @@ select * from member;
 
 select * from reservation;
 
+select * from room;
+
 insert into sido select * from enjoytrip.sido;
 insert into gugun select * from enjoytrip.gugun;
 insert into attraction_info select * from enjoytrip.attraction_info;
@@ -443,3 +449,10 @@ insert into attraction_detail select * from enjoytrip.attraction_detail;
 insert into attraction_description select * from enjoytrip.attraction_description;
 
 select * from room_reservation_date;
+
+insert into room_reservation_date(room_id, reservation_id ,reservation_date)
+values (3, 2, '2023-05-17');
+
+update member
+set mileage = 100000
+where member_id = 2;
