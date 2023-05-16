@@ -6,4 +6,6 @@ import java.util.List;
 public interface ReservationService {
 
     List<ReservationResponseDto> findAllByMemberId(Long id);
+
+    ReservationResponseDto findById(Long id);
 }
