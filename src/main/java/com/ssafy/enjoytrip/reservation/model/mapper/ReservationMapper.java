@@ -15,4 +15,6 @@ public interface ReservationMapper {
     Optional<Reservation> findById(Long id);
 
     void save(ReservationSaveRequestDto reservationSaveRequestDto);
+
+    void delete(Long id);
 }

@@ -1,8 +1,11 @@
 package com.ssafy.enjoytrip.reservation.controller;
 
+import com.ssafy.enjoytrip.global.ErrorCode;
+import com.ssafy.enjoytrip.member.exception.MemberException;
 import com.ssafy.enjoytrip.member.model.entity.Member;
-import com.ssafy.enjoytrip.reservation.model.dto.response.ReservationResponseDto;
 import com.ssafy.enjoytrip.reservation.model.dto.request.ReservationSaveRequestDto;
+import com.ssafy.enjoytrip.reservation.model.dto.response.ReservationResponseDto;
+import com.ssafy.enjoytrip.reservation.model.entity.Reservation;
 import com.ssafy.enjoytrip.reservation.model.service.ReservationDateService;
 import com.ssafy.enjoytrip.reservation.model.service.ReservationService;
 import com.ssafy.enjoytrip.room.model.dto.response.RoomResponseDto;
@@ -12,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -47,8 +51,8 @@ public class ReservationController {
     4. room_reservation_date에 사이 날짜 전부 추가해주기(트랜잭션)
     5. 예약 완료되었습니다 .. !!
      */
-    @PostMapping("/{id}")
-    public ResponseEntity<ReservationResponseDto> makeReservation(@PathVariable("id") Long roomId, @AuthenticationPrincipal Member member, @RequestBody ReservationSaveRequestDto reservationSaveRequestDto) {
+    @PostMapping("/{roomId}")
+    public ResponseEntity<ReservationResponseDto> makeReservation(@PathVariable("roomId") Long roomId, @AuthenticationPrincipal Member member, @RequestBody ReservationSaveRequestDto reservationSaveRequestDto) {
         log.info("'{}' member call POST - makeReservation", member.getLoginId());
 
         reservationDateService.isRoomAvailable(roomId, reservationSaveRequestDto.getCheckInDate(), reservationSaveRequestDto.getCheckOutDate());
@@ -67,6 +71,26 @@ public class ReservationController {
         reservationDateService.save(reservationSaveRequestDto);
 
         return ResponseEntity.ok().body(reservationService.findById(reservationSaveRequestDto.getId()));
+    }
+
+    @DeleteMapping("/{reservationId}")
+    public ResponseEntity<String> cancelReservation(@PathVariable("reservationId") Long reservationId, @AuthenticationPrincipal Member member) {
+
+        Reservation reservation = Reservation.from(reservationService.findById(reservationId));
+
+        if(member.getId() != reservation.getCustomerId()) {
+            throw new MemberException(ErrorCode.UNAUTHORIZED, ErrorCode.UNAUTHORIZED.getMessage());
+        }
+
+        log.info("hello");
+        reservationDateService.delete(reservation.getId());
+        log.info("bye");
+        reservationService.delete(reservation.getId());
+
+
+
+
+        return ResponseEntity.ok().body("예약이 취소되었습니다.");
     }
 
 }

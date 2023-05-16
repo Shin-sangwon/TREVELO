@@ -10,4 +10,6 @@ public interface ReservationDateService {
     Long getDaysBetween(LocalDate checkInDate, LocalDate checkOutDate);
 
     void save(ReservationSaveRequestDto reservationSaveRequestDto);
+
+    void delete(Long reservationId);
 }

@@ -1,5 +1,6 @@
 package com.ssafy.enjoytrip.reservation.controller;
 
+import com.ssafy.enjoytrip.member.exception.MemberException;
 import com.ssafy.enjoytrip.reservation.exception.ReservationException;
 import com.ssafy.enjoytrip.room.exception.RoomException;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,13 @@ public class ReservationControllerAdvice {
 
     @ExceptionHandler(RoomException.class)
     public ResponseEntity<?> roomExceptionHandler(RoomException e) {
+        return ResponseEntity.status(e.getErrorCode()
+                                      .getHttpStatus())
+                             .body(e.getErrorCode().name() + " " + e.getMessage());
+    }
+
+    @ExceptionHandler(MemberException.class)
+    public ResponseEntity<?> roomExceptionHandler(MemberException e) {
         return ResponseEntity.status(e.getErrorCode()
                                       .getHttpStatus())
                              .body(e.getErrorCode().name() + " " + e.getMessage());

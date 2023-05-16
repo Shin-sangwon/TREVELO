@@ -18,6 +18,7 @@ public class ReservationDate {
 
     private Long id;
     private Long roomId;
+    private Long reservationId;
     private LocalDate reservationDate;
     private LocalDateTime createdat;
     private LocalDateTime updatedat;

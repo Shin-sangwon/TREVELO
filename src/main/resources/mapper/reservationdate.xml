@@ -7,6 +7,7 @@
   <resultMap type="reservation_date" id="reservation_date">
     <result column="room_reservation_date_id" property="id"/>
     <result column="room_id" property="roomId"/>
+    <result column="reservation_id" property="reservationId"/>
     <result column="reservation_date" property="reservationDate"/>
     <result column="createdat" property="createdat"/>
     <result column="updatedat" property="updatedat"/>
@@ -21,8 +22,13 @@
   </select>
 
   <insert id="save" parameterType="ReservationDateSaveRequestDto">
-    INSERT room_reservation_date(room_id, reservation_date)
-    VALUES (#{roomId}, #{date})
+    INSERT room_reservation_date(room_id, reservation_id, reservation_date)
+    VALUES (#{roomId}, #{reservationId}, #{date})
   </insert>
+
+  <delete id="delete">
+    DELETE FROM room_reservation_date
+    WHERE reservation_id = #{reservationId}
+  </delete>
 
 </mapper>

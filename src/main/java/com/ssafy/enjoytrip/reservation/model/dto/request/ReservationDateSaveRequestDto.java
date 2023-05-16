@@ -14,11 +14,13 @@ import lombok.NoArgsConstructor;
 public class ReservationDateSaveRequestDto {
 
     private Long roomId;
+    private Long reservationId;
     private LocalDate date;
 
-    public static ReservationDateSaveRequestDto of(Long roomId, LocalDate date) {
+    public static ReservationDateSaveRequestDto of(Long roomId, Long reservationId, LocalDate date) {
         return ReservationDateSaveRequestDto.builder()
                                             .roomId(roomId)
+                                            .reservationId(reservationId)
                                             .date(date)
                                             .build();
     }

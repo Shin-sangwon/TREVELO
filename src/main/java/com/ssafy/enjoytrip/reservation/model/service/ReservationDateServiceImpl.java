@@ -49,10 +49,17 @@ public class ReservationDateServiceImpl implements ReservationDateService {
 
         while(!startDate.isAfter(endDate)) {
             reservationDateMapper.save(ReservationDateSaveRequestDto.of(
-                reservationSaveRequestDto.getRoomId(), startDate));
+                reservationSaveRequestDto.getRoomId(), reservationSaveRequestDto.getId(), startDate));
 
             startDate = startDate.plusDays(1L);
         }
+    }
+
+    @Transactional
+    @Override
+    public void delete(Long reservationId) {
+
+        reservationDateMapper.delete(reservationId);
     }
 
 }

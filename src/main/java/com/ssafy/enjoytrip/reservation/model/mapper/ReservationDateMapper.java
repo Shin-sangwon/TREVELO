@@ -10,4 +10,6 @@ public interface ReservationDateMapper {
     int reservationAvailableCheck(ReservationDateCheckDto reservationDateCheckDto);
 
     void save(ReservationDateSaveRequestDto reservationDateSaveRequestDto);
+
+    void delete(Long reservationId);
 }

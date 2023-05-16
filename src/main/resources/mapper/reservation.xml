@@ -32,4 +32,9 @@
     INSERT INTO reservation(customer_id, room_id, total_price, isPaid, check_in_date, check_out_date)
     VALUES (#{customerId}, #{roomId}, #{totalPrice}, #{isPaid}, #{checkInDate}, #{checkOutDate})
   </insert>
+
+  <delete id="delete">
+    DELETE FROM reservation
+    WHERE reservation_id = #{id};
+  </delete>
 </mapper>

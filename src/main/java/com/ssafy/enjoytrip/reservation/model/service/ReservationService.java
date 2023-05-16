@@ -13,4 +13,6 @@ public interface ReservationService {
     void checkSufficientMileage(long price, Long mileage);
 
     void save(ReservationSaveRequestDto reservationSaveRequestDto);
+
+    void delete(Long id);
 }

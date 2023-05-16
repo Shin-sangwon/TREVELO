@@ -53,4 +53,11 @@ public class ReservationServiceImpl implements ReservationService {
 
         reservationMapper.save(reservationSaveRequestDto);
     }
+
+    @Transactional
+    @Override
+    public void delete(Long id) {
+
+        reservationMapper.delete(id);
+    }
 }

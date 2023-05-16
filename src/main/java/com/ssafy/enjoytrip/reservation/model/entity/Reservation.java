@@ -1,5 +1,6 @@
 package com.ssafy.enjoytrip.reservation.model.entity;
 
+import com.ssafy.enjoytrip.reservation.model.dto.response.ReservationResponseDto;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import lombok.AccessLevel;
@@ -26,4 +27,18 @@ public class Reservation {
     private LocalDate checkOutDate;
     private LocalDateTime createdat;
     private LocalDateTime updatedat;
+
+    public static Reservation from(ReservationResponseDto reservationResponseDto) {
+        return Reservation.builder()
+                          .id(reservationResponseDto.getId())
+                          .customerId(reservationResponseDto.getCustomerId())
+                          .roomId(reservationResponseDto.getRoomId())
+                          .totalPrice(reservationResponseDto.getTotalPrice())
+                          .isPaid(reservationResponseDto.isPaid())
+                          .checkInDate(reservationResponseDto.getCheckInDate())
+                          .checkOutDate(reservationResponseDto.getCheckOutDate())
+                          .createdat(reservationResponseDto.getCreatedat())
+                          .updatedat(reservationResponseDto.getUpdatedat())
+                          .build();
+    }
 }
