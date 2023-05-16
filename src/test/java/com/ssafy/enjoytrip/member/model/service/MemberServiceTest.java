@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import com.ssafy.enjoytrip.global.service.AmazonS3Service;
 import com.ssafy.enjoytrip.member.exception.MemberException;
 import com.ssafy.enjoytrip.member.model.dto.MemberJoinDto;
 import com.ssafy.enjoytrip.member.model.dto.MemberLoginDto;
@@ -16,6 +17,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,6 +30,9 @@ class MemberServiceTest {
 
     @Autowired
     private MemberMapper memberMapper;
+
+    @MockBean
+    AmazonS3Service amazonS3Service;
 
     @Test
     @Transactional

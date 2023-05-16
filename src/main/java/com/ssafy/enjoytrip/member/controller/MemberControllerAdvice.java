@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 public class MemberControllerAdvice {
-
+    
     @ExceptionHandler(MemberException.class)
     public ResponseEntity<?> memberExceptionHandler(MemberException e) {
         return ResponseEntity.status(e.getErrorCode()

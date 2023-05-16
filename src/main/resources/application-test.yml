@@ -4,7 +4,14 @@ spring:
     username: ssafy
     password: ssafy
     driver: com.mysql.cj.jdbc.Driver
-#  sql:
-#    init:
-#      mode: always
-#      schema-locations: sql/tripdb_test.sql
+cloud:
+  aws:
+    credentials:
+      access-key: testAccessKey
+      secret-key: testSecretKey
+    region:
+      static: ap-northeast-2
+    s3:
+      bucket: testBucket
+    stack:
+      auto: false

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.enjoytrip.room.model.mapper.RoomMapper">
+
+  <resultMap type="room" id="room">
+    <result column="room_id" property="id"/>
+    <result column="owner_id" property="ownerId"/>
+    <result column="room_name" property="roomName"/>
+    <result column="address" property="address"/>
+    <result column="introduce" property="introduce"/>
+    <result column="price_per_night" property="pricePerNight"/>
+    <result column="sido_code" property="sidoCode"/>
+    <result column="gugun_code" property="gugunCode"/>
+    <result column="createdat" property="createdat"/>
+    <result column="updatedat" property="updatedat"/>
+  </resultMap>
+
+  <select id="findAll" resultMap="room">
+    SELECT *
+    FROM room
+  </select>
+
+  <select id="findById" resultMap="room">
+    SELECT *
+    FROM room
+    WHERE room_id = #{id}
+  </select>
+
+  <insert id="save" parameterType="RoomCreateRequestDto" useGeneratedKeys="true" keyProperty="id">
+    insert into room(owner_id, room_name, address, introduce, price_per_night, sido_code)
+    values(#{ownerId}, #{roomName}, #{address}, #{introduce}, #{pricePerNight}, ${sidoCode})
+  </insert>
+
+  <update id="update" parameterType="RoomUpdateRequestDto">
+    UPDATE room
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="roomName != null">room_name = #{roomName},</if>
+      <if test="address != null">address = #{address},</if>
+      <if test="introduce != null">introduce = #{introduce},</if>
+      <if test="pricePerNight != null">price_per_night = #{pricePerNight},</if>
+      <if test="sidoCode != null">sido_code = #{sidoCode},</if>
+      <if test="true"> updatedat = CURRENT_TIMESTAMP, </if>
+    </trim>
+    WHERE room_id = #{id};
+  </update>
+
+  <delete id="delete">
+    DELETE FROM ROOM
+    WHERE room_id = #{id};
+  </delete>
+
+</mapper>
