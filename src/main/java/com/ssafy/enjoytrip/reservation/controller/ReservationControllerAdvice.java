@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-@RestControllerAdvice
+@RestControllerAdvice("com.ssafy.enjoytrip.reservation.controller")
 public class ReservationControllerAdvice {
 
     @ExceptionHandler(ReservationException.class)
