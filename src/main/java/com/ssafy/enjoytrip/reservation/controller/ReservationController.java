@@ -82,13 +82,8 @@ public class ReservationController {
             throw new MemberException(ErrorCode.UNAUTHORIZED, ErrorCode.UNAUTHORIZED.getMessage());
         }
 
-        log.info("hello");
         reservationDateService.delete(reservation.getId());
-        log.info("bye");
         reservationService.delete(reservation.getId());
-
-
-
 
         return ResponseEntity.ok().body("예약이 취소되었습니다.");
     }
