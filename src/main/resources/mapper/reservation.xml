@@ -28,4 +28,8 @@
     WHERE reservation_id = #{id}
   </select>
 
+  <insert id="save" parameterType="ReservationSaveRequestDto" useGeneratedKeys="true" keyProperty="id">
+    INSERT INTO reservation(customer_id, room_id, total_price, isPaid, check_in_date, check_out_date)
+    VALUES (#{customerId}, #{roomId}, #{totalPrice}, #{isPaid}, #{checkInDate}, #{checkOutDate})
+  </insert>
 </mapper>

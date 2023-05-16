@@ -21,4 +21,15 @@ public class ReservationSaveRequestDto {
     private LocalDate checkInDate;
     private LocalDate checkOutDate;
 
+    public void mapCustomerToReservation(Long customerId) {
+        this.customerId = customerId;
+    }
+
+    public void mapRoomIdToReservation(Long roomId) {
+        this.roomId = roomId;
+    }
+
+    public void mapTotalPriceToReservation(Long price){
+
+    }
 }

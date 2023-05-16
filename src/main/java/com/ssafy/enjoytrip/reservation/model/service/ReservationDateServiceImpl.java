@@ -5,6 +5,7 @@ import com.ssafy.enjoytrip.reservation.exception.ReservationException;
 import com.ssafy.enjoytrip.reservation.model.dto.ReservationDateCheckDto;
 import com.ssafy.enjoytrip.reservation.model.mapper.ReservationDateMapper;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -31,5 +32,10 @@ public class ReservationDateServiceImpl implements ReservationDateService {
         if(cnt > 0) {
             throw new ReservationException(ErrorCode.ROOM_ALREADY_RESERVED, ErrorCode.ROOM_ALREADY_RESERVED.getMessage());
         }
+    }
+
+    @Override
+    public Long getDaysBetween(LocalDate checkInDate, LocalDate checkOutDate) {
+        return ChronoUnit.DAYS.between(checkInDate, checkOutDate) + 1;
     }
 }

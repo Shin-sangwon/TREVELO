@@ -51,8 +51,19 @@ public class ReservationController {
     public ResponseEntity<ReservationResponseDto> makeReservation(@PathVariable("id") Long roomId, @AuthenticationPrincipal Member member, @RequestBody ReservationSaveRequestDto reservationSaveRequestDto) {
         log.info("'{}' member call POST - makeReservation", member.getLoginId());
 
-        RoomResponseDto room = roomService.findById(roomId);
         reservationDateService.isRoomAvailable(roomId, reservationSaveRequestDto.getCheckInDate(), reservationSaveRequestDto.getCheckOutDate());
+        RoomResponseDto room = roomService.findById(roomId);
+
+        Long daysBetween = reservationDateService.getDaysBetween(reservationSaveRequestDto.getCheckInDate(), reservationSaveRequestDto.getCheckOutDate());
+        Long totalPrice = daysBetween * room.getPricePerNight();
+
+        reservationService.checkSufficientMileage(daysBetween * totalPrice, member.getMileage());
+
+        reservationSaveRequestDto.mapCustomerToReservation(member.getId());
+        reservationSaveRequestDto.mapRoomIdToReservation(room.getId());
+        reservationSaveRequestDto.mapTotalPriceToReservation(totalPrice);
+
+        reservationService.save(reservationSaveRequestDto);
 
         return ResponseEntity.ok().body(reservationService.findById(reservationSaveRequestDto.getId()));
     }
