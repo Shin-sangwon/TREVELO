@@ -15,4 +15,6 @@ public interface ReservationService {
     void save(ReservationSaveRequestDto reservationSaveRequestDto);
 
     void delete(Long id);
+
+    void mapReservationDetails(ReservationSaveRequestDto reservationSaveRequestDto, Long memberId, Long roomId, long totalPrice);
 }

@@ -60,4 +60,12 @@ public class ReservationServiceImpl implements ReservationService {
 
         reservationMapper.delete(id);
     }
+
+    @Override
+    public void mapReservationDetails(ReservationSaveRequestDto reservationSaveRequestDto, Long memberId, Long roomId, long totalPrice) {
+
+        reservationSaveRequestDto.mapCustomerToReservation(memberId);
+        reservationSaveRequestDto.mapRoomIdToReservation(roomId);
+        reservationSaveRequestDto.mapTotalPriceToReservation(totalPrice);
+    }
 }

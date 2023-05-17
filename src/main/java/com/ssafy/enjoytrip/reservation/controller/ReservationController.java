@@ -62,10 +62,7 @@ public class ReservationController {
         long totalPrice = daysBetween * room.getPricePerNight();
 
         reservationService.checkSufficientMileage(totalPrice, member.getMileage());
-
-        reservationSaveRequestDto.mapCustomerToReservation(member.getId());
-        reservationSaveRequestDto.mapRoomIdToReservation(room.getId());
-        reservationSaveRequestDto.mapTotalPriceToReservation(totalPrice);
+        reservationService.mapReservationDetails(reservationSaveRequestDto, member.getId(), room.getId(), totalPrice);
 
         reservationService.save(reservationSaveRequestDto);
         reservationDateService.save(reservationSaveRequestDto);
