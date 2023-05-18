@@ -61,7 +61,7 @@
             WHERE login_id = #{loginId}
       </delete>
 
-      <update id="deductMileage" parameterType="member">
+      <update id="updateMileage" parameterType="member">
             UPDATE MEMBER
             SET MILEAGE = MILEAGE + #{mileage}
             WHERE member_id = #{id};

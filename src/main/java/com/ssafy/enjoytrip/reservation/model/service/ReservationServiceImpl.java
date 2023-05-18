@@ -66,19 +66,32 @@ public class ReservationServiceImpl implements ReservationService {
     public void save(ReservationSaveRequestDto reservationSaveRequestDto) {
         // 1. 예약 내역 저장하기
         reservationMapper.save(reservationSaveRequestDto);
-
+        log.debug("'{}'번 회원의 예약 내역 저장 성공", reservationSaveRequestDto.getCustomerId());
         // 2. 거래 내역 트랜잭션 테이블에 저장하기
         transactionService.save(Transaction.from(reservationSaveRequestDto));
-
+        log.debug("'{}'번 회원의 거래 내역 저장 성공", reservationSaveRequestDto.getCustomerId());
         // 3. 회원 마일리지 깎기
-        memberService.deductMileage(Member.from(reservationSaveRequestDto));
+        memberService.updateMileage(Member.from(reservationSaveRequestDto));
+        log.debug("'{}'번 회원의 마일리지 내역 저장 성공", reservationSaveRequestDto.getCustomerId());
     }
 
     @Transactional
     @Override
     public void delete(Long id) {
 
+        Reservation reservation = Reservation.from(findById(id));
+        // 1. 취소 거래내역 저장하기
+        transactionService.save(Transaction.forCancel(reservation));
+        log.debug("'{}'번 회원의 취소 거래내역 저장 성공", reservation.getCustomerId());
+
+        // 2. 유저에게 금액 돌려주기
+        memberService.updateMileage(Member.forCancel(reservation));
+        log.debug("'{}'번 회원의 마일리지 내역 저장 성공", reservation.getCustomerId());
+
+        // 3. 예약 취소시키기
         reservationMapper.delete(id);
+        log.debug("'{}'번 회원의 예약 내역 취소 성공", reservation.getCustomerId());
+
     }
 
     @Override

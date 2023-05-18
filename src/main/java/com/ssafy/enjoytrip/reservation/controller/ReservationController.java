@@ -72,6 +72,11 @@ public class ReservationController {
         return ResponseEntity.ok().body(reservationService.findById(reservationSaveRequestDto.getId()));
     }
 
+    /*
+    1. 취소가 가능한지 확인하기
+    2. 예약 취소하면서, 트랜잭션 테이블에 환불 내역 저장해주기
+    2-1. 유저에게 마일리지 돌려주기 (같은 트랜잭션)
+     */
     @DeleteMapping("/{reservationId}")
     public ResponseEntity<String> cancelReservation(@PathVariable("reservationId") Long reservationId, @AuthenticationPrincipal Member member) {
 

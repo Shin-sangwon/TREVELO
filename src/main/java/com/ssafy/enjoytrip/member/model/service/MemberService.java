@@ -25,5 +25,6 @@ public interface MemberService {
 
     String findLoginId(InformationFindRequestDto informationFindRequestDto);
 
-    void deductMileage(Member member);
+    void updateMileage(Member member);
+
 }

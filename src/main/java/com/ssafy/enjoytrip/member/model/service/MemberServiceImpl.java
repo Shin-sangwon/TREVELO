@@ -140,9 +140,10 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public void deductMileage(Member member) {
-        memberMapper.deductMileage(member);
+    public void updateMileage(Member member) {
+        memberMapper.updateMileage(member);
     }
+
 
     //임시 비밀번호 발급
     private String getTempPassword() {

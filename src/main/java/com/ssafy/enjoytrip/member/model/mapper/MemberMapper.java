@@ -26,5 +26,5 @@ public interface MemberMapper {
 
     void updatePassword(Member member);
 
-    void deductMileage(Member member);
+    void updateMileage(Member member);
 }
