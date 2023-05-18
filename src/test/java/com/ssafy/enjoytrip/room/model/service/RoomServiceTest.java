@@ -7,6 +7,7 @@ import com.ssafy.enjoytrip.common.ServiceTest;
 import com.ssafy.enjoytrip.member.model.entity.Member;
 import com.ssafy.enjoytrip.room.exception.RoomException;
 import com.ssafy.enjoytrip.room.model.dto.request.RoomCreateRequestDto;
+import com.ssafy.enjoytrip.room.model.dto.request.RoomUpdateRequestDto;
 import com.ssafy.enjoytrip.room.model.dto.response.RoomListResponseDto;
 import com.ssafy.enjoytrip.room.model.dto.response.RoomResponseDto;
 import com.ssafy.enjoytrip.roompicture.model.service.RoomPictureService;
@@ -54,7 +55,7 @@ class RoomServiceTest extends ServiceTest {
         roomService.save(room2, member2);
 
         List<RoomListResponseDto> roomList = roomService.findAll();
-        roomList.forEach(x -> System.out.println(x.getId()));
+
         assertEquals(roomList.size(), 2);
     }
 
@@ -76,7 +77,6 @@ class RoomServiceTest extends ServiceTest {
 
         roomService.save(room1, member1);
 
-
         RoomResponseDto room = roomService.findById(1L);
 
         assertEquals(room.getRoomName(), "테스트방1");
@@ -89,5 +89,86 @@ class RoomServiceTest extends ServiceTest {
     public void 존재하지_않는_숙소를_조회하면_RoomException_던진다() {
 
         assertThrows(RoomException.class, () -> roomService.findById(9999L));
+    }
+
+    @Test
+    @Transactional
+    @DisplayName("숙소_저장_성공한다")
+    public void 숙소_저장_성공한다() {
+
+        Member member1 = memberService.findByLoginId("test1");
+
+        RoomCreateRequestDto room1 = RoomCreateRequestDto.builder()
+                                                         .roomName("테스트방1")
+                                                         .address("서울특별시")
+                                                         .introduce("아늑합니다")
+                                                         .pricePerNight(100000L)
+                                                         .sidoCode(5)
+                                                         .build();
+
+        roomService.save(room1, member1);
+
+        RoomResponseDto room = roomService.findById(1L);
+
+        assertEquals(room.getRoomName(), "테스트방1");
+        assertEquals(room.getAddress(), "서울특별시");
+        assertEquals(room.getOwnerId(), member1.getId());
+    }
+
+    @Test
+    @Transactional
+    @DisplayName("숙소_정보_수정_성공한다")
+    public void 숙소_정보_수정_성공한다() {
+
+        Member member1 = memberService.findByLoginId("test1");
+
+        RoomCreateRequestDto room1 = RoomCreateRequestDto.builder()
+                                                         .roomName("테스트방1")
+                                                         .address("서울특별시")
+                                                         .introduce("아늑합니다")
+                                                         .pricePerNight(100000L)
+                                                         .sidoCode(5)
+                                                         .build();
+
+        roomService.save(room1, member1);
+
+        RoomUpdateRequestDto roomUpdateRequestDto = RoomUpdateRequestDto.builder()
+                                                                        .id(1L)
+                                                                        .roomName("수정_테스트방")
+                                                                        .address("경기도")
+                                                                        .build();
+
+        roomService.update(roomUpdateRequestDto);
+
+        RoomResponseDto room = roomService.findById(1L);
+
+        assertEquals(room.getRoomName(), "수정_테스트방");
+        assertEquals(room.getAddress(), "경기도");
+
+    }
+
+    @Test
+    @Transactional
+    @DisplayName("숙소_삭제_성공한다")
+    public void 숙소_삭제_성공한다() {
+
+        Member member1 = memberService.findByLoginId("test1");
+
+        RoomCreateRequestDto room1 = RoomCreateRequestDto.builder()
+                                                         .roomName("테스트방1")
+                                                         .address("서울특별시")
+                                                         .introduce("아늑합니다")
+                                                         .pricePerNight(100000L)
+                                                         .sidoCode(5)
+                                                         .build();
+
+        roomService.save(room1, member1);
+
+        roomService.delete(1L);
+
+        List<RoomListResponseDto> roomList = roomService.findAll();
+
+        assertEquals(roomList.size(), 0);
+
     }
 }

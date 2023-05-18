@@ -12,6 +12,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 
+//TODO : @Sql로 Auto_increment값은 초기화가 되는데... 너무 오래걸림
 @ActiveProfiles("test")
 @Sql(scripts = "classpath:sql/tripdb_test.sql", config = @SqlConfig(encoding = "UTF-8"))
 @SpringBootTest
@@ -22,6 +23,7 @@ public class ServiceTest {
 
     @BeforeEach
     void setUp() throws Exception {
+
         MemberJoinDto member1 = MemberJoinDto.builder()
                                              .loginId("test1")
                                              .loginPassword("test1")
