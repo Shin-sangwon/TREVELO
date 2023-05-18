@@ -14,7 +14,7 @@
     <result column="updatedat" property="updatedat"/>
   </resultMap>
 
-  <select id="findAllByMemberId" resultMap="transaction">
+  <select id="findAllByMemberId" resultType="com.ssafy.enjoytrip.transaction.model.dto.response.TransactionResponseDto">
     SELECT *
     FROM transaction;
   </select>
