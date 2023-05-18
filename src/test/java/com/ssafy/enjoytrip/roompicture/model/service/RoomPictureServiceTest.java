@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 class RoomPictureServiceTest extends ServiceTest {
 
     @BeforeEach
-    void createRoom() {
+    void tearUp() {
 
         Member member1 = memberService.findByLoginId("test1");
         Member member2 = memberService.findByLoginId("test2");

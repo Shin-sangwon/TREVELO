@@ -4,8 +4,11 @@ import com.ssafy.enjoytrip.member.model.dto.MemberJoinDto;
 import com.ssafy.enjoytrip.member.model.entity.Grade;
 import com.ssafy.enjoytrip.member.model.entity.Role;
 import com.ssafy.enjoytrip.member.model.service.MemberService;
+import com.ssafy.enjoytrip.reservation.model.service.ReservationDateService;
+import com.ssafy.enjoytrip.reservation.model.service.ReservationService;
 import com.ssafy.enjoytrip.room.model.service.RoomService;
 import com.ssafy.enjoytrip.roompicture.model.service.RoomPictureService;
+import com.ssafy.enjoytrip.transaction.model.service.TransactionService;
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +29,12 @@ public class ServiceTest {
     protected RoomService roomService;
     @Autowired
     protected RoomPictureService roomPictureService;
+    @Autowired
+    protected ReservationService reservationService;
+    @Autowired
+    protected ReservationDateService reservationDateService;
+    @Autowired
+    protected TransactionService transactionService;
 
     @BeforeEach
     void setUp() throws Exception {
@@ -36,6 +45,7 @@ public class ServiceTest {
                                              .name("테스트1")
                                              .birthday(LocalDateTime.now())
                                              .email("test1@test.com")
+                                             .mileage(10000000L)
                                              .role(Role.ADMIN)
                                              .grade(Grade.GENERAL)
                                              .build();
@@ -46,6 +56,7 @@ public class ServiceTest {
                                              .name("테스트2")
                                              .birthday(LocalDateTime.now())
                                              .email("test2@test.com")
+                                             .mileage(10000000L)
                                              .role(Role.SELLER)
                                              .grade(Grade.VIP)
                                              .build();
@@ -56,6 +67,7 @@ public class ServiceTest {
                                              .name("테스트3")
                                              .birthday(LocalDateTime.now())
                                              .email("test3@test.com")
+                                             .mileage(0L)
                                              .role(Role.MEMBER)
                                              .grade(Grade.VVIP)
                                              .build();
