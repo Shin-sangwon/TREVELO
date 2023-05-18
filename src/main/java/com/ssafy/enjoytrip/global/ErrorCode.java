@@ -21,7 +21,8 @@ public enum ErrorCode {
     /* Reservation Exception */
     ROOM_ALREADY_RESERVED(HttpStatus.BAD_REQUEST, "이미 예약된 방입니다."),
     RESERVATION_NOT_FOUND(HttpStatus.NOT_FOUND, "예약이 존재하지 않습니다."),
-    INSUFFICIENT_MILEAGE(HttpStatus.BAD_REQUEST, "마일리지가 부족합니다.");
+    INSUFFICIENT_MILEAGE(HttpStatus.BAD_REQUEST, "마일리지가 부족합니다."),
+    CANCELLATION_EXPIRED(HttpStatus.FORBIDDEN, "예약 취소 가능 날짜가 지났습니다.");
 
     private final HttpStatus httpStatus;
     private final String message;

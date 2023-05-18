@@ -12,4 +12,6 @@ public interface ReservationDateService {
     void save(ReservationSaveRequestDto reservationSaveRequestDto);
 
     void delete(Long reservationId);
+
+    void checkCancelable(LocalDate checkInDate);
 }

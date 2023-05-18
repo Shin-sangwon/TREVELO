@@ -31,8 +31,9 @@ public class ReservationDateServiceImpl implements ReservationDateService {
                                    .checkOutDate(checkOutDate)
                                    .build());
 
-        if(cnt > 0) {
-            throw new ReservationException(ErrorCode.ROOM_ALREADY_RESERVED, ErrorCode.ROOM_ALREADY_RESERVED.getMessage());
+        if (cnt > 0) {
+            throw new ReservationException(ErrorCode.ROOM_ALREADY_RESERVED,
+                ErrorCode.ROOM_ALREADY_RESERVED.getMessage());
         }
     }
 
@@ -47,9 +48,10 @@ public class ReservationDateServiceImpl implements ReservationDateService {
         LocalDate startDate = reservationSaveRequestDto.getCheckInDate();
         LocalDate endDate = reservationSaveRequestDto.getCheckOutDate();
 
-        while(!startDate.isAfter(endDate)) {
+        while (!startDate.isAfter(endDate)) {
             reservationDateMapper.save(ReservationDateSaveRequestDto.of(
-                reservationSaveRequestDto.getRoomId(), reservationSaveRequestDto.getId(), startDate));
+                reservationSaveRequestDto.getRoomId(), reservationSaveRequestDto.getId(),
+                startDate));
 
             startDate = startDate.plusDays(1L);
         }
@@ -60,6 +62,17 @@ public class ReservationDateServiceImpl implements ReservationDateService {
     public void delete(Long reservationId) {
 
         reservationDateMapper.delete(reservationId);
+    }
+
+    @Override
+    public void checkCancelable(LocalDate checkInDate) {
+        LocalDate today = LocalDate.now();
+        long daysDiff = ChronoUnit.DAYS.between(today, checkInDate);
+
+        if (daysDiff <= 1) {
+            throw new ReservationException(ErrorCode.CANCELLATION_EXPIRED,
+                                           ErrorCode.CANCELLATION_EXPIRED.getMessage());
+        }
     }
 
 }

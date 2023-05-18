@@ -79,6 +79,8 @@ public class ReservationController {
             throw new MemberException(ErrorCode.UNAUTHORIZED, ErrorCode.UNAUTHORIZED.getMessage());
         }
 
+        reservationDateService.checkCancelable(reservation.getCheckInDate());
+
         reservationDateService.delete(reservation.getId());
         reservationService.delete(reservation.getId());
 
