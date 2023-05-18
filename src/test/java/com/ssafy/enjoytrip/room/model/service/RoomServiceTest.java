@@ -10,11 +10,9 @@ import com.ssafy.enjoytrip.room.model.dto.request.RoomCreateRequestDto;
 import com.ssafy.enjoytrip.room.model.dto.request.RoomUpdateRequestDto;
 import com.ssafy.enjoytrip.room.model.dto.response.RoomListResponseDto;
 import com.ssafy.enjoytrip.room.model.dto.response.RoomResponseDto;
-import com.ssafy.enjoytrip.roompicture.model.service.RoomPictureService;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,10 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
 @SpringBootTest
 class RoomServiceTest extends ServiceTest {
 
-    @Autowired
-    private RoomService roomService;
-    @Autowired
-    private RoomPictureService roomPictureService;
 
     @Test
     @Transactional

@@ -4,6 +4,8 @@ import com.ssafy.enjoytrip.member.model.dto.MemberJoinDto;
 import com.ssafy.enjoytrip.member.model.entity.Grade;
 import com.ssafy.enjoytrip.member.model.entity.Role;
 import com.ssafy.enjoytrip.member.model.service.MemberService;
+import com.ssafy.enjoytrip.room.model.service.RoomService;
+import com.ssafy.enjoytrip.roompicture.model.service.RoomPictureService;
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,10 @@ public class ServiceTest {
 
     @Autowired
     protected MemberService memberService;
+    @Autowired
+    protected RoomService roomService;
+    @Autowired
+    protected RoomPictureService roomPictureService;
 
     @BeforeEach
     void setUp() throws Exception {
