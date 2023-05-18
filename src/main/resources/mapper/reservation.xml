@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.enjoytrip.reservation.model.mapper.ReservationMapper">
+
+  <resultMap type="reservation" id="reservation">
+    <result column="reservation_id" property="id"/>
+    <result column="customer_id" property="customerId"/>
+    <result column="room_id" property="roomId"/>
+    <result column="total_price" property="totalPrice"/>
+    <result column="isPaid" property="isPaid"/>
+    <result column="check_in_date" property="checkInDate"/>
+    <result column="check_out_date" property="checkOutDate"/>
+    <result column="createdat" property="createdat"/>
+    <result column="updatedat" property="updatedat"/>
+  </resultMap>
+
+  <select id="findAllByMemberId" resultMap="reservation">
+    SELECT *
+    FROM reservation
+    WHERE customer_id = #{id}
+  </select>
+
+  <select id="findById" resultMap="reservation">
+    SELECT *
+    FROM reservation
+    WHERE reservation_id = #{id}
+  </select>
+
+  <insert id="save" parameterType="ReservationSaveRequestDto" useGeneratedKeys="true" keyProperty="id">
+    INSERT INTO reservation(customer_id, room_id, total_price, isPaid, check_in_date, check_out_date)
+    VALUES (#{customerId}, #{roomId}, #{totalPrice}, #{isPaid}, #{checkInDate}, #{checkOutDate})
+  </insert>
+
+  <delete id="delete">
+    DELETE FROM reservation
+    WHERE reservation_id = #{id};
+  </delete>
+</mapper>

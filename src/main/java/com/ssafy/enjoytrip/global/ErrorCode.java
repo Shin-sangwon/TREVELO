@@ -16,8 +16,13 @@ public enum ErrorCode {
     /* Room Exception */
     ROOM_NOT_FOUND(HttpStatus.NOT_FOUND, "존재하지 않는 방입니다."),
     ROOM_PERMISSION_DENIED(HttpStatus.UNAUTHORIZED, "방에 대한 권한이 없습니다."),
-    /* File Upload */
-    FILE_UPLOAD_FAIL(HttpStatus.INTERNAL_SERVER_ERROR, "파일 업로드에 실패하였습니다.");
+    /* File Upload Exception*/
+    FILE_UPLOAD_FAIL(HttpStatus.INTERNAL_SERVER_ERROR, "파일 업로드에 실패하였습니다."),
+    /* Reservation Exception */
+    ROOM_ALREADY_RESERVED(HttpStatus.BAD_REQUEST, "이미 예약된 방입니다."),
+    RESERVATION_NOT_FOUND(HttpStatus.NOT_FOUND, "예약이 존재하지 않습니다."),
+    INSUFFICIENT_MILEAGE(HttpStatus.BAD_REQUEST, "마일리지가 부족합니다."),
+    CANCELLATION_EXPIRED(HttpStatus.FORBIDDEN, "예약 취소 가능 날짜가 지났습니다.");
 
     private final HttpStatus httpStatus;
     private final String message;

@@ -57,7 +57,7 @@ public class RoomController {
     public ResponseEntity<RoomResponseDto> writeRoom(@AuthenticationPrincipal Member member, @RequestPart RoomCreateRequestDto roomCreateRequestDto, @RequestPart List<MultipartFile> imageList) {
         log.info("RoomCreate - POST");
 
-        if(member.getRole() == Role.SELLER) {
+        if(member.getRole().getAuthLevel() <= Role.SELLER.getAuthLevel()) {
             throw new MemberException(ErrorCode.UNAUTHORIZED, ErrorCode.UNAUTHORIZED.getMessage());
         }
         // 숙소 저장
