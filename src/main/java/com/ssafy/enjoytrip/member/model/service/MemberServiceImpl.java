@@ -139,6 +139,11 @@ public class MemberServiceImpl implements MemberService {
         return "가입하신 계정으로 아이디를 전송했습니다.";
     }
 
+    @Override
+    public void deductMileage(Member member) {
+        memberMapper.deductMileage(member);
+    }
+
     //임시 비밀번호 발급
     private String getTempPassword() {
         // 숫자 0

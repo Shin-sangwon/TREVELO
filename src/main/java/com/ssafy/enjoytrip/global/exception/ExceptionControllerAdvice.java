@@ -13,6 +13,7 @@ public class ExceptionControllerAdvice {
 
     @ExceptionHandler(MemberException.class)
     public ResponseEntity<?> memberExceptionHandler(MemberException e) {
+
         return ResponseEntity.status(e.getErrorCode()
                                       .getHttpStatus())
                              .body(e.getErrorCode().name() + " " + e.getMessage());

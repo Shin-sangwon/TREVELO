@@ -8,6 +8,7 @@
     <result column="transaction_id" property="id"/>
     <result column="member_id" property="memberId"/>
     <result column="transaction_amount" property="amount"/>
+    <result column="transaction_type" property="transactionType"/>
     <result column="description" property="description"/>
     <result column="createdat" property="createdat"/>
     <result column="updatedat" property="updatedat"/>
@@ -17,5 +18,10 @@
     SELECT *
     FROM transaction;
   </select>
+
+  <insert id="save" parameterType="transaction">
+    INSERT INTO TRANSACTION (member_id, transaction_amount, transaction_type, description)
+    VALUES (#{memberId}, #{amount}, #{transactionType}, #{description});
+  </insert>
 
 </mapper>

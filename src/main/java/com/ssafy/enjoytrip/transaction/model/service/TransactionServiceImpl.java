@@ -1,6 +1,7 @@
 package com.ssafy.enjoytrip.transaction.model.service;
 
 import com.ssafy.enjoytrip.transaction.model.dto.response.TransactionResponseDto;
+import com.ssafy.enjoytrip.transaction.model.entity.Transaction;
 import com.ssafy.enjoytrip.transaction.model.mapper.TransactionMapper;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -15,5 +16,10 @@ public class TransactionServiceImpl implements TransactionService{
     @Override
     public List<TransactionResponseDto> findAllByMemberId(Long memberId) {
         return transactionMapper.findAllByMemberId(memberId);
+    }
+
+    @Override
+    public void save(Transaction transaction) {
+        transactionMapper.save(transaction);
     }
 }

@@ -24,4 +24,6 @@ public interface MemberService {
     String findPassword(InformationFindRequestDto informationFindRequestDto);
 
     String findLoginId(InformationFindRequestDto informationFindRequestDto);
+
+    void deductMileage(Member member);
 }

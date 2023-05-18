@@ -20,7 +20,7 @@ public class TransactionController {
 
     private final TransactionService transactionService;
 
-    @GetMapping
+    @GetMapping("/")
     public ResponseEntity<List<TransactionResponseDto>> showTransactionList(@AuthenticationPrincipal Member member) {
         log.info("showTransactionList - GET : '{}' 요청", member.getLoginId());
 

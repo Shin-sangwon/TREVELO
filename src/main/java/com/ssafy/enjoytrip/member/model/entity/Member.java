@@ -3,6 +3,7 @@ package com.ssafy.enjoytrip.member.model.entity;
 import com.ssafy.enjoytrip.member.model.dto.MemberJoinDto;
 import com.ssafy.enjoytrip.member.model.dto.MemberLoginDto;
 import com.ssafy.enjoytrip.member.model.dto.MemberUpdateDto;
+import com.ssafy.enjoytrip.reservation.model.dto.request.ReservationSaveRequestDto;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -53,8 +54,9 @@ public class Member implements UserDetails {
                      .name(memberJoinDto.getName())
                      .birthday(memberJoinDto.getBirthday())
                      .email(memberJoinDto.getEmail())
-                     .role(memberJoinDto.getRole() == null? Role.MEMBER : memberJoinDto.getRole())
-                     .grade(memberJoinDto.getGrade() == null? Grade.GENERAL : memberJoinDto.getGrade())
+                     .role(memberJoinDto.getRole() == null ? Role.MEMBER : memberJoinDto.getRole())
+                     .grade(memberJoinDto.getGrade() == null ? Grade.GENERAL
+                         : memberJoinDto.getGrade())
                      .mileage(0L)
                      .createdat(memberJoinDto.getCreatedat())
                      .updatedat(memberJoinDto.getUpdatedat())
@@ -74,6 +76,14 @@ public class Member implements UserDetails {
                      .loginPassword(memberUpdateDto.getLoginPassword())
                      .name(memberUpdateDto.getName())
                      .email(memberUpdateDto.getEmail())
+                     .build();
+    }
+
+    public static Member from(ReservationSaveRequestDto reservationSaveRequestDto) {
+
+        return Member.builder()
+                     .id(reservationSaveRequestDto.getCustomerId())
+                     .mileage((long) (reservationSaveRequestDto.getTotalPrice() / 10.0) * -1)
                      .build();
     }
 
@@ -97,7 +107,7 @@ public class Member implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
 
-        if(this.authorities.size() == 0) {
+        if (this.authorities.size() == 0) {
             this.authorities.add(new SimpleGrantedAuthority("MEMBER"));
         }
 
@@ -105,7 +115,9 @@ public class Member implements UserDetails {
     }
 
     public boolean hasAuthority(String auth) {
-        return authorities.stream().anyMatch(x -> x.getAuthority().equals(auth));
+        return authorities.stream()
+                          .anyMatch(x -> x.getAuthority()
+                                          .equals(auth));
     }
 
     public void grantSellerAuthority() {
