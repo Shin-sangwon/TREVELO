@@ -1,6 +1,6 @@
 package com.ssafy.enjoytrip.reservation.model.service;
 
-import com.ssafy.enjoytrip.global.ErrorCode;
+import com.ssafy.enjoytrip.global.exception.ErrorCode;
 import com.ssafy.enjoytrip.reservation.exception.ReservationException;
 import com.ssafy.enjoytrip.reservation.model.dto.request.ReservationSaveRequestDto;
 import com.ssafy.enjoytrip.reservation.model.dto.response.ReservationResponseDto;

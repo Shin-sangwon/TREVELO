@@ -1,17 +1,18 @@
-package com.ssafy.enjoytrip.reservation.controller;
+package com.ssafy.enjoytrip.global.exception;
 
 import com.ssafy.enjoytrip.member.exception.MemberException;
 import com.ssafy.enjoytrip.reservation.exception.ReservationException;
 import com.ssafy.enjoytrip.room.exception.RoomException;
+import com.ssafy.enjoytrip.transaction.Exception.TransactionException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-@RestControllerAdvice("com.ssafy.enjoytrip.reservation.controller")
-public class ReservationControllerAdvice {
+@RestControllerAdvice
+public class ExceptionControllerAdvice {
 
-    @ExceptionHandler(ReservationException.class)
-    public ResponseEntity<?> reservationExceptionHandler(ReservationException e) {
+    @ExceptionHandler(MemberException.class)
+    public ResponseEntity<?> memberExceptionHandler(MemberException e) {
         return ResponseEntity.status(e.getErrorCode()
                                       .getHttpStatus())
                              .body(e.getErrorCode().name() + " " + e.getMessage());
@@ -24,8 +25,22 @@ public class ReservationControllerAdvice {
                              .body(e.getErrorCode().name() + " " + e.getMessage());
     }
 
-    @ExceptionHandler(MemberException.class)
-    public ResponseEntity<?> roomExceptionHandler(MemberException e) {
+    @ExceptionHandler(ReservationException.class)
+    public ResponseEntity<?> reservationExceptionHandler(ReservationException e) {
+        return ResponseEntity.status(e.getErrorCode()
+                                      .getHttpStatus())
+                             .body(e.getErrorCode().name() + " " + e.getMessage());
+    }
+
+    @ExceptionHandler(AmazonS3Exception.class)
+    public ResponseEntity<?> amazonExceptionHandler(AmazonS3Exception e) {
+        return ResponseEntity.status(e.getErrorCode()
+                                      .getHttpStatus())
+                             .body(e.getErrorCode().name() + " " + e.getMessage());
+    }
+
+    @ExceptionHandler(TransactionException.class)
+    public ResponseEntity<?> transactionExceptionHandler(TransactionException e) {
         return ResponseEntity.status(e.getErrorCode()
                                       .getHttpStatus())
                              .body(e.getErrorCode().name() + " " + e.getMessage());
