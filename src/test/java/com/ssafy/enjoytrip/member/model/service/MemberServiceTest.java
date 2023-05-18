@@ -27,10 +27,8 @@ class MemberServiceTest {
 
     @Autowired
     private MemberService memberService;
-
     @Autowired
     private MemberMapper memberMapper;
-
     @MockBean
     AmazonS3Service amazonS3Service;
 
@@ -40,11 +38,11 @@ class MemberServiceTest {
     void memberJoin_Success() throws Exception {
 
         MemberJoinDto memberJoinDto = MemberJoinDto.builder()
-                                                   .loginId("test123")
-                                                   .loginPassword("test123")
+                                                   .loginId("test1")
+                                                   .loginPassword("test1")
                                                    .name("테스트")
                                                    .birthday(LocalDateTime.now())
-                                                   .email("test123@test.com")
+                                                   .email("test1@test.com")
                                                    .role(Role.ADMIN)
                                                    .grade(Grade.VIP)
                                                    .build();

@@ -301,6 +301,26 @@ CREATE TABLE IF NOT EXISTS `tripdb_test`.`reservation` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb3;
 
+-- -----------------------------------------------------
+-- Table `tripdb_test`.`room_reservation_date`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `tripdb_test`.`room_reservation_date` (
+  `room_reservation_date_id` BIGINT NOT NULL AUTO_INCREMENT,
+  `room_id` BIGINT NOT NULL,
+  `reservation_id` BIGINT NOT NULL,
+  `reservation_date` DATE NOT NULL,
+  `createdat` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updatedat` DATETIME NULL DEFAULT NULL,
+  PRIMARY KEY (`room_reservation_date_id`),
+  INDEX `room_to_reservation_date_idx` (`room_id` ASC) VISIBLE,
+  CONSTRAINT `room_to_reservation_date_id`
+    FOREIGN KEY (`room_id`)
+    REFERENCES `tripdb_test`.`room` (`room_id`),
+  CONSTRAINT `reservation_to_reservation_date_id`
+    FOREIGN KEY (`reservation_id`)
+    REFERENCES `tripdb_test`.`reservation` (`reservation_id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
 
 -- -----------------------------------------------------
 -- Table `tripdb_test`.`review`
@@ -366,19 +386,19 @@ DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
--- Table `tripdb_test`.`transcation`
+-- Table `tripdb_test`.`transaction`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `tripdb_test`.`transcation` (
-  `transcation_id` BIGINT NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `tripdb_test`.`transaction` (
+  `transaction_id` BIGINT NOT NULL AUTO_INCREMENT,
   `member_id` BIGINT NOT NULL,
   `transaction_amount` BIGINT NULL DEFAULT NULL,
-  `transaction_type` VARCHAR(10) NOT NULL,
+  `transaction_type` VARCHAR(50) NOT NULL,
   `description` TEXT NULL DEFAULT NULL,
   `createdat` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatedat` DATETIME NULL DEFAULT NULL,
-  PRIMARY KEY (`transcation_id`),
-  INDEX `member_to_transcation_idx` (`member_id` ASC) VISIBLE,
-  CONSTRAINT `member_to_transcation`
+  PRIMARY KEY (`transaction_id`),
+  INDEX `member_to_transaction_idx` (`member_id` ASC) VISIBLE,
+  CONSTRAINT `member_to_transaction`
     FOREIGN KEY (`member_id`)
     REFERENCES `tripdb_test`.`member` (`member_id`))
 ENGINE = InnoDB
