@@ -1,6 +1,7 @@
 package com.ssafy.enjoytrip.global.exception;
 
 import com.ssafy.enjoytrip.member.exception.MemberException;
+import com.ssafy.enjoytrip.payment.exception.PaymentException;
 import com.ssafy.enjoytrip.reservation.exception.ReservationException;
 import com.ssafy.enjoytrip.room.exception.RoomException;
 import com.ssafy.enjoytrip.transaction.Exception.TransactionException;
@@ -42,6 +43,13 @@ public class ExceptionControllerAdvice {
 
     @ExceptionHandler(TransactionException.class)
     public ResponseEntity<?> transactionExceptionHandler(TransactionException e) {
+        return ResponseEntity.status(e.getErrorCode()
+                                      .getHttpStatus())
+                             .body(e.getErrorCode().name() + " " + e.getMessage());
+    }
+
+    @ExceptionHandler(PaymentException.class)
+    public ResponseEntity<?> transactionExceptionHandler(PaymentException e) {
         return ResponseEntity.status(e.getErrorCode()
                                       .getHttpStatus())
                              .body(e.getErrorCode().name() + " " + e.getMessage());

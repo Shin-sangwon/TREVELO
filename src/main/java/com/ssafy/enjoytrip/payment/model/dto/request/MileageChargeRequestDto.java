@@ -1,26 +1,18 @@
-package com.ssafy.enjoytrip.payment.model.entity;
+package com.ssafy.enjoytrip.payment.model.dto.request;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.apache.ibatis.type.Alias;
 
 @Getter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Alias("payment")
-public class Payment {
+public class MileageChargeRequestDto {
 
-    private Long id;
-    private PayType payType;
     private Long amount;
-    private String orderId;
-    private String orderName;
     private String customerEmail;
     private String customerName;
-    private String createdat;
-
 }
