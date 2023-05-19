@@ -46,5 +46,6 @@ public class PaymentController {
 
         String result = paymentService.approveRequestToPayments(paymentKey, orderId, amount);
 
+        return ResponseEntity.ok().body(result);
     }
 }
