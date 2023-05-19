@@ -55,3 +55,8 @@ cloud:
     stack:
       auto: false
 
+toss:
+  test:
+    client-key: test_ck_aBX7zk2yd8yWXEvbYGqVx9POLqKQ
+    secret-key: test_sk_7XZYkKL4MrjE2XEXvEWV0zJwlEWR
+

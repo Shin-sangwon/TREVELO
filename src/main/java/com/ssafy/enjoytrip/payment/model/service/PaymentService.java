@@ -12,4 +12,6 @@ public interface PaymentService {
     void save(Payment payment);
 
     void verifyRequest(String paymentKey, String orderId, Long amount);
+
+    String approveRequestToPayments(String paymentKey, String orderId, Long amount);
 }

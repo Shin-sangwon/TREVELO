@@ -44,5 +44,7 @@ public class PaymentController {
 
         paymentService.verifyRequest(paymentKey, orderId, amount);
 
+        String result = paymentService.approveRequestToPayments(paymentKey, orderId, amount);
+
     }
 }
