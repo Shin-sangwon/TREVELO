@@ -404,6 +404,19 @@ CREATE TABLE IF NOT EXISTS `tripdb`.`transaction` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb3;
 
+CREATE TABLE IF NOT EXISTS `tripdb`.`payment` (
+  `payment_id` BIGINT NOT NULL AUTO_INCREMENT,
+  `pay_type` VARCHAR(50) NOT NULL,
+  `order_id` VARCHAR(150) NOT NULL,
+  `order_name` VARCHAR(50) NOT NULL,
+  `customer_email` VARCHAR(30),
+  `customer_name` VARCHAR(10),
+  `createdat` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`payment_id`),
+  INDEX `id_idx` (`payment_id` ASC) VISIBLE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
+
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
