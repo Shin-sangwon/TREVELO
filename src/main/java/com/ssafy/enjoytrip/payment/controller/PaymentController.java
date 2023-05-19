@@ -22,8 +22,9 @@ public class PaymentController {
     private final PaymentService paymentService;
     @PostMapping("/")
     public ResponseEntity<MileageChargeResponseDto> mileageChargeRequest(@AuthenticationPrincipal Member member, @RequestBody MileageChargeRequestDto mileageChargeRequestDto) {
-
+        log.info("'{}'회원 마일리지 '{}' 원충전 요청 - POST", member.getLoginId(), mileageChargeRequestDto.getAmount());
         MileageChargeResponseDto mileageChargeResponseDto = paymentService.verifyRequest(member, mileageChargeRequestDto);
 
+        return ResponseEntity.ok().body(mileageChargeResponseDto);
     }
 }

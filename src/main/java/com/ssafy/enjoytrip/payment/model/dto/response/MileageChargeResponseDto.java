@@ -22,6 +22,8 @@ public class MileageChargeResponseDto {
     private String orderName;
     private String customerEmail;
     private String customerName;
+    private String successUrl;
+    private String failUrl;
 
     public static MileageChargeResponseDto fromRequestToCard(
         MileageChargeRequestDto mileageChargeRequestDto) {
@@ -33,6 +35,8 @@ public class MileageChargeResponseDto {
                                        .orderName("마일리지 충전")
                                        .orderId(UUID.randomUUID()
                                                     .toString())
+                                       .successUrl("http://localhost/api/v1/payment/success")
+                                       .failUrl("http://localhost/api/v1/payment/fail")
                                        .build();
     }
 
