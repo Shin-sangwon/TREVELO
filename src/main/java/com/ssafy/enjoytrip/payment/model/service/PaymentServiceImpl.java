@@ -105,7 +105,7 @@ public class PaymentServiceImpl implements PaymentService {
                                          .retrieve()
                                          .bodyToMono(String.class);
 
-        return response.block(); // Blocking call, you might want to handle it differently in production
+        return response.block(); 
     }
 
     @Override
