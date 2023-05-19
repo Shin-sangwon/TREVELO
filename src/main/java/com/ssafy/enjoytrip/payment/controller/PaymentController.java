@@ -37,13 +37,14 @@ public class PaymentController {
     }
 
     @GetMapping("/success")
-    public ResponseEntity<String> paymentSuccess(@AuthenticationPrincipal Member member,
-                                                 @RequestParam("paymentKey") String paymentKey,
-                                                 @RequestParam("orderId") String orderId,
-                                                 @RequestParam("amount") Long amount) {
+    public ResponseEntity<String> paymentSuccess(
+                                                 @RequestParam String paymentKey,
+                                                 @RequestParam String orderId,
+                                                 @RequestParam Long amount) {
 
+        log.info("토스에 webClient로 최종 승인 요청");
         paymentService.verifyRequest(paymentKey, orderId, amount);
-
+        // webClient 요청 보내기
         String result = paymentService.approveRequestToPayments(paymentKey, orderId, amount);
 
         return ResponseEntity.ok().body(result);
