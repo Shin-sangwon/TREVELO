@@ -1,6 +1,6 @@
 package com.ssafy.enjoytrip.room.model.service;
 
-import com.ssafy.enjoytrip.global.ErrorCode;
+import com.ssafy.enjoytrip.global.exception.ErrorCode;
 import com.ssafy.enjoytrip.member.model.entity.Member;
 import com.ssafy.enjoytrip.room.exception.RoomException;
 import com.ssafy.enjoytrip.room.model.dto.request.RoomCreateRequestDto;

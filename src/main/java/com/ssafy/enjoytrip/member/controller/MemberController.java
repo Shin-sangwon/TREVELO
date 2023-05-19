@@ -1,6 +1,6 @@
 package com.ssafy.enjoytrip.member.controller;
 
-import com.ssafy.enjoytrip.global.ErrorCode;
+import com.ssafy.enjoytrip.global.exception.ErrorCode;
 import com.ssafy.enjoytrip.member.exception.MemberException;
 import com.ssafy.enjoytrip.member.model.dto.MemberJoinDto;
 import com.ssafy.enjoytrip.member.model.dto.MemberLoginDto;
@@ -58,7 +58,7 @@ public class MemberController {
     public ResponseEntity<MemberResponseDto> memberPage(@AuthenticationPrincipal Member member) {
         log.info("GET - mypage : {}", member.getLoginId());
 
-        return ResponseEntity.ok()  
+        return ResponseEntity.ok()
                              .body(MemberResponseDto.from(member));
     }
     @PutMapping("/mypage")

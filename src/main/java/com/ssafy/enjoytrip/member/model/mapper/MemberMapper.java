@@ -25,4 +25,6 @@ public interface MemberMapper {
     Optional<Member> findByLoginIdAndEmail(InformationFindRequestDto informationFindRequestDto);
 
     void updatePassword(Member member);
+
+    void updateMileage(Member member);
 }

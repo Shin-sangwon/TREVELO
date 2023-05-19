@@ -392,7 +392,7 @@ CREATE TABLE IF NOT EXISTS `tripdb`.`transaction` (
   `transaction_id` BIGINT NOT NULL AUTO_INCREMENT,
   `member_id` BIGINT NOT NULL,
   `transaction_amount` BIGINT NULL DEFAULT NULL,
-  `transaction_type` VARCHAR(10) NOT NULL,
+  `transaction_type` VARCHAR(50) NOT NULL,
   `description` TEXT NULL DEFAULT NULL,
   `createdat` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatedat` DATETIME NULL DEFAULT NULL,

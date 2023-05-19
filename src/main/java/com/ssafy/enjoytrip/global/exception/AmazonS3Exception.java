@@ -1,6 +1,5 @@
 package com.ssafy.enjoytrip.global.exception;
 
-import com.ssafy.enjoytrip.global.ErrorCode;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

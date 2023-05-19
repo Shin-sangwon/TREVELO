@@ -1,6 +1,6 @@
 package com.ssafy.enjoytrip.reservation.controller;
 
-import com.ssafy.enjoytrip.global.ErrorCode;
+import com.ssafy.enjoytrip.global.exception.ErrorCode;
 import com.ssafy.enjoytrip.member.exception.MemberException;
 import com.ssafy.enjoytrip.member.model.entity.Member;
 import com.ssafy.enjoytrip.reservation.model.dto.request.ReservationSaveRequestDto;
@@ -48,6 +48,8 @@ public class ReservationController {
     2. 예약금 (10%)가 있는지 검사하기
     2-1. 없다면, custom error 던지기
     3. 예약 내역 저장해주기(dto -> memberid, totalPrice)
+    3-1. 예약 내역 저장하면서, 회원 마일리지 감소시키기 (3번이랑 같은 트랜잭션)
+    3-2. 트랜잭션 테이블에, 내역 추가해주기 (3번이랑 같은 트랜잭션)
     4. room_reservation_date에 사이 날짜 전부 추가해주기(트랜잭션)
     5. 예약 완료되었습니다 .. !!
      */
@@ -70,6 +72,11 @@ public class ReservationController {
         return ResponseEntity.ok().body(reservationService.findById(reservationSaveRequestDto.getId()));
     }
 
+    /*
+    1. 취소가 가능한지 확인하기
+    2. 예약 취소하면서, 트랜잭션 테이블에 환불 내역 저장해주기
+    2-1. 유저에게 마일리지 돌려주기 (같은 트랜잭션)
+     */
     @DeleteMapping("/{reservationId}")
     public ResponseEntity<String> cancelReservation(@PathVariable("reservationId") Long reservationId, @AuthenticationPrincipal Member member) {
 

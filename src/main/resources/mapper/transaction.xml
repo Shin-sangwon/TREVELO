@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.enjoytrip.transaction.model.mapper.TransactionMapper">
+
+  <resultMap type="transaction" id="transaction">
+    <result column="transaction_id" property="id"/>
+    <result column="member_id" property="memberId"/>
+    <result column="transaction_amount" property="amount"/>
+    <result column="transaction_type" property="transactionType"/>
+    <result column="description" property="description"/>
+    <result column="createdat" property="createdat"/>
+    <result column="updatedat" property="updatedat"/>
+  </resultMap>
+
+  <select id="findAllByMemberId" resultType="com.ssafy.enjoytrip.transaction.model.dto.response.TransactionResponseDto">
+    SELECT *
+    FROM transaction;
+  </select>
+
+  <insert id="save" parameterType="transaction">
+    INSERT INTO TRANSACTION (member_id, transaction_amount, transaction_type, description)
+    VALUES (#{memberId}, #{amount}, #{transactionType}, #{description});
+  </insert>
+
+</mapper>
