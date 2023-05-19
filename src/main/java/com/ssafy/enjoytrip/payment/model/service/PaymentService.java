@@ -7,7 +7,9 @@ import com.ssafy.enjoytrip.payment.model.entity.Payment;
 
 public interface PaymentService {
 
-    MileageChargeResponseDto verifyRequest(Member member, MileageChargeRequestDto mileageChargeRequestDto);
+    MileageChargeResponseDto verifyMember(Member member, MileageChargeRequestDto mileageChargeRequestDto);
 
     void save(Payment payment);
+
+    void verifyRequest(String paymentKey, String orderId, Long amount);
 }

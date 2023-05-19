@@ -22,5 +22,10 @@ public class Payment {
     private String customerEmail;
     private String customerName;
     private String createdat;
+    private String paymentKey;
+
+    public void mapPaymentKey(String paymentKey) {
+        this.paymentKey = paymentKey;
+    }
 
 }

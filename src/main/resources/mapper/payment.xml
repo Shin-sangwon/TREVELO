@@ -12,10 +12,23 @@
     <result column="order_name" property="orderName"/>
     <result column="customer_email" property="customerEmail"/>
     <result column="customer_name" property="customerName"/>
+    <result column="payment_key" property="paymentKey"/>
     <result column="createdat" property="createdat"/>
   </resultMap>
   <insert id="save" parameterType="payment">
     INSERT INTO payment(pay_type, amount, order_id, order_name, customer_email, customer_name)
     VALUES(#{payType}, #{amount}, #{orderId}, #{orderName}, #{customerEmail}, #{customerName})
   </insert>
+
+  <select id="findByOrderId" resultMap="payment">
+    SELECT *
+    FROM payment
+    WHERE order_id = #{orderId}
+  </select>
+
+  <update id="updatePaymentKey" parameterType="payment">
+    UPDATE payment
+    set payment_key = #{paymentKey}
+    where order_id = #{orderId}
+  </update>
 </mapper>

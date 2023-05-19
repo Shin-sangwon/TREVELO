@@ -412,6 +412,7 @@ CREATE TABLE IF NOT EXISTS `tripdb`.`payment` (
   `customer_email` VARCHAR(30),
   `customer_name` VARCHAR(10),
   `amount` BIGINT NOT NULL,
+  `payment_key` VARCHAR(100),
   `createdat` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`payment_id`),
   INDEX `id_idx` (`payment_id` ASC) VISIBLE)
