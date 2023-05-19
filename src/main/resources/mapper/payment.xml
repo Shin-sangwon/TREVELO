@@ -6,6 +6,7 @@
 
   <resultMap type="payment" id="payment">
     <result column="payment_id" property="id"/>
+    <result column="member_id" property="memberId"/>
     <result column="pay_type" property="payType"/>
     <result column="amount" property="amount"/>
     <result column="order_id" property="orderId"/>
@@ -16,8 +17,8 @@
     <result column="createdat" property="createdat"/>
   </resultMap>
   <insert id="save" parameterType="payment">
-    INSERT INTO payment(pay_type, amount, order_id, order_name, customer_email, customer_name)
-    VALUES(#{payType}, #{amount}, #{orderId}, #{orderName}, #{customerEmail}, #{customerName})
+    INSERT INTO payment(pay_type, member_id, amount, order_id, order_name, customer_email, customer_name)
+    VALUES(#{payType}, #{memberId}, #{amount}, #{orderId}, #{orderName}, #{customerEmail}, #{customerName})
   </insert>
 
   <select id="findByOrderId" resultMap="payment">
