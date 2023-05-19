@@ -406,6 +406,7 @@ DEFAULT CHARACTER SET = utf8mb3;
 
 CREATE TABLE IF NOT EXISTS `tripdb`.`payment` (
   `payment_id` BIGINT NOT NULL AUTO_INCREMENT,
+  `member_id` BIGINT NOT NULL,
   `pay_type` VARCHAR(50) NOT NULL,
   `order_id` VARCHAR(150) NOT NULL,
   `order_name` VARCHAR(50) NOT NULL,
@@ -415,7 +416,10 @@ CREATE TABLE IF NOT EXISTS `tripdb`.`payment` (
   `payment_key` VARCHAR(100),
   `createdat` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`payment_id`),
-  INDEX `id_idx` (`payment_id` ASC) VISIBLE)
+  INDEX `member_to_payment_idx` (`member_id` ASC) VISIBLE,
+  CONSTRAINT `member_to_paymentt`
+    FOREIGN KEY (`member_id`)
+    REFERENCES `tripdb`.`member` (`member_id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb3;
 

@@ -41,6 +41,12 @@ public class PaymentController {
                              .body(mileageChargeResponseDto);
     }
 
+    /*
+    1. verifyRequest : paymentKey, orderId, amount를 가지고, 거래 내역이 맞는지 확인한다. 아니면 cunstom Exception를 발생시킨다.
+    2. approveRequestToPayments를 통해 승인 확정 요청을 toss에게 전달한다
+    3. transaction table에 거래 내역 추가해준다
+    4. 회원의 마일리지를 변동시켜 준다.
+     */
     @GetMapping("/success")
     public ResponseEntity<String> paymentSuccess(
                                                  @RequestParam String paymentKey,
@@ -53,11 +59,13 @@ public class PaymentController {
         String result = paymentService.approveRequestToPayments(paymentKey, orderId, amount);
 
         Payment payment = paymentService.findByOrderId(orderId);
+        Member member = memberService.findById(payment.getMemberId());
         // 트랜잭션 테이블에 추가해주기
+        transactionService.savePayments(payment, member);
 
         // 회원 마일리지 올려주기
-        Member member = memberService.findByLoginId(payment.getMemberId());
-        memberService.updateMileage();
+        member.updateMileage(amount);
+        memberService.updateMileage(member);
 
         return ResponseEntity.ok().body(result);
     }

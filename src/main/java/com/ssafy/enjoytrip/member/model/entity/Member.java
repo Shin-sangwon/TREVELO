@@ -40,7 +40,9 @@ public class Member implements UserDetails {
     private LocalDateTime updatedat;
     private List<GrantedAuthority> authorities = new ArrayList<>();
 
-
+    public void updateMileage(Long mileage) {
+        this.mileage += mileage;
+    }
     public void encodePassword(BCryptPasswordEncoder encoder) {
         this.loginPassword = encoder.encode(this.loginPassword);
     }
