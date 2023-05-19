@@ -15,6 +15,7 @@ import org.apache.ibatis.type.Alias;
 public class Payment {
 
     private Long id;
+    private Long memberId;
     private PayType payType;
     private Long amount;
     private String orderId;

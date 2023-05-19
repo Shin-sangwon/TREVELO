@@ -18,6 +18,7 @@ public class MileageChargeResponseDto {
 
     private PayType payType;
     private Long amount;
+    private Long memberId;
     private String orderId;
     private String orderName;
     private String customerEmail;
@@ -29,6 +30,7 @@ public class MileageChargeResponseDto {
         MileageChargeRequestDto mileageChargeRequestDto) {
         return MileageChargeResponseDto.builder()
                                        .amount(mileageChargeRequestDto.getAmount())
+                                       .memberId(mileageChargeRequestDto.getMemberId())
                                        .customerEmail(mileageChargeRequestDto.getCustomerEmail())
                                        .customerName(mileageChargeRequestDto.getCustomerName())
                                        .payType(PayType.CARD)
@@ -42,6 +44,7 @@ public class MileageChargeResponseDto {
 
     public Payment toEntity() {
         return Payment.builder()
+                      .memberId(this.memberId)
                       .amount(this.amount)
                       .customerName(this.customerName)
                       .customerEmail(this.customerEmail)

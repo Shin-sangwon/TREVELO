@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 public class MileageChargeRequestDto {
 
     private Long amount;
+    private Long memberId;
     private String customerEmail;
     private String customerName;
 }
