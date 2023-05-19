@@ -34,9 +34,6 @@ public class PaymentController {
         @RequestBody MileageChargeRequestDto mileageChargeRequestDto) {
         log.info("'{}'회원 마일리지 '{}' 원충전 요청 - POST", member.getLoginId(),
             mileageChargeRequestDto.getAmount());
-        System.out.println("###############");
-        System.out.println(mileageChargeRequestDto.getMemberId());
-        System.out.println(mileageChargeRequestDto.getCustomerName());
         MileageChargeResponseDto mileageChargeResponseDto = paymentService.verifyMember(member,
             mileageChargeRequestDto);
 
