@@ -26,4 +26,5 @@ public class TransactionController {
 
         return ResponseEntity.ok().body(transactionService.findAllByMemberId(member.getId()));
     }
+
 }
