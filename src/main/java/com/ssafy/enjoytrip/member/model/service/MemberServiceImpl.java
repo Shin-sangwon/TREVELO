@@ -36,7 +36,8 @@ public class MemberServiceImpl implements MemberService {
     public int join(MemberJoinDto memberJoinDto) throws Exception {
 
         if (joinDuplicatedCheck(memberJoinDto.getLoginId())) {
-            throw new MemberException(ErrorCode.LOGIN_ID_DUPLICATED, ErrorCode.LOGIN_ID_DUPLICATED.getMessage());
+            throw new MemberException(ErrorCode.LOGIN_ID_DUPLICATED,
+                ErrorCode.LOGIN_ID_DUPLICATED.getMessage());
         }
 
         Member member = Member.from(memberJoinDto);
@@ -58,13 +59,15 @@ public class MemberServiceImpl implements MemberService {
         Optional<Member> member = memberMapper.findByLoginId(memberLoginDto.getLoginId());
         // 1. id가 없음
         if (!member.isPresent()) {
-            throw new MemberException(ErrorCode.LOGIN_ID_NOT_FOUND, ErrorCode.LOGIN_ID_NOT_FOUND.getMessage());
+            throw new MemberException(ErrorCode.LOGIN_ID_NOT_FOUND,
+                ErrorCode.LOGIN_ID_NOT_FOUND.getMessage());
         }
         // 2. 비밀번호가 일치하지 않음
 
         if (!encoder.matches(memberLoginDto.getLoginPassword(), member.get()
                                                                       .getLoginPassword())) {
-            throw new MemberException(ErrorCode.INVALID_PASSWORD, ErrorCode.INVALID_PASSWORD.getMessage());
+            throw new MemberException(ErrorCode.INVALID_PASSWORD,
+                ErrorCode.INVALID_PASSWORD.getMessage());
         }
 
         return JwtProvider.createToken(member.get()
@@ -144,6 +147,14 @@ public class MemberServiceImpl implements MemberService {
         memberMapper.updateMileage(member);
     }
 
+    @Transactional
+    @Override
+    public Member findById(Long id) {
+        return memberMapper.findById(id)
+                           .orElseThrow(() -> new MemberException(ErrorCode.MEMBER_NOT_FOUND,
+                               ErrorCode.MEMBER_NOT_FOUND.getMessage()));
+    }
+
 
     //임시 비밀번호 발급
     private String getTempPassword() {
@@ -155,10 +166,11 @@ public class MemberServiceImpl implements MemberService {
 
         Random random = new Random();
         return random.ints(leftLimit, rightLimit + 1)
-                                    .filter(x -> (x <= 57 || x >= 65) && (x <= 90 || x >= 97))
-                                    .limit(passwordLength)
-                                    .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
-                                    .toString();
+                     .filter(x -> (x <= 57 || x >= 65) && (x <= 90 || x >= 97))
+                     .limit(passwordLength)
+                     .collect(StringBuilder::new, StringBuilder::appendCodePoint,
+                         StringBuilder::append)
+                     .toString();
     }
 
 }

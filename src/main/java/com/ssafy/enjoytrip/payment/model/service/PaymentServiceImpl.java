@@ -33,15 +33,21 @@ public class PaymentServiceImpl implements PaymentService {
     @Value("${toss.test.secret-key}")
     private String testSecretKey;
     private final String tossUrl = "https://api.tosspayments.com/v1/payments/";
+
     @Override
     public MileageChargeResponseDto verifyMember(Member member,
         MileageChargeRequestDto mileageChargeRequestDto) {
 
-        if(!member.getEmail().equals(mileageChargeRequestDto.getCustomerEmail()) || !member.getName().equals(mileageChargeRequestDto.getCustomerName())) {
-            throw new PaymentException(ErrorCode.PAYMENT_INFORMATION_MISMATCH, ErrorCode.PAYMENT_INFORMATION_MISMATCH.getMessage());
+        if (!member.getEmail()
+                   .equals(mileageChargeRequestDto.getCustomerEmail()) || !member.getName()
+                                                                                 .equals(
+                                                                                     mileageChargeRequestDto.getCustomerName())) {
+            throw new PaymentException(ErrorCode.PAYMENT_INFORMATION_MISMATCH,
+                ErrorCode.PAYMENT_INFORMATION_MISMATCH.getMessage());
         }
 
-        MileageChargeResponseDto mileageChargeResponseDto = MileageChargeResponseDto.fromRequestToCard(mileageChargeRequestDto);
+        MileageChargeResponseDto mileageChargeResponseDto = MileageChargeResponseDto.fromRequestToCard(
+            mileageChargeRequestDto);
 
         save(mileageChargeResponseDto.toEntity());
 
@@ -60,10 +66,13 @@ public class PaymentServiceImpl implements PaymentService {
     public void verifyRequest(String paymentKey, String orderId, Long amount) {
 
         Payment payment = paymentMapper.findByOrderId(orderId)
-            .orElseThrow(() -> new PaymentException(ErrorCode.ORDER_ID_NOT_FOUNT, ErrorCode.ORDER_ID_NOT_FOUNT.getMessage()));
+                                       .orElseThrow(
+                                           () -> new PaymentException(ErrorCode.ORDER_ID_NOT_FOUNT,
+                                               ErrorCode.ORDER_ID_NOT_FOUNT.getMessage()));
 
-        if(!Objects.equals(amount, payment.getAmount())) {
-            throw new PaymentException(ErrorCode.PAYMENT_INFORMATION_MISMATCH, ErrorCode.PAYMENT_INFORMATION_MISMATCH.getMessage());
+        if (!Objects.equals(amount, payment.getAmount())) {
+            throw new PaymentException(ErrorCode.PAYMENT_INFORMATION_MISMATCH,
+                ErrorCode.PAYMENT_INFORMATION_MISMATCH.getMessage());
         }
 
         payment.mapPaymentKey(paymentKey);
@@ -77,7 +86,9 @@ public class PaymentServiceImpl implements PaymentService {
         WebClient webClient = WebClient.create();
         HttpHeaders httpHeaders = new HttpHeaders();
         String testSecretKeyWithColon = testSecretKey + ":";
-        String encodedKey = new String(Base64.getEncoder().encode(testSecretKeyWithColon.getBytes(StandardCharsets.UTF_8)));
+        String encodedKey = new String(Base64.getEncoder()
+                                             .encode(testSecretKeyWithColon.getBytes(
+                                                 StandardCharsets.UTF_8)));
 
         httpHeaders.setBasicAuth(encodedKey);
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
@@ -95,6 +106,14 @@ public class PaymentServiceImpl implements PaymentService {
                                          .bodyToMono(String.class);
 
         return response.block(); // Blocking call, you might want to handle it differently in production
+    }
+
+    @Override
+    public Payment findByOrderId(String orderId) {
+
+        return paymentMapper.findByOrderId(orderId)
+                            .orElseThrow(() -> new PaymentException(ErrorCode.ORDER_ID_NOT_FOUNT,
+                                           ErrorCode.ORDER_ID_NOT_FOUNT.getMessage()));
     }
 
 

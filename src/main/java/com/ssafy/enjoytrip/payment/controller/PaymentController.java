@@ -4,6 +4,7 @@ import com.ssafy.enjoytrip.member.model.entity.Member;
 import com.ssafy.enjoytrip.member.model.service.MemberService;
 import com.ssafy.enjoytrip.payment.model.dto.request.MileageChargeRequestDto;
 import com.ssafy.enjoytrip.payment.model.dto.response.MileageChargeResponseDto;
+import com.ssafy.enjoytrip.payment.model.entity.Payment;
 import com.ssafy.enjoytrip.payment.model.service.PaymentService;
 import com.ssafy.enjoytrip.transaction.model.service.TransactionService;
 import lombok.RequiredArgsConstructor;
@@ -50,9 +51,12 @@ public class PaymentController {
         paymentService.verifyRequest(paymentKey, orderId, amount);
         // webClient 요청 보내기
         String result = paymentService.approveRequestToPayments(paymentKey, orderId, amount);
+
+        Payment payment = paymentService.findByOrderId(orderId);
         // 트랜잭션 테이블에 추가해주기
 
         // 회원 마일리지 올려주기
+        Member member = memberService.findByLoginId(payment.getMemberId());
         memberService.updateMileage();
 
         return ResponseEntity.ok().body(result);
