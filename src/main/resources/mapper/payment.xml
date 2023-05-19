@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.enjoytrip.payment.model.mapper.PaymentMapper">
+
+  <resultMap type="payment" id="payment">
+    <result column="payment_id" property="id"/>
+    <result column="pay_type" property="payType"/>
+    <result column="amount" property="amount"/>
+    <result column="order_id" property="orderId"/>
+    <result column="order_name" property="orderName"/>
+    <result column="customer_email" property="customerEmail"/>
+    <result column="customer_name" property="customerName"/>
+    <result column="createdat" property="createdat"/>
+  </resultMap>
+  <insert id="save" parameterType="payment">
+    INSERT INTO payment(pay_type, amount, order_id, order_name, customer_email, customer_name)
+    VALUES(#{payType}, #{amount}, #{orderId}, #{orderName}, #{customerEmail}, #{customerName})
+  </insert>
+</mapper>
