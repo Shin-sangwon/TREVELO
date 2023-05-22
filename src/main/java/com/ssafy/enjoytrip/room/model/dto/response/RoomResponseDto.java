@@ -44,7 +44,7 @@ public class RoomResponseDto {
     public void mapPictureToRoom(List<RoomPicture> pictureList) {
 
         roomPictures = pictureList.stream()
-                                  .map(RoomPicture::getPicture)
+                                  .map(roomPicture -> "https://ssafyfinal.s3.ap-northeast-2.amazonaws.com/" + roomPicture.getPicture())
                                   .collect(Collectors.toList());
     }
 }
