@@ -68,6 +68,6 @@ public class PaymentController {
         member.updateMileage(amount);
         memberService.updateMileage(member);
 
-        return ResponseEntity.ok().body(result);
+        return ResponseEntity.ok().build();
     }
 }

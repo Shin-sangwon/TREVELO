@@ -10,6 +10,16 @@ public class AttractionDto {
     double longitude;
     long contentType;
 
+    String first_image;
+
+    public String getFirst_image() {
+        return first_image;
+    }
+
+    public void setFirst_image(String first_image) {
+        this.first_image = first_image;
+    }
+
     public long getContentType() {
         return contentType;
     }
