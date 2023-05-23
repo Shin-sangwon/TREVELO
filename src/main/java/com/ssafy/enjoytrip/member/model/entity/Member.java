@@ -5,6 +5,7 @@ import com.ssafy.enjoytrip.member.model.dto.MemberLoginDto;
 import com.ssafy.enjoytrip.member.model.dto.MemberUpdateDto;
 import com.ssafy.enjoytrip.reservation.model.dto.request.ReservationSaveRequestDto;
 import com.ssafy.enjoytrip.reservation.model.entity.Reservation;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -31,7 +32,7 @@ public class Member implements UserDetails {
     private String loginId;
     private String loginPassword;
     private String name;
-    private LocalDateTime birthday;
+    private LocalDate birthday;
     private String email;
     private Role role;
     private Grade grade;

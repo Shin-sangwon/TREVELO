@@ -3,6 +3,7 @@ package com.ssafy.enjoytrip.member.model.dto;
 import com.ssafy.enjoytrip.member.model.entity.Grade;
 import com.ssafy.enjoytrip.member.model.entity.Member;
 import com.ssafy.enjoytrip.member.model.entity.Role;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -19,7 +20,7 @@ public class MemberResponseDto {
     private Long id;
     private String loginId;
     private String name;
-    private LocalDateTime birthday;
+    private LocalDate birthday;
     private String email;
     private Role role;
     private Grade grade;
