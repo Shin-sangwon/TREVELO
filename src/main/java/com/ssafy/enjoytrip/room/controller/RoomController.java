@@ -54,7 +54,7 @@ public class RoomController {
 
     // TODO : 트랜잭션 범위 고민해보기
     @PostMapping("/")
-    public ResponseEntity<RoomResponseDto> writeRoom(@AuthenticationPrincipal Member member, @RequestPart RoomCreateRequestDto roomCreateRequestDto, @RequestPart List<MultipartFile> imageList) {
+    public ResponseEntity<RoomResponseDto> writeRoom(@AuthenticationPrincipal Member member, @RequestPart("roomCreateRequestDto") RoomCreateRequestDto roomCreateRequestDto, @RequestPart("imageList") List<MultipartFile> imageList) {
         log.info("RoomCreate - POST");
 
         if(member.getRole().getAuthLevel() <= Role.SELLER.getAuthLevel()) {

@@ -23,8 +23,8 @@ public class RoomResponseDto {
     private LocalDateTime createdat;
     private LocalDateTime updatedat;
     // TODO 코드 어떻게 매핑??
-    private int sidoCode;
-    private int gugunCode;
+//    private int sidoCode;
+//    private int gugunCode;
 
     private List<String> roomPictures;
 

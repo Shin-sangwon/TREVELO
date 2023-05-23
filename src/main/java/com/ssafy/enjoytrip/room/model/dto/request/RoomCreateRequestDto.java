@@ -21,7 +21,7 @@ public class RoomCreateRequestDto {
     private Long pricePerNight;
     private LocalDateTime createdat;
     private LocalDateTime updatedat;
-    private int sidoCode;
+    //private int sidoCode;
     //private int gugunCode;
 
     public void mapOwnerId(Long ownerId) {
