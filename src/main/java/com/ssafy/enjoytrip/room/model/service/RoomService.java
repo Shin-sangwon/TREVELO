@@ -18,4 +18,6 @@ public interface RoomService {
     void update(RoomUpdateRequestDto roomUpdateRequestDto);
 
     void delete(Long id);
+
+    void deleteWithPicture(Long id);
 }

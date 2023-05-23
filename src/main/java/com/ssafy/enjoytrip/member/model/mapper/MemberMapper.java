@@ -27,4 +27,6 @@ public interface MemberMapper {
     void updatePassword(Member member);
 
     void updateMileage(Member member);
+
+    Optional<Member> findById(Long id);
 }

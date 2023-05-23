@@ -24,7 +24,7 @@ public class Room {
     private Long pricePerNight;
     private LocalDateTime createdat;
     private LocalDateTime updatedat;
-    private int sidoCode;
-    private int gugunCode;
+//    private int sidoCode;
+//    private int gugunCode;
     
 }

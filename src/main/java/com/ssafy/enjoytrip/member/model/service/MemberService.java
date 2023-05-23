@@ -27,4 +27,6 @@ public interface MemberService {
 
     void updateMileage(Member member);
 
+    Member findById(Long id);
+
 }

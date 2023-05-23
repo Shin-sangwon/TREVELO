@@ -259,22 +259,13 @@ CREATE TABLE IF NOT EXISTS `tripdb`.`room` (
   `createdat` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatedat` DATETIME NULL DEFAULT NULL,
   `price_per_night` BIGINT NOT NULL,
-  `sido_code` INT NOT NULL,
-  `gugun_code` INT NULL,
   PRIMARY KEY (`room_id`),
   INDEX `member_to_room_id_idx` (`owner_id` ASC) VISIBLE,
-  INDEX `sido_to_room_idx` (`sido_code` ASC) VISIBLE,
   CONSTRAINT `member_to_room_id`
     FOREIGN KEY (`owner_id`)
-    REFERENCES `tripdb`.`member` (`member_id`),
-  CONSTRAINT `sido_to_room`
-    FOREIGN KEY (`sido_code`)
-    REFERENCES `tripdb`.`sido` (`sido_code`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    REFERENCES `tripdb`.`member` (`member_id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb3;
-
 
 -- -----------------------------------------------------
 -- Table `tripdb`.`reservation`
@@ -290,12 +281,12 @@ CREATE TABLE IF NOT EXISTS `tripdb`.`reservation` (
   `createdat` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatedat` DATETIME NULL DEFAULT NULL,
   PRIMARY KEY (`reservation_id`),
-  INDEX `member_to_payment_idx` (`customer_id` ASC) VISIBLE,
-  INDEX `room_to_payment_idx` (`room_id` ASC) VISIBLE,
-  CONSTRAINT `member_to_payment`
+  INDEX `member_to_reservation_idx` (`customer_id` ASC) VISIBLE,
+  INDEX `room_to_reservation_idx` (`room_id` ASC) VISIBLE,
+  CONSTRAINT `member_to_reservation`
     FOREIGN KEY (`customer_id`)
     REFERENCES `tripdb`.`member` (`member_id`),
-  CONSTRAINT `room_to_payment`
+  CONSTRAINT `room_to_reservation`
     FOREIGN KEY (`room_id`)
     REFERENCES `tripdb`.`room` (`room_id`))
 ENGINE = InnoDB
@@ -404,16 +395,41 @@ CREATE TABLE IF NOT EXISTS `tripdb`.`transaction` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb3;
 
+CREATE TABLE IF NOT EXISTS `tripdb`.`payment` (
+  `payment_id` BIGINT NOT NULL AUTO_INCREMENT,
+  `member_id` BIGINT NOT NULL,
+  `pay_type` VARCHAR(50) NOT NULL,
+  `order_id` VARCHAR(150) NOT NULL,
+  `order_name` VARCHAR(50) NOT NULL,
+  `customer_email` VARCHAR(30),
+  `customer_name` VARCHAR(10),
+  `amount` BIGINT NOT NULL,
+  `payment_key` VARCHAR(100),
+  `createdat` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`payment_id`),
+  INDEX `member_to_payment_idx` (`member_id` ASC) VISIBLE,
+  CONSTRAINT `member_to_paymentt`
+    FOREIGN KEY (`member_id`)
+    REFERENCES `tripdb`.`member` (`member_id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
+
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
+insert into sido select * from enjoytrip.sido;
+insert into gugun select * from enjoytrip.gugun;
+insert into attraction_info select * from enjoytrip.attraction_info;
+insert into attraction_detail select * from enjoytrip.attraction_detail;
+insert into attraction_description select * from enjoytrip.attraction_description;
+
 insert into member(login_id, login_password, name, birthday, email, role, grade, mileage)
 values ('sangwon123', '$2a$10$BHGlzgoDUs669ty034woCe7ZjNPcMFPwdA2CcLnfCb8D3W/8kLouC', '신상원', now(), 'sangwon@ssafy.com', 'ADMIN', 'VVIP', 0);
 
-insert into room(owner_id, room_name, address, introduce, price_per_night, sido_code, gugun_code)
-values (2, 'sangwonroom', '광산구', '광주에 있어요', 100000, 5, 1);
+insert into room(owner_id, room_name, address, introduce, price_per_night)
+values (2, 'sangwonroom', '광산구', '광주에 있어요', 100000);
 
 insert into reservation(customer_id, room_id, total_price, ispaid, check_in_date, check_out_date)
 values (2, 3, 100000, 0, '2023-05-16', '2023-05-18');
@@ -441,12 +457,6 @@ select * from member;
 select * from reservation;
 
 select * from room;
-
-insert into sido select * from enjoytrip.sido;
-insert into gugun select * from enjoytrip.gugun;
-insert into attraction_info select * from enjoytrip.attraction_info;
-insert into attraction_detail select * from enjoytrip.attraction_detail;
-insert into attraction_description select * from enjoytrip.attraction_description;
 
 select * from room_reservation_date;
 

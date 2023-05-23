@@ -54,7 +54,7 @@ public class RoomController {
 
     // TODO : 트랜잭션 범위 고민해보기
     @PostMapping("/")
-    public ResponseEntity<RoomResponseDto> writeRoom(@AuthenticationPrincipal Member member, @RequestPart RoomCreateRequestDto roomCreateRequestDto, @RequestPart List<MultipartFile> imageList) {
+    public ResponseEntity<RoomResponseDto> writeRoom(@AuthenticationPrincipal Member member, @RequestPart("roomCreateRequestDto") RoomCreateRequestDto roomCreateRequestDto, @RequestPart("imageList") List<MultipartFile> imageList) {
         log.info("RoomCreate - POST");
 
         if(member.getRole().getAuthLevel() <= Role.SELLER.getAuthLevel()) {
@@ -112,9 +112,8 @@ public class RoomController {
             throw new RoomException(ErrorCode.ROOM_PERMISSION_DENIED, ErrorCode.ROOM_PERMISSION_DENIED.getMessage());
         }
 
-        roomPictureService.deleteAll(id);
-        roomService.delete(id);
-
+        // 같은 트랜잭션으로 묶기
+        roomService.deleteWithPicture(id);
 
         return ResponseEntity.ok().body("숙소가 정상 삭제되었습니다.");
 

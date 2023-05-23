@@ -1,7 +1,5 @@
 package com.ssafy.enjoytrip.board.model.dto;
 
-import org.springframework.stereotype.Repository;
-
 import java.time.LocalDateTime;
 
 public class BoardDto {

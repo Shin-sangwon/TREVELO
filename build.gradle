@@ -43,6 +43,11 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
 	// awsS3
 	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
+	// JSONObject
+	implementation group: 'org.json', name: 'json', version: '20230227'
+	// Spring Webflux
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+
 
 }
 

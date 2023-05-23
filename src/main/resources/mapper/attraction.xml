@@ -13,7 +13,7 @@
         <result column="latitude" property="latitude"></result>
         <result column="longitude" property="longitude"></result>
         <result column="content_type_id" property="contentType"></result>
-
+        <result column="first_image" property="first_image"></result>
     </resultMap>
 
     <select id="searchBySidoGugunContent" parameterType="com.ssafy.enjoytrip.attraction.model.dto.AttractionSearchDto" resultMap="attractionDto">

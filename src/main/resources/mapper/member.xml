@@ -35,6 +35,12 @@
             WHERE login_id = #{loginId}
       </select>
 
+      <select id="findById" resultMap="member">
+            SELECT *
+            FROM MEMBER
+            WHERE member_id = #{id}
+      </select>
+
       <select id="findByLoginIdAndPassword" resultType="member">
             SELECT *
             FROM MEMBER

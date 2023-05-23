@@ -4,6 +4,7 @@ import com.ssafy.enjoytrip.member.model.dto.MemberJoinDto;
 import com.ssafy.enjoytrip.member.model.entity.Grade;
 import com.ssafy.enjoytrip.member.model.entity.Role;
 import com.ssafy.enjoytrip.member.model.service.MemberService;
+import com.ssafy.enjoytrip.payment.model.service.PaymentService;
 import com.ssafy.enjoytrip.reservation.model.service.ReservationDateService;
 import com.ssafy.enjoytrip.reservation.model.service.ReservationService;
 import com.ssafy.enjoytrip.room.model.service.RoomService;
@@ -23,18 +24,13 @@ import org.springframework.test.context.jdbc.SqlConfig;
 @SpringBootTest
 public class ServiceTest {
 
-    @Autowired
-    protected MemberService memberService;
-    @Autowired
-    protected RoomService roomService;
-    @Autowired
-    protected RoomPictureService roomPictureService;
-    @Autowired
-    protected ReservationService reservationService;
-    @Autowired
-    protected ReservationDateService reservationDateService;
-    @Autowired
-    protected TransactionService transactionService;
+    @Autowired protected MemberService memberService;
+    @Autowired protected RoomService roomService;
+    @Autowired protected RoomPictureService roomPictureService;
+    @Autowired protected ReservationService reservationService;
+    @Autowired protected ReservationDateService reservationDateService;
+    @Autowired protected TransactionService transactionService;
+    @Autowired protected PaymentService paymentService;
 
     @BeforeEach
     void setUp() throws Exception {

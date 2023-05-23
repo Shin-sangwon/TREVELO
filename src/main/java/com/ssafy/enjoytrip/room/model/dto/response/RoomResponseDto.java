@@ -23,8 +23,8 @@ public class RoomResponseDto {
     private LocalDateTime createdat;
     private LocalDateTime updatedat;
     // TODO 코드 어떻게 매핑??
-    private int sidoCode;
-    private int gugunCode;
+//    private int sidoCode;
+//    private int gugunCode;
 
     private List<String> roomPictures;
 
@@ -44,7 +44,7 @@ public class RoomResponseDto {
     public void mapPictureToRoom(List<RoomPicture> pictureList) {
 
         roomPictures = pictureList.stream()
-                                  .map(RoomPicture::getPicture)
+                                  .map(roomPicture -> "https://ssafyfinal.s3.ap-northeast-2.amazonaws.com/" + roomPicture.getPicture())
                                   .collect(Collectors.toList());
     }
 }
