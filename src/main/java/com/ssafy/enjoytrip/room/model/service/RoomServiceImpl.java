@@ -74,5 +74,14 @@ public class RoomServiceImpl implements RoomService {
         roomMapper.delete(id);
     }
 
+    @Override
+    @Transactional
+    public void deleteWithPicture(Long id) {
+
+        roomPictureService.deleteAll(id);
+        delete(id);
+
+    }
+
 
 }

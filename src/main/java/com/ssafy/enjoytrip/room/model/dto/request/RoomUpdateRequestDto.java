@@ -17,7 +17,6 @@ public class RoomUpdateRequestDto {
     private String address;
     private String introduce;
     private Long pricePerNight;
-//    private Integer sidoCode;
 
     public void mapRoomId(Long id) {
         this.id = id;

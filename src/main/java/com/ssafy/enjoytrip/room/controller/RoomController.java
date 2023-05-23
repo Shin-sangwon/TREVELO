@@ -112,9 +112,8 @@ public class RoomController {
             throw new RoomException(ErrorCode.ROOM_PERMISSION_DENIED, ErrorCode.ROOM_PERMISSION_DENIED.getMessage());
         }
 
-        roomPictureService.deleteAll(id);
-        roomService.delete(id);
-
+        // 같은 트랜잭션으로 묶기
+        roomService.deleteWithPicture(id);
 
         return ResponseEntity.ok().body("숙소가 정상 삭제되었습니다.");
 

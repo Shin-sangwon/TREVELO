@@ -281,12 +281,12 @@ CREATE TABLE IF NOT EXISTS `tripdb`.`reservation` (
   `createdat` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatedat` DATETIME NULL DEFAULT NULL,
   PRIMARY KEY (`reservation_id`),
-  INDEX `member_to_payment_idx` (`customer_id` ASC) VISIBLE,
-  INDEX `room_to_payment_idx` (`room_id` ASC) VISIBLE,
-  CONSTRAINT `member_to_payment`
+  INDEX `member_to_reservation_idx` (`customer_id` ASC) VISIBLE,
+  INDEX `room_to_reservation_idx` (`room_id` ASC) VISIBLE,
+  CONSTRAINT `member_to_reservation`
     FOREIGN KEY (`customer_id`)
     REFERENCES `tripdb`.`member` (`member_id`),
-  CONSTRAINT `room_to_payment`
+  CONSTRAINT `room_to_reservation`
     FOREIGN KEY (`room_id`)
     REFERENCES `tripdb`.`room` (`room_id`))
 ENGINE = InnoDB
