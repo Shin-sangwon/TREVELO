@@ -50,7 +50,7 @@
       <select id = "findByLoginIdAndEmail" resultMap="member">
             SELECT *
             FROM MEMBER
-            WHERE login_id = #{loginId} AND email = #{email}
+            WHERE email = #{email}
       </select>
 
       <update id="update" parameterType="member">

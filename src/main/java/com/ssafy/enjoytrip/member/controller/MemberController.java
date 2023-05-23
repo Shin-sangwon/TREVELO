@@ -85,7 +85,7 @@ public class MemberController {
     }
 
     @PostMapping("/find/password")
-    public ResponseEntity<String> findPassword(InformationFindRequestDto informationFindRequestDto) {
+    public ResponseEntity<String> findPassword(@RequestBody  InformationFindRequestDto informationFindRequestDto) {
 
         String msg = memberService.findPassword(informationFindRequestDto);
 
@@ -93,8 +93,8 @@ public class MemberController {
     }
 
     @PostMapping("/find/id")
-    public ResponseEntity<String> findLoginId(InformationFindRequestDto informationFindRequestDto) {
-
+    public ResponseEntity<String> findLoginId(@RequestBody InformationFindRequestDto informationFindRequestDto) {
+        log.info("'{}' 이메일로 아이디 찾기 요청", informationFindRequestDto.getEmail());
         String msg = memberService.findLoginId(informationFindRequestDto);
 
         return ResponseEntity.ok().body(msg);
