@@ -17,4 +17,20 @@
         insert into comment (board_id, member_id, content)
         values(#{boardId}, #{memberId}, #{content});
     </insert>
+
+    <select id="getlist" parameterType="long" resultMap="commentDto">
+        select * from comment
+        where board_id = #{boardId}
+    </select>
+
+    <delete id="delete" parameterType="long">
+        delete from comment
+        where comment_id = #{commentId}
+    </delete>
+
+    <update id="update" parameterType="commentDto">
+        update comment
+        set content = #{content}, updatedat = now()
+        where comment_id = #{commentId}
+    </update>
 </mapper>

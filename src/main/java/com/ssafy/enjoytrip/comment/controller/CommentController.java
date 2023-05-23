@@ -44,9 +44,22 @@ public class CommentController {
 
         commentService.delete(commentId);
 
-        List<CommentDto> list = commentService.getlist(memberService.findByLoginId(member.getLoginId()).getId());
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/getlist/{boardId}")
+    public ResponseEntity<List<CommentDto>> getlist(@AuthenticationPrincipal Member member, @PathVariable("boardId") long boardId) throws SQLException{
+
+        List<CommentDto> list = commentService.getlist(boardId);
 
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
+    @PutMapping("/update")
+    public ResponseEntity<?> update(@AuthenticationPrincipal Member member, @RequestBody CommentDto commentDto) throws SQLException{
+
+        commentService.update(commentDto);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
