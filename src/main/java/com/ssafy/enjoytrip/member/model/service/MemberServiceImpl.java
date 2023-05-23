@@ -2,12 +2,11 @@ package com.ssafy.enjoytrip.member.model.service;
 
 import com.ssafy.enjoytrip.global.exception.ErrorCode;
 import com.ssafy.enjoytrip.global.service.AmazonSESService;
-import com.ssafy.enjoytrip.global.service.EmailService;
 import com.ssafy.enjoytrip.member.exception.MemberException;
+import com.ssafy.enjoytrip.member.model.dto.InformationFindRequestDto;
 import com.ssafy.enjoytrip.member.model.dto.MemberJoinDto;
 import com.ssafy.enjoytrip.member.model.dto.MemberLoginDto;
 import com.ssafy.enjoytrip.member.model.dto.MemberUpdateDto;
-import com.ssafy.enjoytrip.member.model.dto.InformationFindRequestDto;
 import com.ssafy.enjoytrip.member.model.entity.Member;
 import com.ssafy.enjoytrip.member.model.mapper.MemberMapper;
 import com.ssafy.enjoytrip.security.util.JwtProvider;
@@ -26,7 +25,6 @@ public class MemberServiceImpl implements MemberService {
 
     private final MemberMapper memberMapper;
     private final BCryptPasswordEncoder encoder;
-    private final EmailService emailService;
     private final AmazonSESService amazonSESService;
 
     @Value("${jwt.token.secret}")
