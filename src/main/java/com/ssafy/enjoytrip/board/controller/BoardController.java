@@ -51,6 +51,8 @@ public class BoardController {
 
     @GetMapping("/view/{boardId}")
     public ResponseEntity<BoardDto> view(@AuthenticationPrincipal Member member, @PathVariable("boardId") long boardId) throws SQLException {
+        boardService.uphit(boardId);
+
         BoardDto boardDto = boardService.view(boardId);
 
         log.info(boardDto.toString());

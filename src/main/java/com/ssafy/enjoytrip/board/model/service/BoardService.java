@@ -2,6 +2,7 @@ package com.ssafy.enjoytrip.board.model.service;
 
 
 import com.ssafy.enjoytrip.board.model.dto.BoardDto;
+import org.apache.ibatis.jdbc.SQL;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -17,4 +18,6 @@ public interface BoardService {
     void delete(long boardId) throws SQLException;
 
     void update(BoardDto boardDto) throws SQLException;
+
+    void uphit(long boardId) throws SQLException;
 }
