@@ -42,7 +42,7 @@ public class RoomController {
     public ResponseEntity<List<RoomListResponseDto>> showRoomList(@AuthenticationPrincipal Member member) {
         log.info("RoomList - GET");
 
-        return ResponseEntity.ok().body(roomService.findAll());
+        return ResponseEntity.ok().body(roomService.findAllWithPicture());
     }
 
     @GetMapping("/{id}")

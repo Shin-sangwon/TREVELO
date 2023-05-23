@@ -2,6 +2,7 @@ package com.ssafy.enjoytrip.room.model.mapper;
 
 import com.ssafy.enjoytrip.room.model.dto.request.RoomCreateRequestDto;
 import com.ssafy.enjoytrip.room.model.dto.request.RoomUpdateRequestDto;
+import com.ssafy.enjoytrip.room.model.dto.response.RoomListResponseDto;
 import com.ssafy.enjoytrip.room.model.entity.Room;
 import java.util.List;
 import java.util.Optional;
@@ -19,4 +20,6 @@ public interface RoomMapper {
     void update(RoomUpdateRequestDto roomUpdateRequestDto);
 
     void delete(Long id);
+
+    List<RoomListResponseDto> findAllWithPicture();
 }

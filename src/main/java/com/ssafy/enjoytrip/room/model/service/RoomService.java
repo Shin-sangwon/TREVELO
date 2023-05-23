@@ -11,6 +11,7 @@ public interface RoomService {
 
     List<RoomListResponseDto> findAll();
 
+    List<RoomListResponseDto> findAllWithPicture();
     RoomResponseDto findById(Long id);
 
     Long save(RoomCreateRequestDto roomCreateRequestDto, Member member);
