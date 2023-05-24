@@ -40,4 +40,10 @@
         where board_id = #{boardId}
     </update>
 
+    <update id="uphit" parameterType="long">
+        update board
+        set hit = hit + 1
+        where board_id = #{boardId}
+    </update>
+
 </mapper>
