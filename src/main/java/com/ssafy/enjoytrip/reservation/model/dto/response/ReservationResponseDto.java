@@ -18,6 +18,7 @@ public class ReservationResponseDto {
     private Long id;
     private Long customerId;
     private Long roomId;
+    private String roomName;
     private Long totalPrice;
     private boolean isPaid;
     private LocalDate checkInDate;
@@ -32,6 +33,7 @@ public class ReservationResponseDto {
                                      .roomId(entity.getRoomId())
                                      .totalPrice(entity.getTotalPrice())
                                      .isPaid(entity.isPaid())
+                                     .roomName(entity.getRoomName())
                                      .checkInDate(entity.getCheckInDate())
                                      .checkOutDate(entity.getCheckOutDate())
                                      .createdat(entity.getCreatedat())

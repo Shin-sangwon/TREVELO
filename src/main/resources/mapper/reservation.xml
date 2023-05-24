@@ -17,9 +17,11 @@
   </resultMap>
 
   <select id="findAllByMemberId" resultMap="reservation">
-    SELECT *
-    FROM reservation
-    WHERE customer_id = #{id}
+    select re.reservation_id, re.customer_id, re.room_id, re.total_price, re.ispaid, re.check_in_date, re.check_out_date, re.createdat, ro.room_name
+    from reservation re
+           INNER JOIN room ro ON re.room_id = ro.room_id
+    WHERE re.customer_id = #{id}
+    ORDER BY re.createdat desc;
   </select>
 
   <select id="findById" resultMap="reservation">
