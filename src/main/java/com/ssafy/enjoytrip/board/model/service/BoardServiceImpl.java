@@ -43,4 +43,9 @@ public class BoardServiceImpl implements BoardService{
     public void update(BoardDto boardDto) throws SQLException {
         boardMapper.update(boardDto);
     }
+
+    @Override
+    public void uphit(long boardId) throws SQLException {
+        boardMapper.uphit(boardId);
+    }
 }

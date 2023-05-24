@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.enjoytrip.plan.model.dto.PlanDto">
+
+    <resultMap id="planDto" type="PlanDto">
+        <result column="plan_id" property="planId"></result>
+        <result column="member_id" property="memberId"></result>
+        <result column="path" property="path"></result>
+        <result column="plan_start" property="planStart"></result>
+        <result column="plan_end" property="planEnd"></result>
+        <result column="plan_name" property="planName"></result>
+        <result column="createdat" property="createdat"></result>
+        <result column="updatedat" property="updatedat"></result>
+    </resultMap>
+
+    <select id="getList" parameterType="long" resultMap="planDto">
+        select *
+        from plan
+        where member_id = #{memberId}
+    </select>
+
+    <select id="view" parameterType="long" resultMap="planDto">
+        select *
+        from plan
+        where plan_id = #{planId}
+    </select>
+
+    <update id="update" parameterType="planDto">
+        update plan
+        set path = #{path}, plan_start = #{planStart}, plan_end = #{planEnd}, plan_name = #{planName}, updatedat = now()
+        where plan_id = #{planId}
+    </update>
+
+    <delete id="delete" parameterType="long">
+        delete plan
+        where plan_id = #{planId}
+    </delete>
+
+    <insert id="write" parameterType="planDto">
+        insert into plan (member_id, path, plan_start, plan_end, plan_name, createdat)
+        values (#{memberId}, #{path}, #{planStart}, #{planEnd}, #{planName}, now())
+    </insert>
+
+</mapper>
