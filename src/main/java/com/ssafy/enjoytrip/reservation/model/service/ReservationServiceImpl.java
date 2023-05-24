@@ -112,7 +112,7 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     public void confirm(Reservation reservation) {
 
-        Member member = memberService.findById(reservation.getId()).toEntity();
+        Member member = memberService.findById(reservation.getCustomerId()).toEntity();
 
         Long restPrice = reservation.getTotalPrice() - (long) (reservation.getTotalPrice() / 10.0);
 
@@ -120,7 +120,7 @@ public class ReservationServiceImpl implements ReservationService {
             throw new ReservationException(ErrorCode.INSUFFICIENT_MILEAGE, ErrorCode.INSUFFICIENT_MILEAGE.getMessage());
         }
 
-        memberService.updateMileage(Member.forDeductMileage(reservation.getCustomerId(), reservation.getTotalPrice() - (long) (reservation.getTotalPrice() / 10.0)));
+        memberService.updateMileage(Member.forDeductMileage(reservation.getCustomerId(), restPrice));
         reservationMapper.confirmReservation(reservation);
 
     }
