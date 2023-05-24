@@ -42,4 +42,19 @@ public class MemberResponseDto {
                                 .updatedat(member.getUpdatedat())
                                 .build();
     }
+
+    public Member toEntity() {
+        return Member.builder()
+                     .id(this.id)
+                     .loginId(this.loginId)
+                     .name(this.name)
+                     .birthday(this.getBirthday())
+                     .email(this.email)
+                     .role(this.role)
+                     .grade(this.grade)
+                     .mileage(this.mileage)
+                     .createdat(this.createdat)
+                     .updatedat(this.updatedat)
+                     .build();
+    }
 }

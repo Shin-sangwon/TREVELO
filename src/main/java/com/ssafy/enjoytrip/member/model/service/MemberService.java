@@ -1,9 +1,10 @@
 package com.ssafy.enjoytrip.member.model.service;
 
+import com.ssafy.enjoytrip.member.model.dto.InformationFindRequestDto;
 import com.ssafy.enjoytrip.member.model.dto.MemberJoinDto;
 import com.ssafy.enjoytrip.member.model.dto.MemberLoginDto;
+import com.ssafy.enjoytrip.member.model.dto.MemberResponseDto;
 import com.ssafy.enjoytrip.member.model.dto.MemberUpdateDto;
-import com.ssafy.enjoytrip.member.model.dto.InformationFindRequestDto;
 import com.ssafy.enjoytrip.member.model.entity.Member;
 import java.sql.SQLException;
 
@@ -27,6 +28,6 @@ public interface MemberService {
 
     void updateMileage(Member member);
 
-    Member findById(Long id);
+    MemberResponseDto findById(Long id);
 
 }

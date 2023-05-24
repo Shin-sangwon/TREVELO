@@ -37,7 +37,6 @@ public class PaymentController {
         MileageChargeResponseDto mileageChargeResponseDto = paymentService.verifyMember(member,
             mileageChargeRequestDto);
 
-
         return ResponseEntity.ok()
                              .body(mileageChargeResponseDto);
     }
@@ -50,9 +49,9 @@ public class PaymentController {
      */
     @GetMapping("/success")
     public ResponseEntity<String> paymentSuccess(
-                                                 @RequestParam String paymentKey,
-                                                 @RequestParam String orderId,
-                                                 @RequestParam Long amount) {
+        @RequestParam String paymentKey,
+        @RequestParam String orderId,
+        @RequestParam Long amount) {
 
         log.info("토스에 webClient로 최종 승인 요청");
         paymentService.verifyRequest(paymentKey, orderId, amount);
@@ -60,7 +59,8 @@ public class PaymentController {
         String result = paymentService.approveRequestToPayments(paymentKey, orderId, amount);
 
         Payment payment = paymentService.findByOrderId(orderId);
-        Member member = memberService.findById(payment.getMemberId());
+        Member member = memberService.findById(payment.getMemberId())
+                                     .toEntity();
         // 트랜잭션 테이블에 추가해주기
         transactionService.savePayments(payment, member);
 
@@ -68,6 +68,7 @@ public class PaymentController {
         member.updateMileage(amount);
         memberService.updateMileage(member);
 
-        return ResponseEntity.ok().body(result);
+        return ResponseEntity.ok()
+                             .body(result);
     }
 }

@@ -2,11 +2,11 @@ package com.ssafy.enjoytrip.member.controller;
 
 import com.ssafy.enjoytrip.global.exception.ErrorCode;
 import com.ssafy.enjoytrip.member.exception.MemberException;
+import com.ssafy.enjoytrip.member.model.dto.InformationFindRequestDto;
 import com.ssafy.enjoytrip.member.model.dto.MemberJoinDto;
 import com.ssafy.enjoytrip.member.model.dto.MemberLoginDto;
 import com.ssafy.enjoytrip.member.model.dto.MemberResponseDto;
 import com.ssafy.enjoytrip.member.model.dto.MemberUpdateDto;
-import com.ssafy.enjoytrip.member.model.dto.InformationFindRequestDto;
 import com.ssafy.enjoytrip.member.model.entity.Member;
 import com.ssafy.enjoytrip.member.model.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -92,6 +92,13 @@ public class MemberController {
         String msg = memberService.findLoginId(informationFindRequestDto);
 
         return ResponseEntity.ok().body(msg);
+    }
+
+    @GetMapping("/")
+    public ResponseEntity<MemberResponseDto> responseMemberInfo(@AuthenticationPrincipal Member member) {
+        log.info("'{}' 회원 정보 조회 요청", member.getLoginId());
+
+        return ResponseEntity.ok().body(memberService.findById(member.getId()));
     }
 
 }

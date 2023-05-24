@@ -6,6 +6,7 @@ import com.ssafy.enjoytrip.member.exception.MemberException;
 import com.ssafy.enjoytrip.member.model.dto.InformationFindRequestDto;
 import com.ssafy.enjoytrip.member.model.dto.MemberJoinDto;
 import com.ssafy.enjoytrip.member.model.dto.MemberLoginDto;
+import com.ssafy.enjoytrip.member.model.dto.MemberResponseDto;
 import com.ssafy.enjoytrip.member.model.dto.MemberUpdateDto;
 import com.ssafy.enjoytrip.member.model.entity.Member;
 import com.ssafy.enjoytrip.member.model.mapper.MemberMapper;
@@ -149,10 +150,11 @@ public class MemberServiceImpl implements MemberService {
 
     @Transactional
     @Override
-    public Member findById(Long id) {
-        return memberMapper.findById(id)
-                           .orElseThrow(() -> new MemberException(ErrorCode.MEMBER_NOT_FOUND,
-                               ErrorCode.MEMBER_NOT_FOUND.getMessage()));
+    public MemberResponseDto findById(Long id) {
+        return MemberResponseDto.from(memberMapper.findById(id)
+                                                  .orElseThrow(() -> new MemberException(
+                                                      ErrorCode.MEMBER_NOT_FOUND,
+                                                      ErrorCode.MEMBER_NOT_FOUND.getMessage())));
     }
 
 
