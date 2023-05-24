@@ -113,7 +113,7 @@ public class ReservationController {
 
     @GetMapping("/date/{roomId}")
     public ResponseEntity<List<ReservationDateResponseDto>> findAvailableDate(@PathVariable("roomId") Long roomId, @AuthenticationPrincipal Member member) {
-        log.info("GET - cancelReservation");
+        log.info("GET - findAvailableDate");
 
         return ResponseEntity.ok().body(reservationDateService.findAllDateByRoomIdAfterToday(roomId));
     }

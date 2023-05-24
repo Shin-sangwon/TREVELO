@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
+//TODO : 여행상품 결제
 @Slf4j
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/payment")
