@@ -48,12 +48,6 @@ public class MemberController {
                              .body(token);
     }
 
-    @GetMapping("/test")
-    public String apiTest(@AuthenticationPrincipal Member member) {
-
-        return member.toString();
-    }
-
     @GetMapping("/mypage")
     public ResponseEntity<MemberResponseDto> memberPage(@AuthenticationPrincipal Member member) {
         log.info("GET - mypage : {}", member.getLoginId());
