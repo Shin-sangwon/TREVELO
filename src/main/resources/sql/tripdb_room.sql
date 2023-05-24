@@ -170,24 +170,23 @@ CREATE TABLE IF NOT EXISTS `tripdb`.`boardtag` (
 -- Table `tripdb`.`comment`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `tripdb`.`comment` (
-                                                  `comment_id` BIGINT NOT NULL AUTO_INCREMENT,
-                                                  `board_id` BIGINT NOT NULL,
-                                                  `member_id` BIGINT NOT NULL,
-                                                  `content` VARCHAR(1000) NOT NULL,
-    `createdat` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `updatedat` DATETIME NULL DEFAULT NULL,
-    PRIMARY KEY (`comment_id`),
-    INDEX `id_idx` (`board_id` ASC) VISIBLE,
-    INDEX `id_idx1` (`member_id` ASC) VISIBLE,
-    CONSTRAINT `board_to_comment_id`
-    FOREIGN KEY (`board_id`)
-    REFERENCES `tripdb`.`board` (`board_id`),
-    CONSTRAINT `member_to_comment_id`
-    FOREIGN KEY (`member_id`)
-    REFERENCES `tripdb`.`member` (`member_id`))
-    ENGINE = InnoDB
-    DEFAULT CHARACTER SET = utf8mb3;
-
+  `comment_id` BIGINT NOT NULL AUTO_INCREMENT,
+  `board_id` BIGINT NOT NULL,
+  `member_id` BIGINT NOT NULL,
+  `content` VARCHAR(1000) NOT NULL,
+  `createdat` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updatedat` DATETIME NULL DEFAULT NULL,
+  PRIMARY KEY (`comment_id`),
+  INDEX `id_idx` (`board_id` ASC) VISIBLE,
+  INDEX `id_idx1` (`member_id` ASC) VISIBLE,
+  CONSTRAINT `board_to_comment_id`
+  FOREIGN KEY (`board_id`)
+  REFERENCES `tripdb`.`board` (`board_id`),
+  CONSTRAINT `member_to_comment_id`
+  FOREIGN KEY (`member_id`)
+  REFERENCES `tripdb`.`member` (`member_id`))
+  ENGINE = InnoDB
+  DEFAULT CHARACTER SET = utf8mb3;
 
 -- -----------------------------------------------------
 -- Table `tripdb`.`favorite`

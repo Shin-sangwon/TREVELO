@@ -14,6 +14,7 @@ public class RoomListResponseDto {
     private String roomName;
     private String address;
     private Long pricePerNight;
+    private String picture;
 
     public static RoomListResponseDto from(Room entity) {
         return RoomListResponseDto.builder()
@@ -22,6 +23,10 @@ public class RoomListResponseDto {
                                   .address(entity.getAddress())
                                   .pricePerNight(entity.getPricePerNight())
                                   .build();
+    }
+
+    public void mapPictureToRoom() {
+        this.picture = "https://ssafyfinal.s3.ap-northeast-2.amazonaws.com/" + picture;
     }
 
 }

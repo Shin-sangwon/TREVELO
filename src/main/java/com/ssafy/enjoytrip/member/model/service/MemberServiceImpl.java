@@ -1,12 +1,13 @@
 package com.ssafy.enjoytrip.member.model.service;
 
 import com.ssafy.enjoytrip.global.exception.ErrorCode;
-import com.ssafy.enjoytrip.global.service.EmailService;
+import com.ssafy.enjoytrip.global.service.AmazonSESService;
 import com.ssafy.enjoytrip.member.exception.MemberException;
+import com.ssafy.enjoytrip.member.model.dto.InformationFindRequestDto;
 import com.ssafy.enjoytrip.member.model.dto.MemberJoinDto;
 import com.ssafy.enjoytrip.member.model.dto.MemberLoginDto;
+import com.ssafy.enjoytrip.member.model.dto.MemberResponseDto;
 import com.ssafy.enjoytrip.member.model.dto.MemberUpdateDto;
-import com.ssafy.enjoytrip.member.model.dto.InformationFindRequestDto;
 import com.ssafy.enjoytrip.member.model.entity.Member;
 import com.ssafy.enjoytrip.member.model.mapper.MemberMapper;
 import com.ssafy.enjoytrip.security.util.JwtProvider;
@@ -25,7 +26,7 @@ public class MemberServiceImpl implements MemberService {
 
     private final MemberMapper memberMapper;
     private final BCryptPasswordEncoder encoder;
-    private final EmailService emailService;
+    private final AmazonSESService amazonSESService;
 
     @Value("${jwt.token.secret}")
     private String SecretKey;
@@ -112,7 +113,7 @@ public class MemberServiceImpl implements MemberService {
         String tempPassword = getTempPassword();
 
         try {
-            emailService.sendTempPassword(member.getEmail(), tempPassword);
+            amazonSESService.sendTempPassword(member.getEmail(), tempPassword);
         } catch (Exception e) {
             return "이메일 처리 중 에러가 발생했습니다.";
         }
@@ -134,7 +135,7 @@ public class MemberServiceImpl implements MemberService {
                                             ErrorCode.LOGIN_ID_NOT_FOUND.getMessage())
                                     );
         try {
-            emailService.sendLoginId(member.getEmail(), member.getLoginId());
+            amazonSESService.sendLoginId(member.getEmail(), member.getLoginId());
         } catch (Exception e) {
             return "이메일 처리 중 에러가 발생했습니다.";
         }
@@ -149,10 +150,11 @@ public class MemberServiceImpl implements MemberService {
 
     @Transactional
     @Override
-    public Member findById(Long id) {
-        return memberMapper.findById(id)
-                           .orElseThrow(() -> new MemberException(ErrorCode.MEMBER_NOT_FOUND,
-                               ErrorCode.MEMBER_NOT_FOUND.getMessage()));
+    public MemberResponseDto findById(Long id) {
+        return MemberResponseDto.from(memberMapper.findById(id)
+                                                  .orElseThrow(() -> new MemberException(
+                                                      ErrorCode.MEMBER_NOT_FOUND,
+                                                      ErrorCode.MEMBER_NOT_FOUND.getMessage())));
     }
 
 

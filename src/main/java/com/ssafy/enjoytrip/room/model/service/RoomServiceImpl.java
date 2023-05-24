@@ -24,6 +24,7 @@ public class RoomServiceImpl implements RoomService {
 
     private final RoomMapper roomMapper;
     private final RoomPictureService roomPictureService;
+
     @Transactional(readOnly = true)
     @Override
     public List<RoomListResponseDto> findAll() {
@@ -34,14 +35,25 @@ public class RoomServiceImpl implements RoomService {
                          .collect(Collectors.toList());
     }
 
+    @Override
+    public List<RoomListResponseDto> findAllWithPicture() {
+
+        List<RoomListResponseDto> roomList = roomMapper.findAllWithPicture();
+
+        roomList.forEach(RoomListResponseDto::mapPictureToRoom);
+
+        return roomList;
+    }
+
     @Transactional(readOnly = true)
     @Override
     public RoomResponseDto findById(Long id) {
 
         Optional<Room> room = roomMapper.findById(id);
 
-        if(!room.isPresent()) {
-            throw new RoomException(ErrorCode.ROOM_NOT_FOUND, ErrorCode.ROOM_NOT_FOUND.getMessage());
+        if (!room.isPresent()) {
+            throw new RoomException(ErrorCode.ROOM_NOT_FOUND,
+                ErrorCode.ROOM_NOT_FOUND.getMessage());
         }
 
         RoomResponseDto roomResponseDto = RoomResponseDto.from(room.get());

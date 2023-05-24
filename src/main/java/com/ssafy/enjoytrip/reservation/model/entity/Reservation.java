@@ -27,6 +27,7 @@ public class Reservation {
     private LocalDate checkOutDate;
     private LocalDateTime createdat;
     private LocalDateTime updatedat;
+    private String roomName;
 
     public static Reservation from(ReservationResponseDto reservationResponseDto) {
         return Reservation.builder()
