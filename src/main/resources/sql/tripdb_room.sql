@@ -170,7 +170,7 @@ DEFAULT CHARACTER SET = utf8mb3;
 -- Table `tripdb`.`comment`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `tripdb`.`comment` (
-  `comment_id` BIGINT NOT NULL,
+  `comment_id` BIGINT NOT NULL AUTO_INCREMENT,
   `board_id` BIGINT NOT NULL,
   `member_id` BIGINT NOT NULL,
   `content` VARCHAR(1000) NOT NULL,

@@ -7,8 +7,11 @@ import com.ssafy.enjoytrip.payment.model.dto.response.MileageChargeResponseDto;
 import com.ssafy.enjoytrip.payment.model.entity.Payment;
 import com.ssafy.enjoytrip.payment.model.service.PaymentService;
 import com.ssafy.enjoytrip.transaction.model.service.TransactionService;
+import java.net.URI;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -48,10 +52,11 @@ public class PaymentController {
     4. 회원의 마일리지를 변동시켜 준다.
      */
     @GetMapping("/success")
-    public ResponseEntity<String> paymentSuccess(
+    public ResponseEntity<?> paymentSuccess(
         @RequestParam String paymentKey,
         @RequestParam String orderId,
-        @RequestParam Long amount) {
+        @RequestParam Long amount,
+        RedirectAttributes redirectAttributes) {
 
         log.info("토스에 webClient로 최종 승인 요청");
         paymentService.verifyRequest(paymentKey, orderId, amount);
@@ -68,7 +73,10 @@ public class PaymentController {
         member.updateMileage(amount);
         memberService.updateMileage(member);
 
-        return ResponseEntity.ok()
-                             .body(result);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(URI.create("http://localhost:8080/mypage/view"));
+
+        return new ResponseEntity<>(headers, HttpStatus.MOVED_PERMANENTLY);
+
     }
 }
