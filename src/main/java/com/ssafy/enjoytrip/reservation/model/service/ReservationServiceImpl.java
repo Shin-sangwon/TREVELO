@@ -11,6 +11,7 @@ import com.ssafy.enjoytrip.reservation.model.mapper.ReservationMapper;
 import com.ssafy.enjoytrip.transaction.model.entity.Transaction;
 import com.ssafy.enjoytrip.transaction.model.service.TransactionService;
 import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -29,17 +30,20 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     public List<ReservationResponseDto> findAllByMemberId(Long id) {
 
-        return reservationMapper.findAllByMemberId(id);
+        return reservationMapper.findAllByMemberId(id)
+                                .stream()
+                                .map(ReservationResponseDto::from)
+                                .collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
     @Override
     public ReservationResponseDto findById(Long id) {
 
-        Reservation reservation =  reservationMapper.findById(id)
-                                                    .orElseThrow(() -> new ReservationException(
-                                                        ErrorCode.RESERVATION_NOT_FOUND,
-                                                        ErrorCode.RESERVATION_NOT_FOUND.getMessage()));
+        Reservation reservation = reservationMapper.findById(id)
+                                                   .orElseThrow(() -> new ReservationException(
+                                                       ErrorCode.RESERVATION_NOT_FOUND,
+                                                       ErrorCode.RESERVATION_NOT_FOUND.getMessage()));
 
         return ReservationResponseDto.from(reservation);
     }
@@ -49,7 +53,7 @@ public class ReservationServiceImpl implements ReservationService {
         log.info(String.valueOf(price / 10.0));
         if (price / 10.0 > mileage) {
             throw new ReservationException(ErrorCode.INSUFFICIENT_MILEAGE,
-                                           ErrorCode.INSUFFICIENT_MILEAGE.getMessage());
+                ErrorCode.INSUFFICIENT_MILEAGE.getMessage());
         }
     }
 
@@ -95,7 +99,8 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    public void mapReservationDetails(ReservationSaveRequestDto reservationSaveRequestDto, Long memberId, Long roomId, long totalPrice) {
+    public void mapReservationDetails(ReservationSaveRequestDto reservationSaveRequestDto,
+        Long memberId, Long roomId, long totalPrice) {
 
         reservationSaveRequestDto.mapCustomerToReservation(memberId);
         reservationSaveRequestDto.mapRoomIdToReservation(roomId);

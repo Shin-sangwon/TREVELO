@@ -16,7 +16,7 @@
     <result column="updatedat" property="updatedat"/>
   </resultMap>
 
-  <select id="findAllByMemberId" resultType="com.ssafy.enjoytrip.reservation.model.dto.response.ReservationResponseDto">
+  <select id="findAllByMemberId" resultMap="reservation">
     SELECT *
     FROM reservation
     WHERE customer_id = #{id}

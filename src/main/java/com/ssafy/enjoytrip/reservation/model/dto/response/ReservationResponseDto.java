@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ReservationResponseDto {
 
-    private Long id;
+    private Long reservation_id;
     private Long customerId;
     private Long roomId;
     private Long totalPrice;
@@ -27,7 +27,7 @@ public class ReservationResponseDto {
 
     public static ReservationResponseDto from(Reservation entity) {
         return ReservationResponseDto.builder()
-                                     .id(entity.getId())
+                                     .reservation_id(entity.getId())
                                      .customerId(entity.getCustomerId())
                                      .roomId(entity.getRoomId())
                                      .totalPrice(entity.getTotalPrice())
