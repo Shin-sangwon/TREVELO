@@ -31,4 +31,11 @@
     WHERE reservation_id = #{reservationId}
   </delete>
 
+  <select id="findAllDateByRoomIdAfterToday" resultMap="reservation_date">
+    SELECT reservation_date
+    FROM room_reservation_date
+    WHERE room_id = #{id}
+      AND reservation_date > CURDATE()
+  </select>
+
 </mapper>

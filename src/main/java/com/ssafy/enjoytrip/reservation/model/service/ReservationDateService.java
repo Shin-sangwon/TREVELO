@@ -1,7 +1,9 @@
 package com.ssafy.enjoytrip.reservation.model.service;
 
 import com.ssafy.enjoytrip.reservation.model.dto.request.ReservationSaveRequestDto;
+import com.ssafy.enjoytrip.reservation.model.dto.response.ReservationDateResponseDto;
 import java.time.LocalDate;
+import java.util.List;
 
 public interface ReservationDateService {
 
@@ -14,4 +16,6 @@ public interface ReservationDateService {
     void delete(Long reservationId);
 
     void checkCancelable(LocalDate checkInDate);
+
+    List<ReservationDateResponseDto> findAllDateByRoomIdAfterToday(Long roomId);
 }

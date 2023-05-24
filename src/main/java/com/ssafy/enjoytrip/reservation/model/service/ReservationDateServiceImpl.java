@@ -5,9 +5,12 @@ import com.ssafy.enjoytrip.reservation.exception.ReservationException;
 import com.ssafy.enjoytrip.reservation.model.dto.ReservationDateCheckDto;
 import com.ssafy.enjoytrip.reservation.model.dto.request.ReservationDateSaveRequestDto;
 import com.ssafy.enjoytrip.reservation.model.dto.request.ReservationSaveRequestDto;
+import com.ssafy.enjoytrip.reservation.model.dto.response.ReservationDateResponseDto;
 import com.ssafy.enjoytrip.reservation.model.mapper.ReservationDateMapper;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -71,8 +74,18 @@ public class ReservationDateServiceImpl implements ReservationDateService {
 
         if (daysDiff <= 1) {
             throw new ReservationException(ErrorCode.CANCELLATION_EXPIRED,
-                                           ErrorCode.CANCELLATION_EXPIRED.getMessage());
+                ErrorCode.CANCELLATION_EXPIRED.getMessage());
         }
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<ReservationDateResponseDto> findAllDateByRoomIdAfterToday(Long roomId) {
+
+        return reservationDateMapper.findAllDateByRoomIdAfterToday(roomId)
+                                    .stream()
+                                    .map(ReservationDateResponseDto::from)
+                                    .collect(Collectors.toList());
     }
 
 }

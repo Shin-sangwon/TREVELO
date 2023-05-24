@@ -5,6 +5,7 @@ import com.ssafy.enjoytrip.member.exception.MemberException;
 import com.ssafy.enjoytrip.member.model.entity.Member;
 import com.ssafy.enjoytrip.reservation.exception.ReservationException;
 import com.ssafy.enjoytrip.reservation.model.dto.request.ReservationSaveRequestDto;
+import com.ssafy.enjoytrip.reservation.model.dto.response.ReservationDateResponseDto;
 import com.ssafy.enjoytrip.reservation.model.dto.response.ReservationResponseDto;
 import com.ssafy.enjoytrip.reservation.model.entity.Reservation;
 import com.ssafy.enjoytrip.reservation.model.service.ReservationDateService;
@@ -108,6 +109,13 @@ public class ReservationController {
         reservationService.confirm(reservation);
 
         return ResponseEntity.ok().body("예약이 확정되었습니다.");
+    }
+
+    @GetMapping("/date/{roomId}")
+    public ResponseEntity<List<ReservationDateResponseDto>> findAvailableDate(@PathVariable("roomId") Long roomId, @AuthenticationPrincipal Member member) {
+        log.info("GET - cancelReservation");
+
+        return ResponseEntity.ok().body(reservationDateService.findAllDateByRoomIdAfterToday(roomId));
     }
 
 }
