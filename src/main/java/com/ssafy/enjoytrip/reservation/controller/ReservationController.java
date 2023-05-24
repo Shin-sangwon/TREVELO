@@ -3,6 +3,7 @@ package com.ssafy.enjoytrip.reservation.controller;
 import com.ssafy.enjoytrip.global.exception.ErrorCode;
 import com.ssafy.enjoytrip.member.exception.MemberException;
 import com.ssafy.enjoytrip.member.model.entity.Member;
+import com.ssafy.enjoytrip.reservation.exception.ReservationException;
 import com.ssafy.enjoytrip.reservation.model.dto.request.ReservationSaveRequestDto;
 import com.ssafy.enjoytrip.reservation.model.dto.response.ReservationResponseDto;
 import com.ssafy.enjoytrip.reservation.model.entity.Reservation;
@@ -79,7 +80,7 @@ public class ReservationController {
      */
     @DeleteMapping("/{reservationId}")
     public ResponseEntity<String> cancelReservation(@PathVariable("reservationId") Long reservationId, @AuthenticationPrincipal Member member) {
-
+        log.info("'{} member request delete reservation Delete - cancelReservation", member.getLoginId());
         Reservation reservation = Reservation.from(reservationService.findById(reservationId));
 
         if(member.getId() != reservation.getCustomerId()) {
@@ -92,6 +93,21 @@ public class ReservationController {
         reservationService.delete(reservation.getId());
 
         return ResponseEntity.ok().body("예약이 취소되었습니다.");
+    }
+
+    @GetMapping("/{reservationId}/confirm")
+    public ResponseEntity<String> confirmReservation(@PathVariable("reservationId") Long reservationId, @AuthenticationPrincipal Member member) {
+        log.info("'{} member request confirm reservation GET - cancelReservation", member.getLoginId());
+
+        Reservation reservation = reservationService.findById(reservationId).toEntity();
+
+        if(!reservation.getCustomerId().equals(member.getId())) {
+            throw new ReservationException(ErrorCode.UNAUTHORIZED, ErrorCode.UNAUTHORIZED.getMessage());
+        }
+
+        reservationService.confirm(reservation);
+
+        return ResponseEntity.ok().body("예약이 확정되었습니다.");
     }
 
 }

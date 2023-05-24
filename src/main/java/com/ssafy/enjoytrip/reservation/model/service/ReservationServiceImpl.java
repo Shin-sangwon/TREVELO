@@ -75,7 +75,7 @@ public class ReservationServiceImpl implements ReservationService {
         transactionService.save(Transaction.from(reservationSaveRequestDto));
         log.debug("'{}'번 회원의 거래 내역 저장 성공", reservationSaveRequestDto.getCustomerId());
         // 3. 회원 마일리지 깎기
-        memberService.updateMileage(Member.from(reservationSaveRequestDto));
+        memberService.updateMileage(Member.forDeductMileage(reservationSaveRequestDto.getCustomerId(), reservationSaveRequestDto.getTotalPrice() / 10.0));
         log.debug("'{}'번 회원의 마일리지 내역 저장 성공", reservationSaveRequestDto.getCustomerId());
     }
 
@@ -105,5 +105,23 @@ public class ReservationServiceImpl implements ReservationService {
         reservationSaveRequestDto.mapCustomerToReservation(memberId);
         reservationSaveRequestDto.mapRoomIdToReservation(roomId);
         reservationSaveRequestDto.mapTotalPriceToReservation(totalPrice);
+    }
+
+    //TODO : 이부분 로직 꼭 바꾸기..;;
+    @Transactional
+    @Override
+    public void confirm(Reservation reservation) {
+
+        Member member = memberService.findById(reservation.getId()).toEntity();
+
+        Long restPrice = reservation.getTotalPrice() - (long) (reservation.getTotalPrice() / 10.0);
+
+        if(member.getMileage() < restPrice) {
+            throw new ReservationException(ErrorCode.INSUFFICIENT_MILEAGE, ErrorCode.INSUFFICIENT_MILEAGE.getMessage());
+        }
+
+        memberService.updateMileage(Member.forDeductMileage(reservation.getCustomerId(), reservation.getTotalPrice() - (long) (reservation.getTotalPrice() / 10.0)));
+        reservationMapper.confirmReservation(reservation);
+
     }
 }

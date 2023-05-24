@@ -39,4 +39,10 @@
     DELETE FROM reservation
     WHERE reservation_id = #{id};
   </delete>
+
+  <update id="confirmReservation">
+    UPDATE reservation
+    SET ispaid = true
+    WHERE reservation_id = #{id};
+  </update>
 </mapper>

@@ -16,4 +16,6 @@ public interface ReservationMapper {
     void save(ReservationSaveRequestDto reservationSaveRequestDto);
 
     void delete(Long id);
+
+    void confirmReservation(Reservation reservation);
 }

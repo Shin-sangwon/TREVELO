@@ -71,7 +71,7 @@ public class PaymentController {
 
         // 회원 마일리지 올려주기
         member.updateMileage(amount);
-        memberService.updateMileage(member);
+        memberService.chargeMileage(member);
 
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(URI.create("http://localhost:8080/mypage/view"));
