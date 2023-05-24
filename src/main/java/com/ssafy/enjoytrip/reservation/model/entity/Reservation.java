@@ -30,7 +30,7 @@ public class Reservation {
 
     public static Reservation from(ReservationResponseDto reservationResponseDto) {
         return Reservation.builder()
-                          .id(reservationResponseDto.getReservation_id())
+                          .id(reservationResponseDto.getId())
                           .customerId(reservationResponseDto.getCustomerId())
                           .roomId(reservationResponseDto.getRoomId())
                           .totalPrice(reservationResponseDto.getTotalPrice())
