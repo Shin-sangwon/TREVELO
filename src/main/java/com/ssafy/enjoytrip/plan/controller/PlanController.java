@@ -66,6 +66,8 @@ public class PlanController {
     @PostMapping("/write")
     public ResponseEntity<?> write(@AuthenticationPrincipal Member member, @RequestBody PlanDto planDto) throws SQLException {
 
+        planDto.setMemberId(memberService.findByLoginId(member.getLoginId()).getId());
+
         planService.write(planDto);
 
         return new ResponseEntity<>(HttpStatus.OK);

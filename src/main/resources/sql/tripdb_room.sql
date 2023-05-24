@@ -170,7 +170,7 @@ CREATE TABLE IF NOT EXISTS `tripdb`.`boardtag` (
 -- Table `tripdb`.`comment`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `tripdb`.`comment` (
-                                                  `comment_id` BIGINT NOT NULL auto_increment,
+                                                  `comment_id` BIGINT NOT NULL AUTO_INCREMENT,
                                                   `board_id` BIGINT NOT NULL,
                                                   `member_id` BIGINT NOT NULL,
                                                   `content` VARCHAR(1000) NOT NULL,
@@ -230,7 +230,7 @@ CREATE TABLE IF NOT EXISTS `tripdb`.`gugun` (
 -- Table `tripdb`.`plan`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `tripdb`.`plan` (
-                                               `plan_id` BIGINT NOT NULL,
+                                               `plan_id` BIGINT NOT NULL AUTO_INCREMENT,
                                                `member_id` BIGINT NOT NULL,
                                                `path` JSON NULL DEFAULT NULL,
                                                `plan_start` DATETIME NOT NULL,
