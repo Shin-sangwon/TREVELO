@@ -23,7 +23,7 @@
 
   <select id="findById" resultMap="review">
     SELECT *
-    FROM room
+    FROM review
     WHERE review_id = #{id}
   </select>
 
