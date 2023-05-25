@@ -28,6 +28,8 @@ public interface MemberService {
 
     void updateMileage(Member member);
 
+    void chargeMileage(Member member);
+
     MemberResponseDto findById(Long id);
 
 }

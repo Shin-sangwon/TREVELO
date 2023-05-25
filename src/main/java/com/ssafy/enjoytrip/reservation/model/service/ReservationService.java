@@ -2,6 +2,7 @@ package com.ssafy.enjoytrip.reservation.model.service;
 
 import com.ssafy.enjoytrip.reservation.model.dto.request.ReservationSaveRequestDto;
 import com.ssafy.enjoytrip.reservation.model.dto.response.ReservationResponseDto;
+import com.ssafy.enjoytrip.reservation.model.entity.Reservation;
 import java.util.List;
 
 public interface ReservationService {
@@ -19,4 +20,6 @@ public interface ReservationService {
     void delete(Long id);
 
     void mapReservationDetails(ReservationSaveRequestDto reservationSaveRequestDto, Long memberId, Long roomId, long totalPrice);
+
+    void confirm(Reservation reservation);
 }

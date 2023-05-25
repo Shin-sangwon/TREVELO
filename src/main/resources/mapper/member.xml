@@ -69,6 +69,12 @@
 
       <update id="updateMileage" parameterType="member">
             UPDATE MEMBER
+            SET MILEAGE = MILEAGE + #{mileage}
+            WHERE member_id = #{id};
+      </update>
+
+      <update id="chargeMileage" parameterType="member">
+            UPDATE MEMBER
             SET MILEAGE = #{mileage}
             WHERE member_id = #{id};
       </update>

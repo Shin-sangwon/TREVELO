@@ -22,4 +22,6 @@ public interface RoomMapper {
     void delete(Long id);
 
     List<RoomListResponseDto> findAllWithPicture();
+
+    List<RoomListResponseDto> findAllByKeywordWithPicture(String keyword);
 }

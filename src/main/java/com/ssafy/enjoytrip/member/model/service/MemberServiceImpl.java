@@ -148,6 +148,11 @@ public class MemberServiceImpl implements MemberService {
         memberMapper.updateMileage(member);
     }
 
+    @Override
+    public void chargeMileage(Member member) {
+        memberMapper.chargeMileage(member);
+    }
+
     @Transactional
     @Override
     public MemberResponseDto findById(Long id) {

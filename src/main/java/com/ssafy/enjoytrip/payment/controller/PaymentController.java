@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
+//TODO : 여행상품 결제
 @Slf4j
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/payment")
@@ -71,7 +71,7 @@ public class PaymentController {
 
         // 회원 마일리지 올려주기
         member.updateMileage(amount);
-        memberService.updateMileage(member);
+        memberService.chargeMileage(member);
 
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(URI.create("http://localhost:8080/mypage/view"));

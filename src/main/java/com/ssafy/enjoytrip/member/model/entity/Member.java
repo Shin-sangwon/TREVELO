@@ -3,7 +3,6 @@ package com.ssafy.enjoytrip.member.model.entity;
 import com.ssafy.enjoytrip.member.model.dto.MemberJoinDto;
 import com.ssafy.enjoytrip.member.model.dto.MemberLoginDto;
 import com.ssafy.enjoytrip.member.model.dto.MemberUpdateDto;
-import com.ssafy.enjoytrip.reservation.model.dto.request.ReservationSaveRequestDto;
 import com.ssafy.enjoytrip.reservation.model.entity.Reservation;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -84,11 +83,11 @@ public class Member implements UserDetails {
                      .build();
     }
 
-    public static Member from(ReservationSaveRequestDto reservationSaveRequestDto) {
+    public static Member forDeductMileage(Long customerId, double price) {
 
         return Member.builder()
-                     .id(reservationSaveRequestDto.getCustomerId())
-                     .mileage((long) (reservationSaveRequestDto.getTotalPrice() / 10.0) * -1)
+                     .id(customerId)
+                     .mileage((long) price * -1)
                      .build();
     }
 

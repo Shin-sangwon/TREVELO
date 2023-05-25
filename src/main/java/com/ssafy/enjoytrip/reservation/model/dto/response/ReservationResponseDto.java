@@ -41,4 +41,19 @@ public class ReservationResponseDto {
                                      .build();
     }
 
+    public Reservation toEntity() {
+        return Reservation.builder()
+                          .id(this.id)
+                          .customerId(this.customerId)
+                          .roomId(this.roomId)
+                          .totalPrice(this.totalPrice)
+                          .isPaid(this.isPaid)
+                          .checkInDate(this.checkInDate)
+                          .checkOutDate(this.checkOutDate)
+                          .createdat(this.createdat)
+                          .updatedat(this.updatedat)
+                          .roomName(this.roomName)
+                          .build();
+    }
+
 }

@@ -320,6 +320,7 @@ CREATE TABLE IF NOT EXISTS `tripdb`.`review` (
                                                  `member_id` BIGINT NOT NULL,
                                                  `room_id` BIGINT NOT NULL,
                                                  `content` VARCHAR(1000) NOT NULL,
+                                                 `rating` DECIMAL(2, 1) NOT NULL,
     `createdat` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `updatedat` DATETIME NULL DEFAULT NULL,
     PRIMARY KEY (`review_id`),

@@ -21,4 +21,6 @@ public interface RoomService {
     void delete(Long id);
 
     void deleteWithPicture(Long id);
+
+    List<RoomListResponseDto> findAllByKeywordWithPicture(String keyword);
 }
