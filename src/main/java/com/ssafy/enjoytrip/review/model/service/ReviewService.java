@@ -11,4 +11,6 @@ public interface ReviewService {
     void save(ReviewSaveRequestDto reviewSaveRequestDto);
 
     ReviewResponseDto findById(Long id);
+
+    void delete(Long reviewId);
 }

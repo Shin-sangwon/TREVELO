@@ -32,5 +32,10 @@
     VALUES(#{memberId}, #{roomId}, #{content}, #{rating})
   </insert>
 
+  <delete id="delete">
+    DELETE FROM review
+    WHERE id = #{id}
+  </delete>
+
 
 </mapper>

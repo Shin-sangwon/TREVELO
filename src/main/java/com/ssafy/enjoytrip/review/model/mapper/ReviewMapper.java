@@ -13,4 +13,6 @@ public interface ReviewMapper {
     void save(ReviewSaveRequestDto reviewSaveRequestDto);
 
     Review findById(Long id);
+
+    void delete(Long id);
 }

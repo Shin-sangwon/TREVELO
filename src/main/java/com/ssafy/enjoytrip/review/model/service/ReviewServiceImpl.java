@@ -36,6 +36,14 @@ public class ReviewServiceImpl implements ReviewService {
     @Transactional(readOnly = true)
     @Override
     public ReviewResponseDto findById(Long id) {
-        return reviewMapper.findById(id);
+
+        return ReviewResponseDto.from(reviewMapper.findById(id));
+    }
+
+    @Transactional
+    @Override
+    public void delete(Long reviewId) {
+
+        reviewMapper.delete(reviewId);
     }
 }
