@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -36,7 +37,7 @@ public class ReviewController {
     }
 
     @PostMapping("/{roomId}")
-    public ResponseEntity<ReviewResponseDto> saveReview(@PathVariable("roomId") Long roomId, @AuthenticationPrincipal Member member, ReviewSaveRequestDto reviewSaveRequestDto) {
+    public ResponseEntity<ReviewResponseDto> saveReview(@PathVariable("roomId") Long roomId, @AuthenticationPrincipal Member member, @RequestBody ReviewSaveRequestDto reviewSaveRequestDto) {
 
         log.info("'{}' 회원 '{}' 번 숙소에 리뷰 작성 요청 - saveReview", member.getLoginId(), roomId);
 
