@@ -40,6 +40,7 @@ public class ReviewController {
 
         log.info("'{}' 회원 '{}' 번 숙소에 리뷰 작성 요청 - saveReview", member.getLoginId(), roomId);
 
+        System.out.println(reviewSaveRequestDto.toString());
         reviewService.save(reviewSaveRequestDto);
         Long reviewId = reviewSaveRequestDto.getId();
 
