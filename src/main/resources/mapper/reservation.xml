@@ -46,7 +46,7 @@
     WHERE reservation_id = #{id};
   </update>
 
-  <select id="canWriteReview" resultType="boolean">
+  <select id="canWriteReview" parameterType="ReviewStatusRequestDto" resultType="boolean">
     SELECT
       CASE
         WHEN

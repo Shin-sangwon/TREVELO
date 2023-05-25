@@ -129,6 +129,6 @@ public class ReservationServiceImpl implements ReservationService {
     @Transactional(readOnly = true)
     @Override
     public boolean canWriteReview(ReviewStatusRequestDto reviewStatusRequestDto) {
-        return reservationMapper.canWriteReview(reservationMapper);
+        return reservationMapper.canWriteReview(reviewStatusRequestDto);
     }
 }

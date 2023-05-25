@@ -119,8 +119,9 @@ public class ReservationController {
         return ResponseEntity.ok().body(reservationDateService.findAllDateByRoomIdAfterToday(roomId));
     }
 
-    @GetMapping("/review-availability")
+    @PostMapping("/review-availability")
     public ResponseEntity<Boolean> canWriteReview(@AuthenticationPrincipal Member member, @RequestBody ReviewStatusRequestDto reviewStatusRequestDto) {
+        log.info("'{}' member request review auth", member.getLoginId());
 
         return ResponseEntity.ok().body(reservationService.canWriteReview(reviewStatusRequestDto));
     }
