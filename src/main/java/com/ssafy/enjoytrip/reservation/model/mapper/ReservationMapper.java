@@ -18,4 +18,6 @@ public interface ReservationMapper {
     void delete(Long id);
 
     void confirmReservation(Reservation reservation);
+
+    boolean canWriteReview(ReservationMapper reservationMapper);
 }
