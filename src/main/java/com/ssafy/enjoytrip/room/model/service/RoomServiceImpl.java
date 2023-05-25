@@ -45,6 +45,16 @@ public class RoomServiceImpl implements RoomService {
         return roomList;
     }
 
+    @Override
+    public List<RoomListResponseDto> findAllByKeywordWithPicture(String keyword) {
+
+        List<RoomListResponseDto> searchRoomList = roomMapper.findAllByKeywordWithPicture(keyword);
+
+        searchRoomList.forEach(RoomListResponseDto::mapPictureToRoom);
+
+        return searchRoomList;
+    }
+
     @Transactional(readOnly = true)
     @Override
     public RoomResponseDto findById(Long id) {
@@ -94,6 +104,8 @@ public class RoomServiceImpl implements RoomService {
         delete(id);
 
     }
+
+
 
 
 }
