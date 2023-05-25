@@ -35,6 +35,7 @@ public class RoomServiceImpl implements RoomService {
                          .collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<RoomListResponseDto> findAllWithPicture() {
 
@@ -45,6 +46,7 @@ public class RoomServiceImpl implements RoomService {
         return roomList;
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<RoomListResponseDto> findAllByKeywordWithPicture(String keyword) {
 
