@@ -16,10 +16,21 @@
 
   <select id="findAllByRoomId" resultMap="review">
     SELECT *
-    FROM room
+    FROM review
     WHERE room_id = #{roomId}
     ORDER BY createdat DESC
   </select>
+
+  <select id="findById" resultMap="review">
+    SELECT *
+    FROM room
+    WHERE review_id = #{id}
+  </select>
+
+  <insert id="save" parameterType="ReviewSaveRequestDto" useGeneratedKeys="true" keyProperty="id">
+    INSERT INTO review(member_id, room_id, content, rating)
+    VALUES(#{memberId}, #{roomId}, #{content}, #{rating})
+  </insert>
 
 
 </mapper>

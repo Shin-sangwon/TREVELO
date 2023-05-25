@@ -1,5 +1,6 @@
 package com.ssafy.enjoytrip.review.model.service;
 
+import com.ssafy.enjoytrip.review.model.dto.request.ReviewSaveRequestDto;
 import com.ssafy.enjoytrip.review.model.dto.response.ReviewResponseDto;
 import com.ssafy.enjoytrip.review.model.mapper.ReviewMapper;
 import java.util.List;
@@ -23,5 +24,18 @@ public class ReviewServiceImpl implements ReviewService {
                            .map(ReviewResponseDto::from)
                            .collect(
                                Collectors.toList());
+    }
+
+    @Transactional
+    @Override
+    public void save(ReviewSaveRequestDto reviewSaveRequestDto) {
+
+        reviewMapper.save(reviewSaveRequestDto);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public ReviewResponseDto findById(Long id) {
+        return reviewMapper.findById(id);
     }
 }
