@@ -10,3 +10,9 @@
 === Request
 
 include::{snippets}/member/join/http-request.adoc[]
+
+== 회원 가입하기 - 중복으로 실패
+
+=== Response
+
+include::{snippets}/member/join-failure/http-response.adoc[]

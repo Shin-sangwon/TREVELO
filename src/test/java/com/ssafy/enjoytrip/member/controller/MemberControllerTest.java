@@ -4,8 +4,11 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessRequest;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
+import static org.springframework.restdocs.payload.PayloadDocumentation.responseBody;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -57,6 +60,7 @@ class MemberControllerTest extends ControllerTest {
                    .content(objectMapper.writeValueAsBytes(memberJoinDto)))
                .andDo(
                    document("member/join",
+                       preprocessRequest(prettyPrint()),
                        requestFields(
                            fieldWithPath("loginId").description("로그인 아이디"),
                            fieldWithPath("loginPassword").description("비밀번호"),
@@ -103,9 +107,29 @@ class MemberControllerTest extends ControllerTest {
         mockMvc.perform(post("/api/v1/member/join")
                    .with(csrf())
                    .contentType(MediaType.APPLICATION_JSON)
+                   .accept(MediaType.APPLICATION_JSON) // restdocs는 json이나 xml파일로 반환한 응답만 처리할 수 있음, rest docs와의 연동을 위해 사용
                    .content(objectMapper.writeValueAsBytes(memberJoinDto1)))
                .andDo(print())
-               .andExpect(status().isConflict());
+               .andExpect(status().isConflict())
+               .andDo(document("member/join-failure",
+                   preprocessRequest(prettyPrint()),
+                   requestFields(
+                       fieldWithPath("loginId").description("로그인 아이디"),
+                       fieldWithPath("loginPassword").description("비밀번호"),
+                       fieldWithPath("name").description("회원 이름"),
+                       fieldWithPath("birthday").description("회원 생일").optional(),
+                       fieldWithPath("email").description("회원 이메일"),
+                       fieldWithPath("role").ignored(),
+                       fieldWithPath("grade").ignored(),
+                       fieldWithPath("mileage").ignored(),
+                       fieldWithPath("createdat").ignored(),
+                       fieldWithPath("updatedat").ignored()
+                   ),
+//                   responseFields(
+//                       fieldWithPath("error").description("에러 코드")
+//                   ), -> 나의 경우에는 Body에 Custom errorCode와 message를 함께 담아서 보내기 때문에, 아래의 responseBody()를 사용해야 함
+                   responseBody()
+               ));
     }
 
     @Test
