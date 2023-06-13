@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '2.7.11'
 	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+	id "org.asciidoctor.jvm.convert" version "3.3.2" // Apply the Asciidoctor plugin.
 }
 
 group = 'com.ssafy'
@@ -12,6 +13,7 @@ configurations {
 	compileOnly {
 		extendsFrom annotationProcessor
 	}
+	asciidoctorExt // Declare the asciidoctorExt configuration for dependencies that extend Asciidoctor.
 }
 
 repositories {
@@ -49,11 +51,27 @@ dependencies {
 	implementation group: 'org.json', name: 'json', version: '20230227'
 	// Spring Webflux
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'
-	// d
+	// Spring Restdocs
+	asciidoctorExt 'org.springframework.restdocs:spring-restdocs-asciidoctor:2.0.6.RELEASE'
+	testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc:2.0.6.RELEASE'
 
+}
 
+ext {
+	snippetsDir = file('build/generated-snippets') // Configure a property to define the output location for generated snippets.
+}
+
+test {
+	outputs.dir snippetsDir // 	Configure the test task to add the snippets directory as an output.
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+asciidoctor {
+	// 	Configure the asciidoctor task.
+	inputs.dir snippetsDir
+	configurations 'asciidoctorExt'
+	dependsOn test
 }
