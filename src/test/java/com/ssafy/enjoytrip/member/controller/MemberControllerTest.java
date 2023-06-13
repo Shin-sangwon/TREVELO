@@ -2,8 +2,11 @@ package com.ssafy.enjoytrip.member.controller;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
+import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -52,7 +55,22 @@ class MemberControllerTest extends ControllerTest {
                    .with(csrf())
                    .contentType(MediaType.APPLICATION_JSON)
                    .content(objectMapper.writeValueAsBytes(memberJoinDto)))
-               .andDo(print())
+               .andDo(
+                   document("member/join",
+                       requestFields(
+                           fieldWithPath("loginId").description("로그인 아이디"),
+                           fieldWithPath("loginPassword").description("비밀번호"),
+                           fieldWithPath("name").description("회원 이름"),
+                           fieldWithPath("birthday").description("회원 생일").optional(),
+                           fieldWithPath("email").description("회원 이메일"),
+                           fieldWithPath("role").ignored(),
+                           fieldWithPath("grade").ignored(),
+                           fieldWithPath("mileage").ignored(),
+                           fieldWithPath("createdat").ignored(),
+                           fieldWithPath("updatedat").ignored()
+                       ))
+
+               )
                .andExpect(status().isOk());
     }
 
