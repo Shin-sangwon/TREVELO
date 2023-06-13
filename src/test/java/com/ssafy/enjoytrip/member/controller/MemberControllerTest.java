@@ -12,6 +12,7 @@ import com.ssafy.enjoytrip.global.exception.ErrorCode;
 import com.ssafy.enjoytrip.member.exception.MemberException;
 import com.ssafy.enjoytrip.member.model.dto.MemberJoinDto;
 import com.ssafy.enjoytrip.member.model.dto.MemberLoginDto;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -27,7 +28,7 @@ class MemberControllerTest extends ControllerTest {
                                                    .loginId("sangwon123")
                                                    .loginPassword("1234")
                                                    .name("신상원")
-                                                   .birthday(LocalDateTime.now())
+                                                   .birthday(LocalDate.from(LocalDateTime.now()))
                                                    .email("sangwon@ssafy.com")
                                                    .build();
 
@@ -43,7 +44,7 @@ class MemberControllerTest extends ControllerTest {
                                                    .loginId("sangwon123")
                                                    .loginPassword("1234")
                                                    .name("신상원")
-                                                   .birthday(LocalDateTime.now())
+                                                   .birthday(LocalDate.from(LocalDateTime.now()))
                                                    .email("sangwon@ssafy.com")
                                                    .build();
 
@@ -64,7 +65,7 @@ class MemberControllerTest extends ControllerTest {
                                                    .loginId("sangwon123")
                                                    .loginPassword("1234")
                                                    .name("신상원")
-                                                   .birthday(LocalDateTime.now())
+                                                   .birthday(LocalDate.from(LocalDateTime.now()))
                                                    .email("sangwon@ssafy.com")
                                                    .build();
 
@@ -74,7 +75,7 @@ class MemberControllerTest extends ControllerTest {
                                                     .loginId("sangwon123")
                                                     .loginPassword("1234")
                                                     .name("신상원")
-                                                    .birthday(LocalDateTime.now())
+                                                    .birthday(LocalDate.from(LocalDateTime.now()))
                                                     .email("sangwon@ssafy.com")
                                                     .build();
 
