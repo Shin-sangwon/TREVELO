@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/review")
 @RestController
 public class ReviewController {
-
+    // 안녕하세요
     private final ReviewService reviewService;
 
     @GetMapping("/{roomId}")
