@@ -10,6 +10,7 @@ import com.ssafy.enjoytrip.reservation.model.service.ReservationService;
 import com.ssafy.enjoytrip.room.model.service.RoomService;
 import com.ssafy.enjoytrip.roompicture.model.service.RoomPictureService;
 import com.ssafy.enjoytrip.transaction.model.service.TransactionService;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,7 @@ public class ServiceTest {
                                              .loginId("test1")
                                              .loginPassword("test1")
                                              .name("테스트1")
-                                             .birthday(LocalDateTime.now())
+                                             .birthday(LocalDate.from(LocalDateTime.now()))
                                              .email("test1@test.com")
                                              .mileage(10000000L)
                                              .role(Role.ADMIN)
@@ -50,7 +51,7 @@ public class ServiceTest {
                                              .loginId("test2")
                                              .loginPassword("test2")
                                              .name("테스트2")
-                                             .birthday(LocalDateTime.now())
+                                             .birthday(LocalDate.from(LocalDateTime.now()))
                                              .email("test2@test.com")
                                              .mileage(10000000L)
                                              .role(Role.SELLER)
@@ -61,7 +62,7 @@ public class ServiceTest {
                                              .loginId("test3")
                                              .loginPassword("test3")
                                              .name("테스트3")
-                                             .birthday(LocalDateTime.now())
+                                             .birthday(LocalDate.from(LocalDateTime.now()))
                                              .email("test3@test.com")
                                              .mileage(0L)
                                              .role(Role.MEMBER)

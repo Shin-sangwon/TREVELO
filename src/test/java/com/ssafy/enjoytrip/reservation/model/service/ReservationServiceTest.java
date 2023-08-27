@@ -33,7 +33,6 @@ class ReservationServiceTest extends ServiceTest {
                                                          .address("서울특별시")
                                                          .introduce("아늑합니다")
                                                          .pricePerNight(100000L)
-                                                         .sidoCode(5)
                                                          .build();
 
         RoomCreateRequestDto room2 = RoomCreateRequestDto.builder()
@@ -41,7 +40,6 @@ class ReservationServiceTest extends ServiceTest {
                                                          .address("광주광역시")
                                                          .introduce("아늑합니다")
                                                          .pricePerNight(200000L)
-                                                         .sidoCode(5)
                                                          .build();
         roomService.save(room1, member1);
         roomService.save(room2, member2);

@@ -12,6 +12,7 @@ import com.ssafy.enjoytrip.member.model.entity.Grade;
 import com.ssafy.enjoytrip.member.model.entity.Member;
 import com.ssafy.enjoytrip.member.model.entity.Role;
 import com.ssafy.enjoytrip.member.model.mapper.MemberMapper;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -41,7 +42,7 @@ class MemberServiceTest {
                                                    .loginId("test1")
                                                    .loginPassword("test1")
                                                    .name("테스트")
-                                                   .birthday(LocalDateTime.now())
+                                                   .birthday(LocalDate.from(LocalDateTime.now()))
                                                    .email("test1@test.com")
                                                    .role(Role.ADMIN)
                                                    .grade(Grade.VIP)
@@ -65,7 +66,7 @@ class MemberServiceTest {
                                                     .loginId("test123")
                                                     .loginPassword("test123")
                                                     .name("테스트")
-                                                    .birthday(LocalDateTime.now())
+                                                    .birthday(LocalDate.from(LocalDateTime.now()))
                                                     .email("test123@test.com")
                                                     .role(Role.ADMIN)
                                                     .grade(Grade.VIP)
@@ -75,7 +76,7 @@ class MemberServiceTest {
                                                     .loginId("test123")
                                                     .loginPassword("test123")
                                                     .name("테스트")
-                                                    .birthday(LocalDateTime.now())
+                                                    .birthday(LocalDate.from(LocalDateTime.now()))
                                                     .email("test123@test.com")
                                                     .role(Role.ADMIN)
                                                     .grade(Grade.VIP)
@@ -95,7 +96,7 @@ class MemberServiceTest {
                                                     .loginId("test123")
                                                     .loginPassword("test123")
                                                     .name("테스트")
-                                                    .birthday(LocalDateTime.now())
+                                                    .birthday(LocalDate.from(LocalDateTime.now()))
                                                     .email("test123@test.com")
                                                     .role(Role.ADMIN)
                                                     .grade(Grade.VIP)
@@ -123,7 +124,7 @@ class MemberServiceTest {
                                                    .loginId("test123")
                                                    .loginPassword("test123")
                                                    .name("테스트")
-                                                   .birthday(LocalDateTime.now())
+                                                   .birthday(LocalDate.from(LocalDateTime.now()))
                                                    .email("test123@test.com")
                                                    .role(Role.ADMIN)
                                                    .grade(Grade.VIP)
@@ -161,7 +162,7 @@ class MemberServiceTest {
                                                    .loginId("test123")
                                                    .loginPassword("test123")
                                                    .name("테스트")
-                                                   .birthday(LocalDateTime.now())
+                                                   .birthday(LocalDate.from(LocalDateTime.now()))
                                                    .email("test123@test.com")
                                                    .role(Role.ADMIN)
                                                    .grade(Grade.VIP)
