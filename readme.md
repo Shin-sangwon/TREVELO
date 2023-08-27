@@ -72,3 +72,20 @@
 ## :books: ERD
 ![tripdb_erd](https://github.com/Shin-sangwon/TREVELO/assets/101318750/40ace70f-9bf6-41ad-bb31-c054d46776dc)
 
+## :white_check_mark: 프로젝트 회고
+
+### 프론트엔드와의 첫 만남
+
+이번 프로젝트에서는 백엔드 뿐만 아니라 프론트엔드도 처음으로 다뤄봤습니다. Vue.js와 VUEX를 사용하여 view를 띄우는 방법, 백엔드와의 RESTful API 통신 방법 등을 배울 수 있었습니다. 이 경험을 바탕으로, 앞으로의 프로젝트에서 프론트엔드 개발자와 더 원활하게 소통할 방법을 배웠습니다.
+
+### Mybatis, Query
+
+자주 사용하던 JPA 대신 Mybatis를 사용하여 프로젝트를 진행했습니다. SQL 쿼리를 직접 작성해야 하는 점이 생각보다 쉽지 않았습니다. 특히 JOIN, GROUP BY 등의 복잡한 쿼리 작성이 어려웠습니다. 이를 통해 ORM에 너무 의존하지 않도록 해야겠다고 느꼈습니다.
+
+### 예약과 결제의 예외 처리
+
+예약과 결제 관련 기능을 구현하면서, 다양한 예외 상황 (예: 중복 예약, 결제 실패, 본인 숙소 예약 등)을 고려하게 되었습니다. 이런 부분들을 보완하면서 테스트 코드의 중요성을 새삼 느꼈습니다. 방어적 코딩을 좋아하기 때문에 이 부분은 특히 재미있었지만, 이런 도메인에서는 지금보다 더욱 엄격한 예외 처리가 필요하다고 느꼈습니다.
+
+
+## :monorail: Front-end repository
+[TREVELO-Front](https://github.com/TREVELO/frontend)
