@@ -31,23 +31,32 @@
 
 ## :sailboat: 기능 소개
 
-### 위치 기반의 여행지 추천 서비스
+### 사용자는 접속 위치 기반의 관광지를 추천 받을 수 있습니다
+![여행지_추천](https://github.com/Shin-sangwon/TREVELO/assets/101318750/97c6fdbe-66f6-42ce-b6dc-e21b6637e369)
 
-### 여행 정보 공유 게시판
+### 여행 정보를 게시판을 통해 공유할 수 있습니다
+![게시판](https://github.com/Shin-sangwon/TREVELO/assets/101318750/b12028f6-83c1-4aca-bd38-357968c57eef)
 
-### 관광지 검색
+### 여러 주제로 관광지를 검색할 수 있습니다
+![관광지, 관심관광지](https://github.com/Shin-sangwon/TREVELO/assets/101318750/977c0331-f035-46bd-bf35-ace0b04a58a8)
 
-### 관심 관광지 조회
+### 사용자는 관심 관광지를 등록하여 볼 수 있습니다
+![나의 관광지](https://github.com/Shin-sangwon/TREVELO/assets/101318750/2a310c2b-2b2a-44bb-901d-99c7d813384e)
 
-### 여행 계획 설정
+### 사용자는 여행 계획을 일자별로 설정하고 조회할 수 있습니다
+![여행 계획](https://github.com/Shin-sangwon/TREVELO/assets/101318750/b15092c0-5c89-4ea1-a540-0dbfc089b9a3)
 
-### 숙소 등록하기
+### 사용자는 숙소를 등록하여 거래할 수 있습니다
+![숙소 등록](https://github.com/Shin-sangwon/TREVELO/assets/101318750/13fca920-d895-4ae2-b741-cccf5e9aaccd)
 
-### 숙소 예약하기
+### 사용자는 마음에 드는 숙소를 예약할 수 있습니다
+![숙소 예약](https://github.com/Shin-sangwon/TREVELO/assets/101318750/3f1e6e20-ea46-4423-922e-f3b94379f17d)
 
-### 숙소 리뷰 작성하기
+### 이용했던 숙소에 대해서 리뷰를 작성할 수 있습니다
+![리뷰 작성](https://github.com/Shin-sangwon/TREVELO/assets/101318750/03ee5343-3442-47ac-a251-e2b515e6e0c6)
 
-### 마일리지 충전하기
+### 숙소를 예약하기 위해 토스페이를 이용하여 마일리지를 충전할 수 있습니다
+![토스 결제](https://github.com/Shin-sangwon/TREVELO/assets/101318750/12de18c6-e016-457e-b61a-4bfde83917dc)
 
 
 ## :sparkler: 기술 스택
@@ -61,3 +70,5 @@
 - AWS S3
 
 ## :books: ERD
+![tripdb_erd](https://github.com/Shin-sangwon/TREVELO/assets/101318750/40ace70f-9bf6-41ad-bb31-c054d46776dc)
+
