@@ -32,7 +32,7 @@ public class SecurityConfig {
             .cors()
             .and()
             .authorizeHttpRequests()
-            .antMatchers("/api/v1/member/join", "/api/v1/member/login", "/api/v1/member/find/password", "/api/v1/member/find/id", "/api/v1/payment/success").permitAll()
+            .antMatchers("/api/v1/member/join", "/api/v1/member/login", "/api/v1/member/find/password", "/api/v1/member/find/id", "/api/v1/payment/success", "/api/v1/room/").permitAll()
             .anyRequest().authenticated()
             .and()
             .sessionManagement()
